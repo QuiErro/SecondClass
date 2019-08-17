@@ -1,0 +1,427 @@
+﻿html, body {width: auto;height: auto;padding: 0;margin: 0;}
+body {font-family: Microsoft YaHei;background-color: #e0e0e0;}
+a {display: inline-block;} 
+a:hover, a:focus {text-decoration: none;}
+
+/********************Login板块-START*************************/
+
+#login{
+    width: 1800px;
+    height: 1080px;
+
+    display: flex;
+}
+/*左半部分*/
+#img_section{
+    width: 1000px;
+    height: 100%;
+    background-color: rgb(225, 237, 253);
+}
+/*左上logo*/
+#img_logo{
+    padding: 70px 0 0 70px;
+    width: 100%;
+    height: 220px;
+    box-sizing: border-box;
+}
+#img_logo img{
+    width: 300px;
+}
+/*左部背景图*/
+#img_bg{
+    padding-left: 180px;
+    width: 100%;
+    height: 860px;
+    box-sizing: border-box;
+}
+#img_bg img{
+    width: 600px;
+}
+/*右半部分*/
+#msg_section{
+    width: 800px;
+    height: 100%;
+}
+/*标题*/
+#msg_slogan{
+    margin-top: 286px;
+    padding-left: 198px;
+    width: 100%;
+    font-size: 30px;
+    color: rgb(41, 129, 240);
+    box-sizing: border-box;
+}
+/*登录信息表*/
+#msg_form{
+    padding-left: 198px;
+    width: 100%;
+    font-size: 16px;
+    color: rgb(187, 187, 187);
+    box-sizing: border-box;
+}
+#msg_form div:nth-child(1){
+    margin-top: 80px;
+    margin-bottom: 70px;
+}
+#msg_form .input-control{
+    width: 490px;
+}
+#msg_form .ant-input{
+    padding: 10px 30px 10px 45px;
+    width: 490px;
+    height: 50px;
+    font-size: 16px;
+    color: rgb(187, 187, 187);
+    box-sizing: border-box;
+}
+.input-control .ant-input-prefix img{
+    width: 25px;
+    height: 25px;
+}
+#msg_form .remember_pwd{
+    margin-top: 60px;
+}
+.remember_pwd span{
+    margin-right: 10px;
+    padding: 0;
+    font-size: 16px;
+    color: rgb(187, 187, 187);
+}
+.remember_pwd .ant-checkbox{
+    width: 20px;
+    height: 20px;
+}
+.remember_pwd .ant-checkbox-inner{
+    width: 20px;
+    height: 20px;
+}
+#msg_form button{
+    margin-top: 50px;
+    width: 490px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    color: #fff;
+    background-color: rgb(41, 129, 240);
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}
+
+/********************Login板块-END*************************/
+
+/********************LayOut板块-START*************************/
+
+#layout{
+    width: 1920px;
+    background-color: rgb(238, 238, 238);
+}
+#header{
+    margin-bottom: 10px;
+    width: 100%;
+    height: 75px;
+    background-color: #fff;
+    box-shadow: 3px 3px 3px rgb(229, 229, 229);
+
+    display: flex;
+    align-items: center;
+}
+/*图标*/
+#header .icon_section{
+    width: 762px;
+    height: 100%;
+}
+/*导航链接*/
+#header .choice_section{
+    width: 1018px;
+    height: 100%;
+}
+#header .ant-menu{ 
+    height: 75px;
+    line-height: 75px;
+}
+.ant-menu .ant-menu-item{
+    position: relative;
+    width: 158px;
+    height: 70px;
+    text-align: center;
+    font-size: 21px;
+    font-weight: bolder;
+}
+.ant-menu .ant-menu-item-selected,
+.ant-menu .ant-menu-item-active{
+    border-color: transparent !important;
+}
+.ant-menu .ant-menu-item-selected::after,
+.ant-menu .ant-menu-item-active::after{
+    position: absolute;
+    bottom: 0;
+    left: 59px;
+    content: '';
+    width: 40px;
+    height: 2px;
+    background-color: #1890ff;
+}
+.ant-menu-item a{
+    color: rgb(146, 148, 156) !important;
+    text-decoration: none !important;
+}
+.ant-menu-item a:hover{
+    text-decoration: none;
+    color: #1890ff !important;
+}
+.ant-menu-item-selected a{
+    color: #1890ff !important;
+}
+
+/*退出登录*/
+#header .logout_section{
+    width: 140px;
+    height: 75px;
+}
+.logout_section button{
+    margin-top: 17px;
+    width: 110px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    background-color: rgb(0, 154, 235);
+}
+/*主区域*/
+#main{
+    padding: 20px 30px 50px;
+    width: 100%;
+    height: 1330px;
+    background-color: rgb(244, 244, 244);
+    box-sizing: border-box;
+}
+
+/********************LayOut板块-END*************************/
+
+/********************RacePub板块-START*************************/
+
+#race_pub{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+/*左半部分*/
+#graph_part{
+    padding: 60px 55px;
+    width: 560px;
+    height: 1250px;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+/*右半部分*/
+#text-part{
+    padding: 110px 55px;
+    width: 1270px;
+    height: 1250px;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+/*各版块*/
+.section{
+    width: 100%;
+}
+/*版块标题*/
+.section_title{
+    margin-bottom: 25px;
+    padding: 0;
+    width: 100%;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+}
+.section_title span{
+    display: inline-block;
+    width: 8px;
+    height: 30px;
+    background-color: rgb(0, 154, 235);
+}
+.section_title h3{
+    margin: 0 10px;
+    font-size: 24px;
+    font-weight: bolder;
+}
+/*比赛封面*/
+#cover_section{
+    margin-bottom: 50px;
+    height: 400px;
+}
+#cov_image{
+    position: relative;
+    margin-bottom: 20px;
+    width: 450px;
+    height: 280px;
+}
+#cov_image .mask{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    background-color: transparent;
+    border: 35px solid rgba(0, 0, 0, 0.2);
+}
+#cov_image img{
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+}
+#cov_operation{
+    display: flex;
+    justify-content: space-between;
+}
+#cov_operation > button{
+    width: 150px;
+    height: 45px;
+    font-size: 16px;
+}
+#cov_operation div button{
+    width: 100px;
+    height: 45px;
+    font-size: 18px;
+}
+#cov_operation div .ant-btn-primary{
+    margin-right: 20px;
+    background-color: rgb(0, 154, 235);
+}
+/*地址*/
+#address_section{
+    height: 280px;
+    margin-bottom: 50px;
+}
+#address_section #add_text .ant-input{
+    width: 450px;
+    height: 45px;
+    font-size: 18px;
+    padding: 10px 30px 10px 50px;
+    box-sizing: border-box;
+}
+#add_text .ant-input-prefix{
+    left: 15px;
+    width: 20px;
+    height: 20px;
+}
+.ant-input-prefix img{
+    width: 100%;
+    height: 100%;
+}
+#add_map{
+    margin-top: 20px;
+    width: 450px;
+    height: 280px;
+}
+#date_section{
+    
+}
+/*比赛类型*/
+#type_section{
+    height: 120px;
+    margin-bottom: 50px;
+}
+#type_checkbox{
+    width: 400px;
+}
+#type_checkbox .ant-checkbox-group{
+    width: 100%;
+}
+#type_checkbox .ant-col{
+    margin-bottom: 20px;
+}
+#type_checkbox .ant-checkbox,
+#type_checkbox .ant-checkbox-input,
+#type_checkbox .ant-checkbox-inner{
+    width: 20px;
+    height: 20px;
+}
+#type_checkbox .ant-checkbox + span{
+    padding-left: 20px;
+    font-size: 18px;
+    font-weight: lighter;
+}
+/*富文本编辑器*/
+#content_section{
+    height: 775px;
+}
+#cont_title{
+    padding: 30px 20px;
+    height: 80px;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    box-sizing: border-box;
+}
+#cont_title input{
+    padding: 20px;
+    font-size: 22px;
+    font-weight: bolder;
+    color: rgba(51, 51, 51, 0.884);
+    border: none;
+    outline: none;
+}
+#cont_title .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled){
+    border-color: #fff;
+}
+#cont_editor .w-e-text-container{
+    height: 600px !important;
+}
+#btn_section{
+    margin-top: 80px;
+    text-align: center;
+}
+#btn_section button{
+    width: 140px;
+    height: 45px;
+    font-size: 18px;
+    text-align: center;
+    line-height: 45px;
+    background-color: rgb(0, 154, 235);
+}
+
+/********************RacePub板块-END*************************/
+
+/********************ActivityPub板块-START*************************/
+
+#activity_pub{
+    
+}
+
+/********************Activity板块-END*************************/
+
+/********************RaceManage板块-START*************************/
+
+#race_manage{
+    
+}
+
+/********************RaceManage板块-END*************************/
+
+/********************ActivityManage板块-START*************************/
+
+#activity_manage{
+    
+}
+
+/********************ActivityManage板块-END*************************/
+
+/********************Elite板块-START*************************/
+
+#elite{
+    
+}
+
+/********************Elite板块-END*************************/
+
+/********************StuManage板块-START*************************/
+
+#stu_manage{
+    
+}
+
+/********************StuManage板块-END*************************/
