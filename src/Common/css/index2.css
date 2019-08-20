@@ -1,12 +1,9 @@
-﻿html, body{
+html, body{
 	margin: 0;
 	padding: 0;
-	width: 100%;
-	height: 100%;
+	width: auto;
+	height: auto;
 	font-family: Microsoft YaHei !important;
-}
-body{
-	font-size: 100% !important;
 }
 a{
 	display: inline-block;
@@ -14,113 +11,109 @@ a{
 a:hover, a:focus{
 	text-decoration: none;
 }
-#root{
-	width: 100%;
-	height: 100%;
-}
 
 /********************Login板块-START*************************/
 
 #login{
-    width: 100%;
-    height: 100%;
+    width: 1920px;
+    height: 1080px;
 	background-color: #fff;
 
     display: flex;
 }
 /*左半部分*/
 #img_section{
-    width: 52%;
+    width: 1000px;
     height: 100%;
     background-color: rgb(225, 237, 253);
 }
 /*左上logo*/
 #img_logo{
-	padding: 2.4rem 0 0 2.4rem;
-    /*margin: .8rem 0 0 3.7rem;*/
+    padding: 24px 0 0 24px;
     width: 100%;
     box-sizing: border-box;
 }
 #img_logo img{
-    width: 30rem;
+    width: 300px;
 }
 /*左部背景图*/
 #img_bg{
-	margin-top: 6rem;
-    padding-left: 18rem;
+	margin-top: 60px;
+    padding-left: 180px;
     width: 100%;
-	height: 79.6%;
+    height: 860px;
     box-sizing: border-box;
 }
 #img_bg img{
-    width: 60rem;
+    width: 600px;
 }
 /*右半部分*/
 #msg_section{
-    width: 48%;
+    width: 920px;
     height: 100%;
 }
 /*标题*/
 #msg_slogan{
-    margin-top: 28.6rem;
-    padding-left: 19.8rem;
+    margin-top: 286px;
+    padding-left: 198px;
     width: 100%;
-    font-size: 3rem;
+    font-size: 30px;
     color: rgb(41, 129, 240);
     box-sizing: border-box;
 }
 /*登录信息表*/
 #msg_form{
-    padding-left: 19.8rem;
+    padding-left: 198px;
     width: 100%;
-    font-size: 1.6rem;
+    font-size: 16px;
     color: rgb(187, 187, 187);
     box-sizing: border-box;
 }
 #msg_form div:nth-child(1){
-    margin-top: 8rem;
-    margin-bottom: 6rem;
+    margin-top: 80px;
+    margin-bottom: 70px;
 }
 #msg_form .input-control{
-    width: 49rem;
+    width: 490px;
 }
 #msg_form .ant-input{
-    padding: 1.2rem 3rem 1rem 4.5rem;
-    width: 49rem;
-    font-size: 1.6rem;
+    padding: 10px 30px 10px 45px;
+    width: 490px;
+    height: 50px;
+    font-size: 16px;
     color: rgb(187, 187, 187);
     box-sizing: border-box;
 }
 .input-control .ant-input-prefix img{
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 25px;
+    height: 25px;
 }
 #msg_form .remember_pwd{
-    margin-top: 6rem;
+    margin-top: 60px;
 }
 .remember_pwd span{
-    margin-right: 1rem;
+    margin-right: 10px;
     padding: 0;
-    font-size: 1.6rem;
+    font-size: 16px;
     color: rgb(187, 187, 187);
 }
 .remember_pwd .ant-checkbox{
-    width: 2rem;
-    height: 2rem;
+    width: 20px;
+    height: 20px;
 }
 .remember_pwd .ant-checkbox-inner{
-    width: 2rem;
-    height: 2rem;
+    width: 20px;
+    height: 20px;
 }
 #msg_form button{
-    margin-top: 5rem;
-    width: 49rem;
-    height: 5rem;
+    margin-top: 50px;
+    width: 490px;
+    height: 50px;
     text-align: center;
-    line-height: 5rem;
+    line-height: 50px;
     color: #fff;
     background-color: rgb(41, 129, 240);
-    border-radius: .5rem;
+    border-radius: 5px;
     border: none;
     outline: none;
 }
@@ -130,46 +123,46 @@ a:hover, a:focus{
 /********************LayOut板块-START*************************/
 
 #layout{
-    width: 100%;
+    width: 1920px;
     background-color: rgb(238, 238, 238);
 }
 #header{
-    margin-bottom: 1rem;
+    margin-bottom: 10px;
     width: 100%;
-    height: 7.5rem;
+    height: 75px;
     background-color: #fff;
-    box-shadow: .3rem .3rem .3rem rgb(229, 229, 229);
+    box-shadow: 3px 3px 3px rgb(229, 229, 229);
 
     display: flex;
     align-items: center;
 }
 /*图标*/
 #header .icon_section{
-    width: 76.2rem;
+    width: 762px;
     height: 100%;
-	line-height: 7.5rem;
+	line-height: 75px;
 }
 .icon_section img{
-	margin-left: 6rem;
-	width: 4.5rem;
-	height: 4.5rem;	
+	margin-left: 60px;
+	width: 45px;
+	height: 45px;	
 }
 /*导航链接*/
 #header .choice_section{
-    width: 101.8rem;
+    width: 1018px;
     height: 100%;
 }
 #header .ant-menu{ 
-    height: 7.5rem;
-    line-height: 7.5rem;
+    height: 75px;
+    line-height: 75px;
 }
 .ant-menu .ant-menu-item{
     position: relative;
-    width: 15.8rem;
-    height: 7rem;
-	line-height: 7rem;
+    width: 158px;
+    height: 70px;
+	line-height: 70px;
     text-align: center;
-    font-size: 2.1rem;
+    font-size: 21px;
     font-weight: bolder;
 }
 .ant-menu .ant-menu-item-selected,
@@ -179,11 +172,11 @@ a:hover, a:focus{
 .ant-menu .ant-menu-item-selected::after,
 .ant-menu .ant-menu-item-active::after{
     position: absolute;
-    bottom: 1px;
-    left: 5.9rem;
+    bottom: 2px;
+    left: 59px;
     content: '';
-    width: 4rem;
-    height: .3rem;
+    width: 40px;
+    height: 3px;
     background-color: #1890ff;
 }
 .ant-menu-item a{
@@ -200,22 +193,22 @@ a:hover, a:focus{
 
 /*退出登录*/
 #header .logout_section{
-    width: 14rem;
-    height: 7.5rem;
+    width: 140px;
+    height: 75px;
 }
 .logout_section button{
-    margin-top: 1.7rem;
-    width: 11rem;
-    height: 4rem;
-    line-height: 4rem;
-    font-size: 1.8rem;
+    margin-top: 17px;
+    width: 110px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
     background-color: rgb(0, 154, 235);
 }
 /*主区域*/
 #main{
-    padding: 2rem 3rem 5rem;
+    padding: 20px 30px 50px;
     width: 100%;
-    height: 133rem;
+    height: 1330px;
     background-color: rgb(244, 244, 244);
     box-sizing: border-box;
 }
@@ -236,17 +229,17 @@ a:hover, a:focus{
 }
 /*左半部分*/
 #graph_part{
-    padding: 6rem 5.5rem;
-    width: 56rem;
-    height: 125rem;
+    padding: 60px 55px;
+    width: 560px;
+    height: 1250px;
     background-color: #fff;
     box-sizing: border-box;
 }
 /*右半部分*/
 #text-part{
-    padding: 11rem 5.5rem;
-    width: 125rem;
-    height: 125rem;
+    padding: 110px 55px;
+    width: 1270px;
+    height: 1250px;
     background-color: #fff;
     box-sizing: border-box;
 }
@@ -256,35 +249,35 @@ a:hover, a:focus{
 }
 /*版块标题*/
 .section_title{
-    margin-bottom: 2.5rem;
+    margin-bottom: 25px;
     padding: 0;
     width: 100%;
-    height: 3rem;
+    height: 30px;
 
     display: flex;
     align-items: center;
 }
 .section_title span{
     display: inline-block;
-    width: .8rem;
-    height: 3rem;
+    width: 8px;
+    height: 30px;
     background-color: rgb(0, 154, 235);
 }
 .section_title h3{
-    margin: 0 1rem;
-    font-size: 2.4rem;
+    margin: 0 10px;
+    font-size: 24px;
     font-weight: bolder;
 }
 /*比赛封面*/
 #cover_section{
-    margin-bottom: 5rem;
-    height: 40rem;
+    margin-bottom: 50px;
+    height: 400px;
 }
 #cov_image{
     position: relative;
-    margin-bottom: 2rem;
-    width: 45rem;
-    height: 28rem;
+    margin-bottom: 20px;
+    width: 450px;
+    height: 280px;
 }
 #cov_image .mask{
     position: absolute;
@@ -294,7 +287,7 @@ a:hover, a:focus{
     height: 100%;
     z-index: 999;
     background-color: transparent;
-    border: 3.5rem solid rgba(0, 0, 0, 0.2);
+    border: 35px solid rgba(0, 0, 0, 0.2);
 }
 #cov_image img{
     width: 100%;
@@ -306,109 +299,106 @@ a:hover, a:focus{
     justify-content: space-between;
 }
 #cov_operation > button{
-    width: 15rem;
-    height: 4.5rem;
-    font-size: 1.6rem;
+    width: 150px;
+    height: 45px;
+    font-size: 16px;
 }
 #cov_operation div button{
-    width: 10rem;
-    height: 4.5rem;
-    font-size: 1.8rem;
+    width: 100px;
+    height: 45px;
+    font-size: 18px;
 }
 #cov_operation div .ant-btn-primary{
-    margin-right: 2rem;
+    margin-right: 20px;
     background-color: rgb(0, 154, 235);
 }
 /*地址*/
 #address_section{
-    margin-bottom: 5rem;
+    margin-bottom: 50px;
 }
 #address_section #add_text .ant-input{
-    width: 45rem;
-    height: 4.5rem;
-    font-size: 1.8rem;
-    padding: 1rem 5rem 1rem 5rem;
+    width: 450px;
+    height: 45px;
+    font-size: 18px;
+    padding: 10px 50px 10px 50px;
     box-sizing: border-box;
 }
 #add_text .ant-input-prefix{
-    left: 1.5rem;
-    width: 2rem;
-    height: 2rem;
+    left: 15px;
+    width: 20px;
+    height: 20px;
 }
 .ant-input-prefix img{
     width: 100%;
     height: 100%;
 }
 #add_map{
-    margin-top: 2rem;
-    width: 45rem;
-    height: 28rem;
+    margin-top: 20px;
+    width: 450px;
+    height: 280px;
 }
 #searchResultPanel{
     display: none;
-    width: 15rem;
+    width: 150px;
     height: auto;
-    border: .1rem solid #C0C0C0;
+    border: 1px solid #C0C0C0;
 }
 /*活动时间*/
 #date_section{
     width: 100%;
 }
 #date_section .select_part{
-    margin-bottom: 2.5rem;
+    margin-bottom: 25px;
     width: 100%;
 }
 .select_part h4{
-    margin-bottom: 1.5rem;
-    font-size: 1.8rem;
+    margin-bottom: 15px;
+    font-size: 18px;
 }
 .select_part .ant-calendar-picker{
     width: 100% !important;
 }
-.ant-calendar-picker-container{
-	z-index: 10001;
-}
 /*比赛类型*/
 #type_section{
-    height: 12rem;
-    margin-bottom: 6rem;
+    height: 120px;
+    margin-bottom: 50px;
 }
 #type_checkbox{
-    width: 40rem;
+    width: 400px;
 }
 #type_checkbox .ant-checkbox-group{
     width: 100%;
 }
 #type_checkbox .ant-col{
-    margin-bottom: 2rem;
+    margin-bottom: 20px;
 }
 #type_checkbox .ant-checkbox,
 #type_checkbox .ant-checkbox-input,
 #type_checkbox .ant-checkbox-inner{
-    width: 2rem;
-    height: 2rem;
+    width: 20px;
+    height: 20px;
 }
 #type_checkbox .ant-checkbox + span{
-    padding-left: 2rem;
-    font-size: 1.8rem;
+    padding-left: 20px;
+    font-size: 18px;
     font-weight: lighter;
 }
 /*富文本编辑器*/
 #content_section{
-    height: 77.5rem;
+    height: 775px;
 }
 #cont_title{
-    padding: 2rem 2rem;
-    height: 8rem;
-    border: .1rem solid #ccc;
+    padding: 30px 20px;
+    height: 80px;
+    border: 1px solid #ccc;
     border-bottom: none;
-    border-top-left-radius: .7rem;
-    border-top-right-radius: .7rem;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
     box-sizing: border-box;
 }
 #cont_title input{
-    padding: 1rem;
-    font-size: 2.2rem;
+    padding: 20px;
+    font-size: 22px;
     font-weight: bolder;
     color: rgba(51, 51, 51, 0.884);
     border: none;
@@ -418,28 +408,28 @@ a:hover, a:focus{
     border-color: #fff;
 }
 #cont_editor .w-e-text-container{
-    height: 60rem !important;
-	font-size: 1.5rem;
+    height: 600px !important;
+	font-size: 15px;
 }
 #cont_editor .w-e-toolbar{
-	height: 5rem;
+	height: 50px;
 }
 #cont_editor .w-e-menu{
-	padding: 1.7rem;
+	padding: 17px;
 }
 #cont_editor .w-e-menu i{
-	font-size: 1.5rem;
+	font-size: 15px;
 }
 #btn_section{
-    margin-top: 8rem;
+    margin-top: 80px;
     text-align: center;
 }
 #btn_section button{
-    width: 14rem;
-    height: 4.5rem;
-    font-size: 1.8rem;
+    width: 140px;
+    height: 45px;
+    font-size: 18px;
     text-align: center;
-    line-height: 4.5rem;
+    line-height: 45px;
     background-color: rgb(0, 154, 235);
 }
 

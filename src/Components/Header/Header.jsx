@@ -4,6 +4,8 @@ import {connect} from "react-redux";
 import {logoutAction} from '../../Store/actionCreators'
 import { message, Button, Menu, Modal } from 'antd'
 
+import logo_search from './../../Common/images/logo_search.png'
+
 class Header extends Component {
 
     constructor(props) {
@@ -16,7 +18,9 @@ class Header extends Component {
     render() {
         return (
             <div id="header">
-                <div className="icon_section"></div>
+                <div className="icon_section">
+					<img src={logo_search}/>
+				</div>
                 <div className="choice_section">
                     <Menu onClick={ (e)=>this._menuClick(e) } selectedKeys={[this.state.current]} mode="horizontal">
                         <Menu.Item key="publishrace"><Link to="/publishrace">发布比赛</Link></Menu.Item>
