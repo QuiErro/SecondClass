@@ -12,8 +12,32 @@ export const userLogout = () => ajax(BASE_URL + '/api/bg/logout_admin');
 // 3.上传图片
 export const fileUpload = (data) => ajax(BASE_URL + '/api/bg/image/upload', data, 'POST');
 
-// 4.发布新比赛
-export const newRace = (data) => ajax(BASE_URL + '/api/bg/new_competition', data, 'POST');
+// 4.发布新比赛/活动
+export const newClassroom = (data) => ajax(BASE_URL + '/api/bg/new_classroom', data, 'POST');
 
-// 5.发布新活动
-export const newActivity = (data) => ajax(BASE_URL + '/api/bg/new_activity', data, 'POST');
+// 5. 取消发布比赛/活动
+export const hideClassroom = (id) => ajax(BASE_URL + '/api/bg/classroom/hide', {id}, 'POST');
+
+// 6. 重新发布比赛/活动
+export const showClassroom = (id) => ajax(BASE_URL + '/api/bg/classroom/show', {id}, 'POST');
+
+// 7. 删除比赛/活动
+export const deleteClassroom = (id) => ajax(BASE_URL + '/api/bg/classroom/delete', {id}, 'POST');
+
+// 8. 查看某类型比赛总数
+export const getRaceNum = (type) => ajax(BASE_URL + '/api/bg/competition/num/' + type);
+
+// 9. 查看某类型活动总数
+export const getActivityNum = (type) => ajax(BASE_URL + '/api/bg/activity/num/' + type);
+
+// 10. 编辑比赛/活动
+export const updateClassroom = (data) => ajax(BASE_URL + '/api/bg/classroom/update', data, 'POST');
+
+// 11. 查看比赛（分页）
+export const getRaceData = (type, offset) => ajax(BASE_URL + '/api/bg/competition/view', {type, offset}, 'POST');
+
+// 11. 查看活动（分页）
+export const getActivityData = (type, offset) => ajax(BASE_URL + '/api/bg/activity/view', {type, offset}, 'POST');
+
+// 12. 查看比赛/活动（详情）
+export const getClassroomData = (id) => ajax(BASE_URL + '/api/bg/classroom/view/' + id);

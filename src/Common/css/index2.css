@@ -144,7 +144,7 @@ a:hover, a:focus{
 }
 .icon_section img{
 	margin-left: 60px;
-	width: 45px;
+	width: 40px;
 	height: 45px;	
 }
 /*导航链接*/
@@ -155,8 +155,9 @@ a:hover, a:focus{
 #header .ant-menu{ 
     height: 75px;
     line-height: 75px;
+    border: none;
 }
-.ant-menu .ant-menu-item{
+#header .ant-menu .ant-menu-item{
     position: relative;
     width: 158px;
     height: 70px;
@@ -165,12 +166,12 @@ a:hover, a:focus{
     font-size: 21px;
     font-weight: bolder;
 }
-.ant-menu .ant-menu-item-selected,
-.ant-menu .ant-menu-item-active{
+#header .ant-menu .ant-menu-item-selected,
+#header .ant-menu .ant-menu-item-active{
     border-color: transparent !important;
 }
-.ant-menu .ant-menu-item-selected::after,
-.ant-menu .ant-menu-item-active::after{
+#header .ant-menu .ant-menu-item-selected::after,
+#header .ant-menu .ant-menu-item-active::after{
     position: absolute;
     bottom: 2px;
     left: 59px;
@@ -179,15 +180,15 @@ a:hover, a:focus{
     height: 3px;
     background-color: #1890ff;
 }
-.ant-menu-item a{
+#header .ant-menu-item a{
     color: rgb(146, 148, 156) !important;
     text-decoration: none !important;
 }
-.ant-menu-item a:hover{
+#header .ant-menu-item a:hover{
     text-decoration: none;
     color: #1890ff !important;
 }
-.ant-menu-item-selected a{
+#header .ant-menu-item-selected a{
     color: #1890ff !important;
 }
 
@@ -206,7 +207,6 @@ a:hover, a:focus{
 }
 /*主区域*/
 #main{
-    padding: 20px 30px 50px;
     width: 100%;
     height: 1330px;
     background-color: rgb(244, 244, 244);
@@ -215,14 +215,15 @@ a:hover, a:focus{
 
 /********************LayOut板块-END*************************/
 
-/********************RacePub / ActivityPub板块-START*************************/
+/********************RacePub / ActivityPub / RaceEdit / ActivityEdit 板块-START*************************/
 
-#race_pub{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-#activity_pub{
+#race_pub,
+#activity_pub,
+#race_edit,
+#activity_edit{
+    padding: 20px 30px 50px;
+    box-sizing: border-box;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -433,23 +434,173 @@ a:hover, a:focus{
     background-color: rgb(0, 154, 235);
 }
 
-/********************RacePub / ActivityPub板块-END*************************/
+/********************RacePub / ActivityPub / RaceEdit / ActivityEdit 板块-END*************************/
 
-/********************RaceManage板块-START*************************/
+/********************RaceManage / ActivityManage板块-START*************************/
 
 #race_manage{
-    
+    padding: 10px 30px 50px;
+    width: 100%;
+    box-sizing: border-box;
 }
-
-/********************RaceManage板块-END*************************/
-
-/********************ActivityManage板块-START*************************/
-
 #activity_manage{
-    
+    padding: 10px 30px 50px;
+    width: 100%;
+    box-sizing: border-box;
+}
+/*主体头部*/
+#header_section {
+    padding: 0 40px 0 20px;
+    width: 100%;
+    height: 50px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+/*导航链接*/
+#head_menu .ant-menu{ 
+    padding: 0;
+    height: 50px;
+    line-height: 50px;
+    border: none;
+    background-color: transparent;
+}
+#head_menu .ant-menu .ant-menu-item{
+    position: relative;
+    padding: 0;
+    width: 100px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 20px;
+}
+#head_menu .ant-menu .ant-menu-item-selected,
+#head_menu .ant-menu .ant-menu-item-active{
+    border-color: transparent !important;
+    font-weight: 700;
+}
+#head_menu .ant-menu .ant-menu-item-selected::after,
+#head_menu .ant-menu .ant-menu-item-active::after{
+    position: absolute;
+    bottom: 0;
+    left: 34px;
+    content: '';
+    width: 32px;
+    height: 3px;
+    background-color: #009AE8;
+}
+#head_menu .ant-menu-item a{
+    color: rgb(146, 148, 156) !important;
+    text-decoration: none !important;
+}
+#head_menu .ant-menu-item a:hover{
+    text-decoration: none;
+    color: #009AE8 !important;
+}
+#head_menu .ant-menu-item-selected a{
+    color: #009AE8 !important;
+}
+/*顶部按钮*/
+#head_operation .opera_btn{
+    margin-right: 15px;
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+}
+.opera_btn.btn_edit, .opera_btn.btn_publish{
+    border-color: #009AE8;
+    color: #009AE8;
+}
+.opera_btn.btn_unpublish, .opera_btn.btn_remove{
+    border-color: #D9001B;
+    color: #D9001B;
+}
+#head_operation .opera_btn.btn_unpublish{
+    width: 140px;
+    margin-right: 40px;
+}
+.rc-pagination-jump-prev, .rc-pagination-jump-next{
+    position: relative;
+}
+.rc-pagination-jump-next::after,
+.rc-pagination-jump-prev::after{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%);
+}
+/*单元活动*/
+#content_section{
+    margin-top: 45px;
+}
+#content_section .con_item{
+    margin: 0 auto 2px;
+    width: 1780px;
+    height: 100px;
+    font-size: 18px;
+    font-weight: 700;
+    border: 1px solid rgb(215, 215, 215);
+    border-radius: 3px;
+    background: #fff;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#content_section .con_item.hover{
+    width: 1820px !important;
+    height: 116px;
+    box-shadow: 0 0 62px rgba(0, 0, 0, 0.2);
+}
+.item_check, .item_img, .item_num, .item_name, .item_people, .item_time, .item_address, .item_pub{
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.item_num{
+    width: 100px;
+}
+.item_check .ant-checkbox{
+    width: 20px;
+    height: 20px;
+}
+.item_check .ant-checkbox-inner{
+    width: 20px;
+    height: 20px;
+}
+.item_img{
+    width: 160px;
+}
+.item_img img{
+    width: 80px;
+    height: 50px;
+}
+.item_name{
+    width: 630px;
+    justify-content: flex-start;
+}
+.item_people, .item_time, .item_address, .item_pub{
+    color: #333;
+    font-weight: 400;
+}
+.item_people{
+    width: 150px;
+}
+.item_time{
+    width: 200px;
+}
+.item_address{
+    width: 270px;
+}
+.item_pub{
+    width: 250px;
 }
 
-/********************ActivityManage板块-END*************************/
+/********************RaceManage / ActivityManage板块-END*************************/
 
 /********************Elite板块-START*************************/
 

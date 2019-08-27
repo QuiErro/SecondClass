@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { message, Button, Icon, Checkbox, Row, Col, Input, DatePicker } from 'antd'
-import {fileUpload, newClassroom} from './../../Api/index'
+import {fileUpload, getClassroomData, updateClassroom} from './../../Api/index'
 import Tool from './../../Components/Tool/Tool'
 import cover_default from './../../Common/images/cover_default.jpg'
 import map_icon from './../../Common/images/map_icon.png'
@@ -10,17 +10,21 @@ const _tool = new Tool;
 const { BMap } = window
 const { RangePicker } = DatePicker;
 
-class RacePub extends Component {
+class ActivityEdit extends Component {
     
     constructor(props) {
         super(props);
 		
         this.state = {
+            // 活动id
+            id: null,
             // 封面
             cover_url: '',
+            // 原封面
+            ori_cover: '',
             // 是否选中封面
             hasCover: false,
-            // 比赛类型
+            // 活动类型
             type: [],
             // 位置
             position: '',
@@ -43,7 +47,7 @@ class RacePub extends Component {
         const {cover_url, hasCover, type, position, title} = this.state;
 
         return (
-            <div id="race_pub">
+            <div id="activity_edit">
                 <div id="graph_part">
                     <div id="cover_section" className="section">
                         <div className="section_title">
@@ -93,7 +97,7 @@ class RacePub extends Component {
                     <div id="date_section" className="section">
                         <div className="section_title"> 
                             <span></span>
-                            <h3>比赛时间</h3>
+                            <h3>活动时间</h3>
                         </div>
                         <div id="date_select">
                             <div className="select_part">
@@ -121,7 +125,7 @@ class RacePub extends Component {
                     <div id="type_section" className="section">
                         <div className="section_title">
                             <span></span>
-                            <h3>比赛类型</h3>
+                            <h3>活动类型</h3>
                         </div>
                         <div id="type_checkbox">
                             <Checkbox.Group 
@@ -172,15 +176,6 @@ class RacePub extends Component {
     }
 
     componentDidMount() {
-        // 1.0 读取本地缓存信息
-        let tempObj = _tool.getStore('publishRace');
-        if(tempObj){
-            this.setState({
-                type: tempObj.type || [],
-                title: tempObj.title || "",
-                position: tempObj.position
-            })
-        }
         // 1.1 配置编辑器             
         let E = window.wangEditor;
         let editor = new E('#cont_editor');
@@ -208,17 +203,28 @@ class RacePub extends Component {
                 })
             }
         };
-        // 1.3 监听onchange事件
-        editor.customConfig.onchange = ()=>{
-            _tool.setStore('publishRace', {
-                content: editor.txt.html()
-            })
-        }
-        // 1.4 创建编辑器
+        // 1.3 创建编辑器
         editor.create();
-        // 1.5 添加本地缓存文本
-        if(tempObj){
-            editor.txt.html(tempObj.content);
+        // 1.4 初始化要编辑的数据
+        let itemId = this.props.location.state.id;
+        let tempObj;
+        if(itemId){
+            getClassroomData(itemId).then((res)=>{
+                if(res.status === 0){
+                    tempObj = res.data;
+                    this.setState({
+                        id: tempObj.id,
+                        title: tempObj.title,
+                        position: tempObj.position,
+                        cover_url: "http://47.112.10.160:3389/image/cover/" + tempObj.image,
+                        ori_cover: "http://47.112.10.160:3389/image/cover/" + tempObj.image,
+                        hasCover: true,
+                        type: new Array(tempObj.type)
+                    });
+                    // 1.5 初始化编辑器内容
+                    editor.txt.html(tempObj.body);
+                }
+            });
         }
 
         // 2.1 初始化地图
@@ -311,9 +317,6 @@ class RacePub extends Component {
         this.setState({
             type: tempArr
         })
-        _tool.setStore('publishRace', {
-            type: tempArr
-        })
     }
 
     // 5. 上传图片（富文本编辑器）
@@ -339,15 +342,11 @@ class RacePub extends Component {
                 inputValue = src;
                 this.setState({
                     cover_url: inputValue,
-                    hasCover: true
                 })
             })
         }
 
         this.setState({
-            [inputName]: inputValue
-        })
-        _tool.setStore('publishRace', {
             [inputName]: inputValue
         })
     }
@@ -356,14 +355,13 @@ class RacePub extends Component {
     _cancelCover(){
         this.refs.cover_url.value = [];
         this.setState({
-            hasCover: false,
-            cover_url: ''
+            cover_url: this.state.ori_cover
         })
     }
 
     // 8. 提交formData
     _onSubmit(){
-        let {editor, title, signIn_end, signIn_start, signUp_end, signUp_start, position, type} = this.state;
+        let {id, editor, title, signIn_end, signIn_start, signUp_end, signUp_start, position, type} = this.state;
         // 8.1 取出编辑器文本
         let content = editor.txt.html();
         // 8.2 取出封面文件
@@ -371,38 +369,30 @@ class RacePub extends Component {
 		// 8.3 处理type (array => string)
 		let tempType = type[0];
 		// 8.4 判断各信息是否为空
-		if(!title || !signIn_end || !signIn_start || !signUp_end || !signUp_start || !position || !tempType || (content === "<p><br></p>") || !file){
+		if(!title || !signIn_end || !signIn_start || !signUp_end || !signUp_start || !position || !tempType || (content === "<p><br></p>")){
 			message.warning('请确认输入的信息是否完整！');
 		}else{
 			// 8.5 创建FormData对象
             let formData = new FormData();
-            formData.append('is_activity', 0);
+            formData.append('id', id);
 			formData.append('title', title);
 			formData.append('body', content);
-			formData.append('image', file);
 			formData.append('signIn_end', signIn_end);
 			formData.append('signIn_start', signIn_start);
 			formData.append('signUp_end', signUp_end);
 			formData.append('signUp_start', signUp_start);
 			formData.append('position', position);
             formData.append('type', tempType);
+            if(file){
+                formData.append('image', file);
+            }
 			// 8.6 提交数据 网络请求
-			newClassroom(formData).then((res)=>{
+			updateClassroom(formData).then((res)=>{
 				if(res.status === 0){
-					editor.txt.clear();
-                    message.success("比赛创建成功")
-                    this.refs.cover_url.value = [];
-                    this.setState({
-                        hasCover: false,
-                        cover_url: '',
-                        title: '', 
-                        position: '', 
-                        type: []
-                    })
-                    // 清除缓存的localStorage数据
-                    _tool.removeStore('publishRace');
+                    message.success("修改成功");
+                    this.props.history.goBack();
 				}else{
-					message.error("比赛创建失败")
+					message.error("修改失败");
 				}
 			}).catch((error)=>{
 				console.log(error);
@@ -411,4 +401,4 @@ class RacePub extends Component {
     }   
 }
 
-export default connect(null, null)(RacePub);
+export default connect(null, null)(ActivityEdit);

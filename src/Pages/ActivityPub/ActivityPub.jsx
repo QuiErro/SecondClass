@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { message, Button, Icon, Checkbox, Row, Col, Input, DatePicker } from 'antd'
-import {fileUpload, newActivity} from './../../Api/index'
+import {fileUpload, newClassroom} from './../../Api/index'
 import Tool from './../../Components/Tool/Tool'
 import cover_default from './../../Common/images/cover_default.jpg'
 import map_icon from './../../Common/images/map_icon.png'
@@ -40,7 +40,7 @@ class ActivityPub extends Component {
     }
 
     render() {
-		 const {cover_url, hasCover, type} = this.state;
+		const {cover_url, hasCover, type, position, title} = this.state;
 
         return (
             <div id="activity_pub">
@@ -83,6 +83,7 @@ class ActivityPub extends Component {
                               suffix={ <Icon type="search"/> }
                               allowClear
                               name="position"
+                              value={position}
                               onChange={(e)=>this._onInputChange(e)}
                             />
                             <div id="searchResultPanel"></div>
@@ -156,6 +157,7 @@ class ActivityPub extends Component {
                               placeholder="请输入文章标题" 
                               allowClear 
                               name="title"
+                              value={title}
                               onChange={(e)=>this._onInputChange(e)}
                             />
                         </div>
@@ -170,6 +172,15 @@ class ActivityPub extends Component {
     }
 	
 	componentDidMount() {
+        // 1.0 读取本地缓存信息
+        let tempObj = _tool.getStore('publishActivity');
+        if(tempObj){
+            this.setState({
+                type: tempObj.type || [],
+                title: tempObj.title || "",
+                position: tempObj.position
+            })
+        }
         // 1.1 配置编辑器             
         let E = window.wangEditor;
         let editor = new E('#cont_editor');
@@ -189,7 +200,6 @@ class ActivityPub extends Component {
                 formData.append('image', files[0]);
                 // 发起网络请求
                 fileUpload(formData).then((res)=>{
-                    console.log(res)
                     if(res.status === 0){
                         insert(res.data);
                     }
@@ -198,8 +208,18 @@ class ActivityPub extends Component {
                 })
             }
         };
-        // 1.3 创建编辑器
+         // 1.3 监听onchange事件
+         editor.customConfig.onchange = ()=>{
+            _tool.setStore('publishActivity', {
+                content: editor.txt.html()
+            })
+        }
+        // 1.4 创建编辑器
         editor.create();
+        // 1.5 添加本地缓存文本
+        if(tempObj){
+            editor.txt.html(tempObj.content);
+        }
 
         // 2.1 初始化地图
         const map = new BMap.Map('add_map');
@@ -291,6 +311,9 @@ class ActivityPub extends Component {
         this.setState({
             type: tempArr
         })
+        _tool.setStore('publishActivity', {
+            type: tempArr
+        })
     }
 
     // 5. 上传图片（富文本编辑器）
@@ -311,19 +334,20 @@ class ActivityPub extends Component {
 				this.refs.cover_url.value = [];
 				return;
 			}
-            this.setState({
-                hasCover: true
-            })
             inputValue = '';
             _tool.fileToBase64Url(e.target.files[0], (src)=>{
                 inputValue = src;
                 this.setState({
-                    cover_url: inputValue
+                    cover_url: inputValue,
+                    hasCover: true
                 })
             })
         }
 
         this.setState({
+            [inputName]: inputValue
+        })
+        _tool.setStore('publishActivity', {
             [inputName]: inputValue
         })
     }
@@ -351,7 +375,8 @@ class ActivityPub extends Component {
 			message.warning('请确认输入的信息是否完整！');
 		}else{
 			// 8.5 创建FormData对象
-			let formData = new FormData();
+            let formData = new FormData();
+            formData.append('is_activity', 1);
 			formData.append('title', title);
 			formData.append('body', content);
 			formData.append('image', file);
@@ -361,14 +386,24 @@ class ActivityPub extends Component {
 			formData.append('signUp_start', signUp_start);
 			formData.append('position', position);
 			formData.append('type', tempType);
-
 			// 8.6 提交数据 网络请求
-			newActivity(formData).then((res)=>{
+			newClassroom(formData).then((res)=>{
 				console.log(res)
 				if(res.status === 0){
-					message.success("比赛创建成功")
+					editor.txt.clear();
+                    message.success("活动创建成功")
+                    this.refs.cover_url.value = [];
+                    this.setState({
+                        hasCover: false,
+                        cover_url: '',
+                        title: '', 
+                        position: '', 
+                        type: []
+                    })
+                    // 清除缓存的localStorage数据
+                    _tool.removeStore('publishActivity');
 				}else{
-					message.error("比赛创建失败")
+					message.error("活动创建失败")
 				}
 			}).catch((error)=>{
 				console.log(error);

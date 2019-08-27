@@ -2,11 +2,14 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {getUserDataAction} from '../../Store/actionCreators'
 import { Input, Checkbox, message } from 'antd'
+import Tool from './../../Components/Tool/Tool'
 
 import logo from './../../Common/images/logo.png'
 import login_bg from './../../Common/images/login_bg.png'
 import username from './../../Common/images/username.svg'
 import pwd from './../../Common/images/pwd.svg'
+
+const _tool = new Tool; 
 
 class Login extends Component {
     constructor(props){
@@ -75,11 +78,10 @@ class Login extends Component {
 
     componentDidMount() {
         if(this.props.userData){
-            message.warning('您已登录成功啦！');
             this.props.history.goBack();
         }else{
             // 取出本地用户数据
-            let userData = JSON.parse(localStorage.getItem('userData'));
+            let userData = JSON.parse(window.localStorage.getItem('userData'));
             if(userData){
                 // 管理员曾选择记住密码
                 this.setState({
@@ -98,7 +100,7 @@ class Login extends Component {
             isRem: e.target.checked
         })
         if(!e.target.checked){
-            localStorage.removeItem('userData');
+            window.localStorage.removeItem('userData');
         }
     }
 
@@ -107,7 +109,6 @@ class Login extends Component {
        // 2.1 获取数据
        let inputValue = e.target.value,
            inputName = e.target.name;
-       // console.log(inputName, inputValue);
 
        // 2.2 更新数据
        this.setState({
@@ -147,10 +148,15 @@ class Login extends Component {
             if(flag === 0){
                 message.success('登录成功');
                 if(isRem){
-                    localStorage.setItem('userData', JSON.stringify(userData));
+                    window.localStorage.setItem('userData', JSON.stringify(userData));
                 }
-                sessionStorage.setItem('tempUser', JSON.stringify(userData.username));
-                this.props.history.push('/');
+                window.sessionStorage.setItem('tempUser', JSON.stringify(userData.username));
+                this.props.history.replace('/');
+                // 清除缓存的localStorage数据
+                _tool.removeStore('publishRace');
+                _tool.removeStore('publishActivity');
+                _tool.removeStore('activityManage');
+                _tool.removeStore('raceManage');
             }else{
                 message.error('登录失败');
             }

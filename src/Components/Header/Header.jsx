@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {logoutAction} from '../../Store/actionCreators'
+import Tool from './../Tool/Tool'
 import { message, Button, Menu, Modal } from 'antd'
-
 import logo_search from './../../Common/images/logo_search.png'
+
+const _tool = new Tool; 
 
 class Header extends Component {
 
@@ -13,6 +15,13 @@ class Header extends Component {
         this.state = {
             current: 'publishrace',
         };
+    }
+
+    componentWillMount(){
+        let current = window.sessionStorage.getItem('currentLink') || 'publishrace';
+        this.setState({
+            current: current
+        });
     }
     
     render() {
@@ -40,9 +49,11 @@ class Header extends Component {
 
     // 1. 导航切换 
     _menuClick(e){
-        // 1. state存储选中的板块key值
+        // 1.1 state存储选中的板块key值
         this.setState({
           current: e.key,
+        }, ()=>{
+            window.sessionStorage.setItem('currentLink', this.state.current);
         });
     }
 
@@ -64,6 +75,12 @@ class Header extends Component {
                         window.location.href = '/';
                         // 2.4 清除sessionStorage的数据
                         sessionStorage.removeItem('tempUser');
+                        sessionStorage.removeItem('currentLink');
+                        // 2.5 清除缓存的localStorage数据
+                        _tool.removeStore('publishRace');
+                        _tool.removeStore('publishActivity');
+                        _tool.removeStore('activityManage');
+                        _tool.removeStore('raceManage');
                     }else{
                         message.error('退出失败');
                     }

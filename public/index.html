@@ -40,19 +40,5 @@
     <script src="base.js"></script>
     <!-- 引入百度地图 -->
     <script src="http://api.map.baidu.com/api?v=2.0&ak=ALfgIvqG9ISrNWRRbYHIvS8xGz4MR1Xt"></script>
-	<script>
-		(function (doc, win) {
-            var docEl = doc.documentElement,
-                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-                recalc = function () {
-                    var clientWidth = docEl.clientWidth;
-                    if (!clientWidth) return;
-                    docEl.style.fontSize = 10 * (clientWidth / 1920).toFixed(2) + 'px';
-                };
-            if (!doc.addEventListener) return;
-            win.addEventListener(resizeEvt, recalc, false);
-            doc.addEventListener('DOMContentLoaded', recalc, false);
-        })(document, window);
-	</script>
   </body>
 </html>
