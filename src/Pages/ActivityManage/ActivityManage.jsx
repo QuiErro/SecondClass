@@ -2,11 +2,11 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getActivityNumAction, getActivityDataAction} from '../../Store/actionCreators'
 import {hideClassroom, showClassroom, deleteClassroom} from './../../Api/index'
-import { message, Button, Menu, Checkbox, Modal } from 'antd'
+import { message, Button, Menu, Checkbox, Modal, Empty } from 'antd'
 import SPagination from './../../Components/Pagination/SPagination'
 import Tool from './../../Components/Tool/Tool'
 
-const _tool = new Tool;    
+const _tool = new Tool();    
 
 class ActivityManage extends Component {
     
@@ -88,23 +88,24 @@ class ActivityManage extends Component {
                     </div>
                 </div>
                 <div id="content_section" className="items_container">
-                    {
+                    { this.props.activityData && this.props.activityData.length>0 ? 
                         this.props.activityData.map((item, index)=>{
                             return (
                                 <div className="con_item" 
                                   key={item.id}
                                   onMouseEnter={(e)=> this._itemEnterOrLeave(e, 0)}
                                   onMouseLeave={(e)=> this._itemEnterOrLeave(e, 1)}
+                                  onClick={()=> this._goToMain(item.id)}
                                 >
                                     <div className="item_num">{flagCount + index + 1}</div>
                                     <div className="item_check">
                                         <Checkbox
                                           checked={checked === (index + 1) ? true : false}
-                                          onChange={(e)=> this._onCheckedChang(e, index, item)}
+                                          onClick={(e)=> this._onCheckedChang(e, index, item)}
                                         ></Checkbox>
                                     </div>
                                     <div className="item_img">
-                                        <img src={item.image || ''}/>
+                                        <img src={item.image || ''} alt=""/>
                                     </div>
                                     <div className="item_name">
                                         {item.title}
@@ -115,7 +116,7 @@ class ActivityManage extends Component {
                                     <div className="item_pub">{item.status === 0 ? '已发布' : '未发布'}</div>
                                 </div>
                             )
-                        })
+                        })  : <Empty />
                     }
                 </div>
             </div>
@@ -193,11 +194,15 @@ class ActivityManage extends Component {
                 ActivityItem: {}
             });
         }
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
     }
 
     // 5. 编辑
     _editItem(){
-        this.props.history.push({pathname: '/activityedit', state: {id: this.state.ActivityItem.id}});
+        if(this.state.ActivityItem.id){
+            this.props.history.push({pathname: '/activitymanage/edit', state: {id: this.state.ActivityItem.id}});
+        }
     }
 
     // 6. 删除
@@ -281,6 +286,11 @@ class ActivityManage extends Component {
                 });
             },
         });
+    }
+
+    // 9. 跳转详情页面
+    _goToMain(id){
+        this.props.history.push({pathname: '/activitymanage/main', state: {id}});
     }
 }
 

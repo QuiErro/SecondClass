@@ -9,7 +9,7 @@ import login_bg from './../../Common/images/login_bg.png'
 import username from './../../Common/images/username.svg'
 import pwd from './../../Common/images/pwd.svg'
 
-const _tool = new Tool; 
+const _tool = new Tool(); 
 
 class Login extends Component {
     constructor(props){
@@ -44,7 +44,7 @@ class Login extends Component {
                               className="input-control"
                               allowClear 
                               placeholder="账号"
-                              prefix={<img src={username}/>}  
+                              prefix={<img src={username} alt=""/>}  
                               name="user_name"
                               value = {user_name}
                               onChange={e=>this._onInputChange(e)}
@@ -56,7 +56,7 @@ class Login extends Component {
                               className="input-control"
                               password 
                               placeholder="密码"
-                              prefix={<img src={pwd}/>}
+                              prefix={<img src={pwd} alt=""/>}
                               name="user_pwd"
                               value={user_pwd}
                               onChange={e=>this._onInputChange(e)}

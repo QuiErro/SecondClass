@@ -131,7 +131,7 @@ a:hover, a:focus{
     width: 100%;
     height: 75px;
     background-color: #fff;
-    box-shadow: 3px 3px 3px rgb(229, 229, 229);
+    box-shadow: 2px 2px 5px rgb(229, 229, 229);
 
     display: flex;
     align-items: center;
@@ -211,6 +211,16 @@ a:hover, a:focus{
     height: 1330px;
     background-color: rgb(244, 244, 244);
     box-sizing: border-box;
+}
+.ant-empty{
+	margin-top: 100px;
+}
+.ant-empty svg{
+	width: 240px;
+	height: 200px;
+}
+.ant-empty-description{
+	margin-top: 100px;
 }
 
 /********************LayOut板块-END*************************/
@@ -436,7 +446,7 @@ a:hover, a:focus{
 
 /********************RacePub / ActivityPub / RaceEdit / ActivityEdit 板块-END*************************/
 
-/********************RaceManage / ActivityManage板块-START*************************/
+/********************RaceManage / ActivityManage list板块-START*************************/
 
 #race_manage{
     padding: 10px 30px 50px;
@@ -502,6 +512,9 @@ a:hover, a:focus{
     color: #009AE8 !important;
 }
 /*顶部按钮*/
+#head_operation{
+    display: flex;
+}
 #head_operation .opera_btn{
     margin-right: 15px;
     width: 100px;
@@ -520,15 +533,8 @@ a:hover, a:focus{
     width: 140px;
     margin-right: 40px;
 }
-.rc-pagination-jump-prev, .rc-pagination-jump-next{
-    position: relative;
-}
-.rc-pagination-jump-next::after,
-.rc-pagination-jump-prev::after{
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%);
+#head_operation .ant-pagination{
+    margin-top: 10px;
 }
 /*单元活动*/
 #content_section{
@@ -552,7 +558,7 @@ a:hover, a:focus{
 #content_section .con_item.hover{
     width: 1820px !important;
     height: 116px;
-    box-shadow: 0 0 62px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 62px rgba(0, 0, 0, 0.3);
 }
 .item_check, .item_img, .item_num, .item_name, .item_people, .item_time, .item_address, .item_pub{
     height: 100%;
@@ -601,6 +607,223 @@ a:hover, a:focus{
 }
 
 /********************RaceManage / ActivityManage板块-END*************************/
+
+/********************RaceManage / ActivityManage main板块-START*************************/
+
+#race_main,
+#activity_main{
+    padding: 20px 30px;
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#intro_section{
+    padding: 40px 0 0 40px;
+    width: 800px;
+    height: 1250px;
+    background: #fff;
+    box-sizing: border-box;
+}
+#competitor_section{
+    width: 1030px;
+    height: 1250px;
+    background: rgb(244, 244, 244);
+}
+#intro_basic{
+    width: 100%;
+    height: 300px;
+
+    display: flex;
+}
+#basic_img{
+    width: 480px;
+    height: 300px;
+}
+#basic_img img{
+    width: 100%;
+    height: 100%;
+}
+#basic_text{
+    padding: 20px 0 0 30px;
+}
+.text_item{
+    margin-bottom: 40px;
+}
+.item_header{
+    margin-bottom: 20px;
+
+    display: flex;
+    align-items: center;
+}
+.item_header .icon{
+    margin-right: 10px;
+    width: 25px;
+}
+.item_header span{
+    font-size: 18px;
+    font-weight: 700;
+}
+.item_body{
+    margin-bottom: 10px;
+    font-size: 16px;
+
+    display: flex;
+    flex-direction: column;
+}
+#intro_body{
+    margin-top: 65px;
+}
+#intro_body .body_title{
+    margin-bottom: 25px;
+    font-size: 24px;
+    font-weight: 700;
+}
+#competitor_top{
+    margin-bottom: 30px;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+}
+.top_part{
+    width: 500px;
+    height: 350px;
+    background: #fff;
+}
+#competitor_bottom{
+    padding: 15px;
+    width: 100%;
+    height: 870px;
+    background: #fff;
+    box-sizing: border-box;
+}
+#competitor_bottom span{
+    font-weight: 500;
+}
+#competitor_bottom .item_body{
+    padding: 0 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+#competitor_bottom .body_row{
+    cursor: pointer;
+}
+.item_body .body_row{
+    margin-bottom: 20px;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.body_row .row_column.title{
+    color: #3b3b3b;
+    font-weight: 700;
+    font-size: 16px;
+}
+.body_row .row_column{
+    flex: 1;
+
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    
+}
+.row_column img{
+    margin-right: 10px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+}
+.top_part{
+    position: relative;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.top_part .item_header span{
+    font-weight: 500;
+} 
+.top_part .item_body{
+    padding-left: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+#top_left .item_header{
+    position: absolute;
+}
+.body_row.hover{
+    width: 932px !important;
+    height: 40px;
+    box-shadow: 0 0 31px rgba(0, 0, 0, 0.3);
+}
+.compete_modal .ant-modal-content{
+    padding: 29px 51px;
+    box-sizing: border-box;
+}
+.compete_modal .ant-modal-header,
+.compete_modal .ant-modal-footer{
+    border: none;
+}
+.compete_modal .ant-modal-title{
+    font-size: 24px;
+    font-weight: 700;
+}
+.compete_modal .ant-modal-body{
+    margin-top: 10px;
+    padding: 24px 0;
+}
+.modal_text_item{
+    margin-bottom: 25px;
+    font-size: 20px;
+
+    display: flex;
+    align-items: center;
+}
+.item_basic{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    flex: 3;
+    display: flex;
+    justify-content: center;
+}
+.item_basic.item_basic_small{
+    flex: 2;
+}
+.modal_text_item.modal_padding{
+    padding-left: 50px;
+}
+.item_record{
+    margin-right: 130px;
+}
+.modal_text_item.modal_profile{
+    margin-bottom: 0;
+    padding-right: 50px;
+
+    flex-direction: column;
+    align-items: flex-start;
+}
+.modal_text_item.modal_profile p:nth-child(2){
+    font-size: 16px;
+    height: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.compete_modal  .ant-modal-footer div{
+    text-align: center;
+}
+.compete_modal  .ant-modal-footer div button{
+    margin-right: 15px;
+    width: 140px;
+    height: 40px;
+    font-size: 16px;
+}
+
+/********************RaceManage / ActivityManage main板块-END*************************/
 
 /********************Elite板块-START*************************/
 

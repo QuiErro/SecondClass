@@ -6,7 +6,7 @@ import Tool from './../Tool/Tool'
 import { message, Button, Menu, Modal } from 'antd'
 import logo_search from './../../Common/images/logo_search.png'
 
-const _tool = new Tool; 
+const _tool = new Tool(); 
 
 class Header extends Component {
 
@@ -28,14 +28,14 @@ class Header extends Component {
         return (
             <div id="header">
                 <div className="icon_section">
-					<img src={logo_search}/>
+					<img src={logo_search} alt=""/>
 				</div>
                 <div className="choice_section">
                     <Menu onClick={ (e)=>this._menuClick(e) } selectedKeys={[this.state.current]} mode="horizontal">
                         <Menu.Item key="publishrace"><Link to="/publishrace">发布比赛</Link></Menu.Item>
                         <Menu.Item key="publishactivity"><Link to="/publishactivity">发布活动</Link></Menu.Item>
-                        <Menu.Item key="activitymanage"><Link to="/activitymanage">活动管理</Link></Menu.Item>
-                        <Menu.Item key="racemanage"><Link to="/racemanage">比赛管理</Link></Menu.Item>
+                        <Menu.Item key="activitymanage"><Link to="/activitymanage/list">活动管理</Link></Menu.Item>
+                        <Menu.Item key="racemanage"><Link to="/racemanage/list">比赛管理</Link></Menu.Item>
                         <Menu.Item key="elite"><Link to="/elite">风云人物</Link></Menu.Item>
                         <Menu.Item key="stumanage"><Link to="/stumanage">学生管理</Link></Menu.Item>
                     </Menu>

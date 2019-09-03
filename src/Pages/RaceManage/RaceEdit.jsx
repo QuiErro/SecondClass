@@ -6,7 +6,7 @@ import Tool from './../../Components/Tool/Tool'
 import cover_default from './../../Common/images/cover_default.jpg'
 import map_icon from './../../Common/images/map_icon.png'
 
-const _tool = new Tool;      
+const _tool = new Tool();      
 const { BMap } = window
 const { RangePicker } = DatePicker;
 
@@ -43,6 +43,12 @@ class RaceEdit extends Component {
         }
     }
 
+    componentWillMount(){
+        if(!this.props.location.state || !this.props.location.state.id){
+            this.props.history.goBack();
+        }
+    }
+
     render() {
         const {cover_url, hasCover, type, position, title} = this.state;
 
@@ -56,7 +62,7 @@ class RaceEdit extends Component {
                         </div>
                         <div id="cov_image">
                             <div className="mask" style={{display: hasCover ? 'block' : 'none'}}></div>
-                            <img src={cover_url || cover_default}/>
+                            <img src={cover_url || cover_default} alt=""/>
                         </div>
                         <div id="cov_operation">
                             <Button onClick={ ()=> this._fileBtnClick() }>
@@ -83,7 +89,7 @@ class RaceEdit extends Component {
                         <div id="add_text">
                             <Input
                               id="text_content"
-                              prefix={ <img src={map_icon}/> }
+                              prefix={ <img src={map_icon} alt=""/> }
                               suffix={ <Icon type="search"/> }
                               allowClear
                               name="position"

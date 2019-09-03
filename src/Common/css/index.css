@@ -143,7 +143,7 @@ a:hover, a:focus{
     width: 100%;
     height: 7.5rem;
     background-color: #fff;
-    box-shadow: .3rem .3rem .3rem rgb(229, 229, 229);
+    box-shadow: .2rem .2rem .5rem rgb(229, 229, 229);
 
     display: flex;
     align-items: center;
@@ -222,6 +222,16 @@ a:hover, a:focus{
     height: 133rem;
     background-color: rgb(244, 244, 244);
     box-sizing: border-box;
+}
+.ant-empty{
+	margin-top: 10rem;
+}
+.ant-empty svg{
+	width: 24rem;
+	height: 20rem;
+}
+.ant-empty-description{
+	margin-top: 10rem;
 }
 
 /********************LayOut板块-END*************************/
@@ -448,7 +458,7 @@ a:hover, a:focus{
 
 /********************RacePub / ActivityPub / RaceEdit / ActivityEdit 板块-END*************************/
 
-/********************RaceManage / ActivityManage板块-START*************************/
+/********************RaceManage / ActivityManage list板块-START*************************/
 
 #race_manage{
     padding: 1rem 3rem 5rem;
@@ -514,6 +524,9 @@ a:hover, a:focus{
     color: #009AE8 !important;
 }
 /*顶部按钮*/
+#head_operation{
+    display: flex;
+}
 #head_operation .opera_btn{
     margin-right: 1.5rem;
     width: 10rem;
@@ -532,15 +545,8 @@ a:hover, a:focus{
     width: 14rem;
     margin-right: 4rem;
 }
-.rc-pagination-jump-prev, .rc-pagination-jump-next{
-    position: relative;
-}
-.rc-pagination-jump-next::after,
-.rc-pagination-jump-prev::after{
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%);
+#head_operation .ant-pagination{
+    margin-top: 1rem;
 }
 /*单元活动*/
 #content_section{
@@ -563,7 +569,7 @@ a:hover, a:focus{
 #content_section .con_item.hover{
     width: 182rem !important;
     height: 11.6rem;
-    box-shadow: 0 0 6.2rem rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 6.2rem rgba(0, 0, 0, 0.3);
 }
 .item_check, .item_img, .item_num, .item_name, .item_people, .item_time, .item_address, .item_pub{
     height: 100%;
@@ -611,7 +617,224 @@ a:hover, a:focus{
     width: 25rem;
 }
 
-/********************RaceManage / ActivityManage板块-END*************************/
+/********************RaceManage / ActivityManage list板块-END*************************/
+
+/********************RaceManage / ActivityManage main板块-START*************************/
+
+#race_main,
+#activity_main{
+    padding: 2rem 3rem;
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#intro_section{
+    padding: 4rem 0 0 4rem;
+    width: 80rem;
+    height: 125rem;
+    background: #fff;
+    box-sizing: border-box;
+}
+#competitor_section{
+    width: 103rem;
+    height: 125rem;
+    background: rgb(244, 244, 244);
+}
+#intro_basic{
+    width: 100%;
+    height: 30rem;
+
+    display: flex;
+}
+#basic_img{
+    width: 48rem;
+    height: 30rem;
+}
+#basic_img img{
+    width: 100%;
+    height: 100%;
+}
+#basic_text{
+    padding: 2rem 0 0 3rem;
+}
+.text_item{
+    margin-bottom: 4rem;
+}
+.item_header{
+    margin-bottom: 2rem;
+
+    display: flex;
+    align-items: center;
+}
+.item_header .icon{
+    margin-right: 1rem;
+    width: 2.5rem;
+}
+.item_header span{
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+.item_body{
+    margin-bottom: 1rem;
+    font-size: 1.6rem;
+
+    display: flex;
+    flex-direction: column;
+}
+#intro_body{
+    margin-top: 6.5rem;
+}
+#intro_body .body_title{
+    margin-bottom: 2.5rem;
+    font-size: 2.4rem;
+    font-weight: 700;
+}
+#competitor_top{
+    margin-bottom: 3rem;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+}
+.top_part{
+    width: 50rem;
+    height: 35rem;
+    background: #fff;
+}
+#competitor_bottom{
+    padding: 1.5rem;
+    width: 100%;
+    height: 87rem;
+    background: #fff;
+    box-sizing: border-box;
+}
+#competitor_bottom span{
+    font-weight: 500;
+}
+#competitor_bottom .item_body{
+    padding: 0 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+#competitor_bottom .body_row{
+    cursor: pointer;
+}
+.item_body .body_row{
+    margin-bottom: 2rem;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.body_row .row_column.title{
+    color: #3b3b3b;
+    font-weight: 700;
+    font-size: 1.6rem;
+}
+.body_row .row_column{
+    flex: 1;
+
+    font-size: 1.4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    
+}
+.row_column img{
+    margin-right: 1rem;
+    width: 3.4rem;
+    height: 3.4rem;
+    border-radius: 50%;
+}
+.top_part{
+    position: relative;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+.top_part .item_header span{
+    font-weight: 500;
+} 
+.top_part .item_body{
+    padding-left: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+#top_left .item_header{
+    position: absolute;
+}
+.body_row.hover{
+    width: 93.2rem !important;
+    height: 4rem;
+    box-shadow: 0 0 3.1rem rgba(0, 0, 0, 0.3);
+}
+.compete_modal .ant-modal-content{
+    padding: 2.9rem 5.1rem;
+    box-sizing: border-box;
+}
+.compete_modal .ant-modal-header,
+.compete_modal .ant-modal-footer{
+    border: none;
+}
+.compete_modal .ant-modal-title{
+    font-size: 2.4rem;
+    font-weight: 700;
+}
+.compete_modal .ant-modal-body{
+    margin-top: 1rem;
+    padding: 2.4rem 0;
+}
+.modal_text_item{
+    margin-bottom: 2.5rem;
+    font-size: 2rem;
+
+    display: flex;
+    align-items: center;
+}
+.item_basic{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    flex: 3;
+    display: flex;
+    justify-content: center;
+}
+.item_basic.item_basic_small{
+    flex: 2;
+}
+.modal_text_item.modal_padding{
+    padding-left: 5rem;
+}
+.item_record{
+    margin-right: 13rem;
+}
+.modal_text_item.modal_profile{
+    margin-bottom: 0;
+    padding-right: 5rem;
+
+    flex-direction: column;
+    align-items: flex-start;
+}
+.modal_text_item.modal_profile p:nth-child(2){
+    font-size: 1.6rem;
+    height: 16rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.compete_modal  .ant-modal-footer div{
+    text-align: center;
+}
+.compete_modal  .ant-modal-footer div button{
+    margin-right: 1.5rem;
+    width: 14rem;
+    height: 4rem;
+    font-size: 1.6rem;
+}
+
+/********************RaceManage / ActivityManage main板块-END*************************/
 
 /********************Elite板块-START*************************/
 

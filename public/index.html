@@ -5,7 +5,6 @@
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-	<script src="jquery.js"></script>
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -21,6 +20,7 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>后台管理系统</title>
+    
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -35,10 +35,25 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script src="/jquery.js"></script>
     <!-- 引入富文本编辑器 -->
-    <script src="wangEditor/wangEditor.js"></script>
-    <script src="base.js"></script>
+    <script src="/wangEditor/wangEditor.js"></script>
+    <script src="/base.js"></script>
     <!-- 引入百度地图 -->
     <script src="http://api.map.baidu.com/api?v=2.0&ak=ALfgIvqG9ISrNWRRbYHIvS8xGz4MR1Xt"></script>
+    <script>
+      (function (doc, win) {
+          var docE1 = doc.documentElement,
+              resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+              recalc = function() {
+                  var clientWidth = docE1.clientWidth;
+                  if(!clientWidth) return;
+                  docE1.style.fontSize = 10 * (clientWidth / 1920) + 'px';
+              }
+          if(!doc.addEventListener) return;
+          win.addEventListener(resizeEvt, recalc, false);
+          doc.addEventListener('DOMContentLoaded', recalc, false);
+      })(document, window);
+    </script>
   </body>
 </html>
