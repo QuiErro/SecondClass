@@ -5,13 +5,12 @@ import * as constants from "./Store/actionTypes";
 
 import LayOut from './Components/LayOut'
 import Login from './Pages/Login/Login'
-import RacePub from './Pages/RacePub/RacePub'
-import ActivityPub from './Pages/ActivityPub/ActivityPub'
+import Publish from './Pages/Publish/Publish'
 import Elite from './Pages/Elite/Elite'
 import StuManage from './Pages/StuManage/StuManage'
 
-import RaceManageRouter from './Pages/RaceManage/router'
 import ActivityManageRouter from './Pages/ActivityManage/router'
+import RaceManageRouter from './Pages/RaceManage/router'
 
 import { message } from 'antd'
 
@@ -30,8 +29,8 @@ class App extends Component {
     let LayOutRouter = (
         <LayOut>
             <Switch>
-                <Route path="/publishrace" component={RacePub}/>
-                <Route path="/publishactivity" component={ActivityPub}/>
+                <Route path="/publishrace" component={Publish}/>
+                <Route path="/publishactivity" component={Publish}/>
                 <Route path="/racemanage" component={RaceManageRouter}/>
                 <Route path="/activitymanage" component={ActivityManageRouter}/>
                 <Route path="/elite" component={Elite}/>

@@ -1,9 +1,16 @@
-html, body{
+﻿html, body{
 	margin: 0;
 	padding: 0;
 	width: auto;
 	height: auto;
+	/*
+	width: 100%;
+	height: 100%;
+	*/
 	font-family: Microsoft YaHei !important;
+}
+body{
+	font-size: 100% !important;
 }
 a{
 	display: inline-block;
@@ -11,109 +18,114 @@ a{
 a:hover, a:focus{
 	text-decoration: none;
 }
+/*
+#root{
+	width: 100%;
+	height: 100%;
+}
+*/
 
 /********************Login板块-START*************************/
 
 #login{
-    width: 1920px;
-    height: 1080px;
+    width: 192rem;
+    height: 108rem;
 	background-color: #fff;
 
     display: flex;
 }
 /*左半部分*/
 #img_section{
-    width: 1000px;
+    width: 100rem;
     height: 100%;
     background-color: rgb(225, 237, 253);
 }
 /*左上logo*/
 #img_logo{
-    padding: 24px 0 0 24px;
+	padding: 2.4rem 0 0 2.4rem;
     width: 100%;
     box-sizing: border-box;
 }
 #img_logo img{
-    width: 300px;
+    width: 30rem;
 }
 /*左部背景图*/
 #img_bg{
-	margin-top: 60px;
-    padding-left: 180px;
+	margin-top: 6rem;
+    padding-left: 18rem;
     width: 100%;
-    height: 860px;
+	height: 79.6%;
     box-sizing: border-box;
 }
 #img_bg img{
-    width: 600px;
+    width: 60rem;
 }
 /*右半部分*/
 #msg_section{
-    width: 920px;
+    width: 92rem;
     height: 100%;
 }
 /*标题*/
 #msg_slogan{
-    margin-top: 286px;
-    padding-left: 198px;
+    margin-top: 28.6rem;
+    padding-left: 19.8rem;
     width: 100%;
-    font-size: 30px;
+    font-size: 3rem;
     color: rgb(41, 129, 240);
     box-sizing: border-box;
 }
 /*登录信息表*/
 #msg_form{
-    padding-left: 198px;
+    padding-left: 19.8rem;
     width: 100%;
-    font-size: 16px;
+    font-size: 1.6rem;
     color: rgb(187, 187, 187);
     box-sizing: border-box;
 }
 #msg_form div:nth-child(1){
-    margin-top: 80px;
-    margin-bottom: 70px;
+    margin-top: 8rem;
+    margin-bottom: 6rem;
 }
 #msg_form .input-control{
-    width: 490px;
+    width: 49rem;
 }
 #msg_form .ant-input{
-    padding: 10px 30px 10px 45px;
-    width: 490px;
-    height: 50px;
-    font-size: 16px;
+    padding: 1.2rem 3rem 1rem 4.5rem;
+    width: 49rem;
+    font-size: 1.6rem;
     color: rgb(187, 187, 187);
     box-sizing: border-box;
 }
 .input-control .ant-input-prefix img{
-    width: 25px;
-    height: 25px;
+    width: 2.5rem;
+    height: 2.5rem;
 }
 #msg_form .remember_pwd{
-    margin-top: 60px;
+    margin-top: 6rem;
 }
 .remember_pwd span{
-    margin-right: 10px;
+    margin-right: 1rem;
     padding: 0;
-    font-size: 16px;
+    font-size: 1.6rem;
     color: rgb(187, 187, 187);
 }
 .remember_pwd .ant-checkbox{
-    width: 20px;
-    height: 20px;
+    width: 2rem;
+    height: 2rem;
 }
 .remember_pwd .ant-checkbox-inner{
-    width: 20px;
-    height: 20px;
+    width: 2rem;
+    height: 2rem;
 }
 #msg_form button{
-    margin-top: 50px;
-    width: 490px;
-    height: 50px;
+    margin-top: 5rem;
+    width: 49rem;
+    height: 5rem;
     text-align: center;
-    line-height: 50px;
+    line-height: 5rem;
     color: #fff;
     background-color: rgb(41, 129, 240);
-    border-radius: 5px;
+    border-radius: .5rem;
     border: none;
     outline: none;
 }
@@ -123,104 +135,103 @@ a:hover, a:focus{
 /********************LayOut板块-START*************************/
 
 #layout{
-    width: 1920px;
+    width: 192rem;
     background-color: rgb(238, 238, 238);
 }
 #header{
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
     width: 100%;
-    height: 75px;
+    height: 7.5rem;
     background-color: #fff;
-    box-shadow: 2px 2px 5px rgb(229, 229, 229);
+    box-shadow: .2rem .2rem .5rem rgb(229, 229, 229);
 
     display: flex;
     align-items: center;
 }
 /*图标*/
 #header .icon_section{
-    width: 762px;
+    width: 76.2rem;
     height: 100%;
-	line-height: 75px;
+	line-height: 7.5rem;
 }
 .icon_section img{
-	margin-left: 60px;
-	width: 40px;
-	height: 45px;	
+	margin-left: 6rem;
+	width: 4rem;
+	height: 4.5rem;	
 }
 /*导航链接*/
 #header .choice_section{
-    width: 1018px;
+    width: 101.8rem;
     height: 100%;
 }
 #header .ant-menu{ 
-    height: 75px;
-    line-height: 75px;
-    border: none;
+    height: 7.5rem;
+    line-height: 7.5rem;
 }
-#header .ant-menu .ant-menu-item{
+.ant-menu .ant-menu-item{
     position: relative;
-    width: 158px;
-    height: 70px;
-	line-height: 70px;
+    width: 15.8rem;
+    height: 7rem;
+	line-height: 7rem;
     text-align: center;
-    font-size: 21px;
+    font-size: 2.1rem;
     font-weight: bolder;
 }
-#header .ant-menu .ant-menu-item-selected,
-#header .ant-menu .ant-menu-item-active{
+.ant-menu .ant-menu-item-selected,
+.ant-menu .ant-menu-item-active{
     border-color: transparent !important;
 }
-#header .ant-menu .ant-menu-item-selected::after,
-#header .ant-menu .ant-menu-item-active::after{
+.ant-menu .ant-menu-item-selected::after,
+.ant-menu .ant-menu-item-active::after{
     position: absolute;
-    bottom: 2px;
-    left: 59px;
+    bottom: 1px;
+    left: 5.9rem;
     content: '';
-    width: 40px;
-    height: 3px;
+    width: 4rem;
+    height: .3rem;
     background-color: #1890ff;
 }
-#header .ant-menu-item a{
+.ant-menu-item a{
     color: rgb(146, 148, 156) !important;
     text-decoration: none !important;
 }
-#header .ant-menu-item a:hover{
+.ant-menu-item a:hover{
     text-decoration: none;
     color: #1890ff !important;
 }
-#header .ant-menu-item-selected a{
+.ant-menu-item-selected a{
     color: #1890ff !important;
 }
 
 /*退出登录*/
 #header .logout_section{
-    width: 140px;
-    height: 75px;
+    width: 14rem;
+    height: 7.5rem;
 }
 .logout_section button{
-    margin-top: 17px;
-    width: 110px;
-    height: 40px;
-    line-height: 40px;
-    font-size: 18px;
+    margin-top: 1.7rem;
+    width: 11rem;
+    height: 4rem;
+    line-height: 4rem;
+    font-size: 1.8rem;
     background-color: rgb(0, 154, 235);
 }
 /*主区域*/
 #main{
     width: 100%;
-    height: 1330px;
+    height: 133rem;
     background-color: rgb(244, 244, 244);
     box-sizing: border-box;
 }
 .ant-empty{
-	margin-top: 100px;
+	margin-top: 10rem;
 }
 .ant-empty svg{
-	width: 240px;
-	height: 200px;
+	width: 24rem;
+	height: 20rem;
 }
 .ant-empty-description{
-	margin-top: 100px;
+	margin-top: 10rem;
 }
 
 /********************LayOut板块-END*************************/
@@ -231,26 +242,24 @@ a:hover, a:focus{
 #activity_pub,
 #race_edit,
 #activity_edit{
-    padding: 20px 30px 50px;
-    box-sizing: border-box;
-
+    padding: 2rem 3rem 5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 /*左半部分*/
 #graph_part{
-    padding: 60px 55px;
-    width: 560px;
-    height: 1250px;
+    padding: 6rem 5.5rem;
+    width: 56rem;
+    height: 125rem;
     background-color: #fff;
     box-sizing: border-box;
 }
 /*右半部分*/
 #text-part{
-    padding: 110px 55px;
-    width: 1270px;
-    height: 1250px;
+    padding: 11rem 5.5rem;
+    width: 125rem;
+    height: 125rem;
     background-color: #fff;
     box-sizing: border-box;
 }
@@ -260,35 +269,35 @@ a:hover, a:focus{
 }
 /*版块标题*/
 .section_title{
-    margin-bottom: 25px;
+    margin-bottom: 2.5rem;
     padding: 0;
     width: 100%;
-    height: 30px;
+    height: 3rem;
 
     display: flex;
     align-items: center;
 }
 .section_title span{
     display: inline-block;
-    width: 8px;
-    height: 30px;
+    width: .8rem;
+    height: 3rem;
     background-color: rgb(0, 154, 235);
 }
 .section_title h3{
-    margin: 0 10px;
-    font-size: 24px;
+    margin: 0 1rem;
+    font-size: 2.4rem;
     font-weight: bolder;
 }
 /*比赛封面*/
 #cover_section{
-    margin-bottom: 50px;
-    height: 400px;
+    margin-bottom: 5rem;
+    height: 40rem;
 }
 #cov_image{
     position: relative;
-    margin-bottom: 20px;
-    width: 450px;
-    height: 280px;
+    margin-bottom: 2rem;
+    width: 45rem;
+    height: 28rem;
 }
 #cov_image .mask{
     position: absolute;
@@ -298,7 +307,7 @@ a:hover, a:focus{
     height: 100%;
     z-index: 999;
     background-color: transparent;
-    border: 35px solid rgba(0, 0, 0, 0.2);
+    border: 3.5rem solid rgba(0, 0, 0, 0.2);
 }
 #cov_image img{
     width: 100%;
@@ -310,106 +319,109 @@ a:hover, a:focus{
     justify-content: space-between;
 }
 #cov_operation > button{
-    width: 150px;
-    height: 45px;
-    font-size: 16px;
+    width: 15rem;
+    height: 4.5rem;
+    font-size: 1.6rem;
 }
 #cov_operation div button{
-    width: 100px;
-    height: 45px;
-    font-size: 18px;
+    width: 10rem;
+    height: 4.5rem;
+    font-size: 1.8rem;
 }
 #cov_operation div .ant-btn-primary{
-    margin-right: 20px;
+    margin-right: 2rem;
     background-color: rgb(0, 154, 235);
 }
 /*地址*/
 #address_section{
-    margin-bottom: 50px;
+    margin-bottom: 5rem;
 }
 #address_section #add_text .ant-input{
-    width: 450px;
-    height: 45px;
-    font-size: 18px;
-    padding: 10px 50px 10px 50px;
+    width: 45rem;
+    height: 4.5rem;
+    font-size: 1.8rem;
+    padding: 1rem 5rem 1rem 5rem;
     box-sizing: border-box;
 }
 #add_text .ant-input-prefix{
-    left: 15px;
-    width: 20px;
-    height: 20px;
+    left: 1.5rem;
+    width: 2rem;
+    height: 2rem;
 }
 .ant-input-prefix img{
     width: 100%;
     height: 100%;
 }
 #add_map{
-    margin-top: 20px;
-    width: 450px;
-    height: 280px;
+    margin-top: 2rem;
+    width: 45rem;
+    height: 28rem;
 }
 #searchResultPanel{
     display: none;
-    width: 150px;
+    width: 15rem;
     height: auto;
-    border: 1px solid #C0C0C0;
+    border: .1rem solid #C0C0C0;
 }
 /*活动时间*/
 #date_section{
     width: 100%;
 }
 #date_section .select_part{
-    margin-bottom: 25px;
+    margin-bottom: 2.5rem;
     width: 100%;
 }
 .select_part h4{
-    margin-bottom: 15px;
-    font-size: 18px;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
 }
 .select_part .ant-calendar-picker{
     width: 100% !important;
 }
+.ant-calendar-picker-container{
+	z-index: 10001;
+}
 /*比赛类型*/
 #type_section{
-    height: 120px;
-    margin-bottom: 50px;
+    height: 12rem;
+    margin-bottom: 6rem;
 }
 #type_checkbox{
-    width: 400px;
+    width: 40rem;
 }
 #type_checkbox .ant-checkbox-group{
     width: 100%;
 }
 #type_checkbox .ant-col{
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
 }
 #type_checkbox .ant-checkbox,
 #type_checkbox .ant-checkbox-input,
 #type_checkbox .ant-checkbox-inner{
-    width: 20px;
-    height: 20px;
+    width: 2rem;
+    height: 2rem;
 }
 #type_checkbox .ant-checkbox + span{
-    padding-left: 20px;
-    font-size: 18px;
+    padding-left: 2rem;
+    font-size: 1.8rem;
     font-weight: lighter;
 }
 /*富文本编辑器*/
 #content_section{
-    height: 775px;
+    height: 77.5rem;
 }
 #cont_title{
-    padding: 30px 20px;
-    height: 80px;
-    border: 1px solid #ccc;
+    padding: 2rem 2rem;
+    height: 8rem;
+    border: .1rem solid #ccc;
     border-bottom: none;
-    border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
+    border-top-left-radius: .7rem;
+    border-top-right-radius: .7rem;
     box-sizing: border-box;
 }
 #cont_title input{
-    padding: 20px;
-    font-size: 22px;
+    padding: 1rem;
+    font-size: 2.2rem;
     font-weight: bolder;
     color: rgba(51, 51, 51, 0.884);
     border: none;
@@ -419,28 +431,28 @@ a:hover, a:focus{
     border-color: #fff;
 }
 #cont_editor .w-e-text-container{
-    height: 600px !important;
-	font-size: 15px;
+    height: 60rem !important;
+	font-size: 1.5rem;
 }
 #cont_editor .w-e-toolbar{
-	height: 50px;
+	height: 5rem;
 }
 #cont_editor .w-e-menu{
-	padding: 17px;
+	padding: 1.7rem;
 }
 #cont_editor .w-e-menu i{
-	font-size: 15px;
+	font-size: 1.5rem;
 }
 #btn_section{
-    margin-top: 80px;
+    margin-top: 8rem;
     text-align: center;
 }
 #btn_section button{
-    width: 140px;
-    height: 45px;
-    font-size: 18px;
+    width: 14rem;
+    height: 4.5rem;
+    font-size: 1.8rem;
     text-align: center;
-    line-height: 45px;
+    line-height: 4.5rem;
     background-color: rgb(0, 154, 235);
 }
 
@@ -449,20 +461,20 @@ a:hover, a:focus{
 /********************RaceManage / ActivityManage list板块-START*************************/
 
 #race_manage{
-    padding: 10px 30px 50px;
+    padding: 1rem 3rem 5rem;
     width: 100%;
     box-sizing: border-box;
 }
 #activity_manage{
-    padding: 10px 30px 50px;
+    padding: 1rem 3rem 5rem;
     width: 100%;
     box-sizing: border-box;
 }
 /*主体头部*/
 #header_section {
-    padding: 0 40px 0 20px;
+    padding: 0 4rem 0 2rem;
     width: 100%;
-    height: 50px;
+    height: 5rem;
 
     display: flex;
     justify-content: space-between;
@@ -471,19 +483,19 @@ a:hover, a:focus{
 /*导航链接*/
 #head_menu .ant-menu{ 
     padding: 0;
-    height: 50px;
-    line-height: 50px;
+    height: 5rem;
+    line-height: 5rem;
     border: none;
     background-color: transparent;
 }
 #head_menu .ant-menu .ant-menu-item{
     position: relative;
     padding: 0;
-    width: 100px;
-    height: 50px;
-    line-height: 50px;
+    width: 10rem;
+    height: 5rem;
+    line-height: 5rem;
     text-align: center;
-    font-size: 20px;
+    font-size: 2rem;
 }
 #head_menu .ant-menu .ant-menu-item-selected,
 #head_menu .ant-menu .ant-menu-item-active{
@@ -494,10 +506,10 @@ a:hover, a:focus{
 #head_menu .ant-menu .ant-menu-item-active::after{
     position: absolute;
     bottom: 0;
-    left: 34px;
+    left: 3.4rem;
     content: '';
-    width: 32px;
-    height: 3px;
+    width: 3.2rem;
+    height: .3rem;
     background-color: #009AE8;
 }
 #head_menu .ant-menu-item a{
@@ -516,10 +528,10 @@ a:hover, a:focus{
     display: flex;
 }
 #head_operation .opera_btn{
-    margin-right: 15px;
-    width: 100px;
-    height: 40px;
-    font-size: 20px;
+    margin-right: 1.5rem;
+    width: 10rem;
+    height: 4rem;
+    font-size: 2rem;
 }
 .opera_btn.btn_edit, .opera_btn.btn_publish{
     border-color: #009AE8;
@@ -530,35 +542,34 @@ a:hover, a:focus{
     color: #D9001B;
 }
 #head_operation .opera_btn.btn_unpublish{
-    width: 140px;
-    margin-right: 40px;
+    width: 14rem;
+    margin-right: 4rem;
 }
 #head_operation .ant-pagination{
-    margin-top: 10px;
+    margin-top: 1rem;
 }
 /*单元活动*/
 #content_section{
-    margin-top: 45px;
+    margin-top: 4.5rem;
 }
 #content_section .con_item{
-    margin: 0 auto 2px;
-    width: 1780px;
-    height: 100px;
-    font-size: 18px;
+    margin: 0 auto .2rem;
+    width: 178rem;
+    height: 10rem;
+    font-size: 1.8rem;
     font-weight: 700;
     border: 1px solid rgb(215, 215, 215);
-    border-radius: 3px;
+    border-radius: .3rem;
     background: #fff;
-    cursor: pointer;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 #content_section .con_item.hover{
-    width: 1820px !important;
-    height: 116px;
-    box-shadow: 0 0 62px rgba(0, 0, 0, 0.3);
+    width: 182rem !important;
+    height: 11.6rem;
+    box-shadow: 0 0 6.2rem rgba(0, 0, 0, 0.3);
 }
 .item_check, .item_img, .item_num, .item_name, .item_people, .item_time, .item_address, .item_pub{
     height: 100%;
@@ -568,25 +579,25 @@ a:hover, a:focus{
     align-items: center;
 }
 .item_num{
-    width: 100px;
+    width: 10rem;
 }
 .item_check .ant-checkbox{
-    width: 20px;
-    height: 20px;
+    width: 2rem;
+    height: 2rem;
 }
 .item_check .ant-checkbox-inner{
-    width: 20px;
-    height: 20px;
+    width: 2rem;
+    height: 2rem;
 }
 .item_img{
-    width: 160px;
+    width: 16rem;
 }
 .item_img img{
-    width: 80px;
-    height: 50px;
+    width: 8rem;
+    height: 5rem;
 }
 .item_name{
-    width: 630px;
+    width: 63rem;
     justify-content: flex-start;
 }
 .item_people, .item_time, .item_address, .item_pub{
@@ -594,25 +605,25 @@ a:hover, a:focus{
     font-weight: 400;
 }
 .item_people{
-    width: 150px;
+    width: 15rem;
 }
 .item_time{
-    width: 200px;
+    width: 20rem;
 }
 .item_address{
-    width: 270px;
+    width: 27rem;
 }
 .item_pub{
-    width: 250px;
+    width: 25rem;
 }
 
-/********************RaceManage / ActivityManage板块-END*************************/
+/********************RaceManage / ActivityManage list板块-END*************************/
 
 /********************RaceManage / ActivityManage main板块-START*************************/
 
 #race_main,
 #activity_main{
-    padding: 20px 30px;
+    padding: 2rem 3rem;
     box-sizing: border-box;
 
     display: flex;
@@ -620,82 +631,82 @@ a:hover, a:focus{
     align-items: center;
 }
 #intro_section{
-    padding: 40px 0 0 40px;
-    width: 800px;
-    height: 1250px;
+    padding: 4rem 0 0 4rem;
+    width: 80rem;
+    height: 125rem;
     background: #fff;
     box-sizing: border-box;
 }
 #competitor_section{
-    width: 1030px;
-    height: 1250px;
+    width: 103rem;
+    height: 125rem;
     background: rgb(244, 244, 244);
 }
 #intro_basic{
     width: 100%;
-    height: 300px;
+    height: 30rem;
 
     display: flex;
 }
 #basic_img{
-    width: 480px;
-    height: 300px;
+    width: 48rem;
+    height: 30rem;
 }
 #basic_img img{
     width: 100%;
     height: 100%;
 }
 #basic_text{
-    padding: 20px 0 0 30px;
+    padding: 2rem 0 0 3rem;
 }
 .text_item{
-    margin-bottom: 40px;
+    margin-bottom: 4rem;
 }
 .item_header{
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
 
     display: flex;
     align-items: center;
 }
 .item_header .icon{
-    margin-right: 10px;
-    width: 25px;
+    margin-right: 1rem;
+    width: 2.5rem;
 }
 .item_header span{
-    font-size: 18px;
+    font-size: 1.8rem;
     font-weight: 700;
 }
 .item_body{
-    margin-bottom: 10px;
-    font-size: 16px;
+    margin-bottom: 1rem;
+    font-size: 1.6rem;
 
     display: flex;
     flex-direction: column;
 }
 #intro_body{
-    margin-top: 65px;
+    margin-top: 6.5rem;
 }
 #intro_body .body_title{
-    margin-bottom: 25px;
-    font-size: 24px;
+    margin-bottom: 2.5rem;
+    font-size: 2.4rem;
     font-weight: 700;
 }
 #competitor_top{
-    margin-bottom: 30px;
+    margin-bottom: 3rem;
     width: 100%;
 
     display: flex;
     justify-content: space-between;
 }
 .top_part{
-    width: 500px;
-    height: 350px;
+    width: 50rem;
+    height: 35rem;
     background: #fff;
 }
 #competitor_bottom{
-    padding: 15px;
+    padding: 1.5rem;
     width: 100%;
-    height: 870px;
+    height: 87rem;
     background: #fff;
     box-sizing: border-box;
 }
@@ -703,7 +714,7 @@ a:hover, a:focus{
     font-weight: 500;
 }
 #competitor_bottom .item_body{
-    padding: 0 10px;
+    padding: 0 1rem;
     width: 100%;
     box-sizing: border-box;
 }
@@ -711,7 +722,7 @@ a:hover, a:focus{
     cursor: pointer;
 }
 .item_body .body_row{
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
     width: 100%;
 
     display: flex;
@@ -721,33 +732,33 @@ a:hover, a:focus{
 .body_row .row_column.title{
     color: #3b3b3b;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 1.6rem;
 }
 .body_row .row_column{
     flex: 1;
 
-    font-size: 14px;
+    font-size: 1.4rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     
 }
 .row_column img{
-    margin-right: 10px;
-    width: 34px;
-    height: 34px;
+    margin-right: 1rem;
+    width: 3.4rem;
+    height: 3.4rem;
     border-radius: 50%;
 }
 .top_part{
     position: relative;
-    padding: 20px;
+    padding: 2rem;
     box-sizing: border-box;
 }
 .top_part .item_header span{
     font-weight: 500;
 } 
 .top_part .item_body{
-    padding-left: 10px;
+    padding-left: 1rem;
     width: 100%;
     box-sizing: border-box;
 }
@@ -755,12 +766,12 @@ a:hover, a:focus{
     position: absolute;
 }
 .body_row.hover{
-    width: 932px !important;
-    height: 40px;
-    box-shadow: 0 0 31px rgba(0, 0, 0, 0.3);
+    width: 93.2rem !important;
+    height: 4rem;
+    box-shadow: 0 0 3.1rem rgba(0, 0, 0, 0.3);
 }
 .compete_modal .ant-modal-content{
-    padding: 29px 51px;
+    padding: 2.9rem 5.1rem;
     box-sizing: border-box;
 }
 .compete_modal .ant-modal-header,
@@ -768,16 +779,16 @@ a:hover, a:focus{
     border: none;
 }
 .compete_modal .ant-modal-title{
-    font-size: 24px;
+    font-size: 2.4rem;
     font-weight: 700;
 }
 .compete_modal .ant-modal-body{
-    margin-top: 10px;
-    padding: 24px 0;
+    margin-top: 1rem;
+    padding: 2.4rem 0;
 }
 .modal_text_item{
-    margin-bottom: 25px;
-    font-size: 20px;
+    margin-bottom: 2.5rem;
+    font-size: 2rem;
 
     display: flex;
     align-items: center;
@@ -795,21 +806,21 @@ a:hover, a:focus{
     flex: 2;
 }
 .modal_text_item.modal_padding{
-    padding-left: 50px;
+    padding-left: 5rem;
 }
 .item_record{
-    margin-right: 130px;
+    margin-right: 13rem;
 }
 .modal_text_item.modal_profile{
     margin-bottom: 0;
-    padding-right: 50px;
+    padding-right: 5rem;
 
     flex-direction: column;
     align-items: flex-start;
 }
 .modal_text_item.modal_profile p:nth-child(2){
-    font-size: 16px;
-    height: 160px;
+    font-size: 1.6rem;
+    height: 16rem;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -817,10 +828,10 @@ a:hover, a:focus{
     text-align: center;
 }
 .compete_modal  .ant-modal-footer div button{
-    margin-right: 15px;
-    width: 140px;
-    height: 40px;
-    font-size: 16px;
+    margin-right: 1.5rem;
+    width: 14rem;
+    height: 4rem;
+    font-size: 1.6rem;
 }
 
 /********************RaceManage / ActivityManage main板块-END*************************/

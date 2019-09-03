@@ -10,17 +10,21 @@ const _tool = new Tool();
 const { BMap } = window
 const { RangePicker } = DatePicker;
 
-class ActivityPub extends Component {
+class Publish extends Component {
     
     constructor(props) {
         super(props);
 		
-		this.state = {
+        this.state = {
+            // 0--比赛  1--活动
+            isActivity: 0,  
+            // 本地缓存
+            tempObj: {},
             // 封面
             cover_url: '',
             // 是否选中封面
             hasCover: false,
-            // 比赛类型
+            // 比赛/活动类型
             type: [],
             // 位置
             position: '',
@@ -39,12 +43,24 @@ class ActivityPub extends Component {
         }
     }
 
+    componentWillMount(){
+        if(this.props.location.pathname.indexOf('/publishrace') === 0){
+            this.setState({
+                isActivity: 0
+            });
+        }else if(this.props.location.pathname.indexOf('/publishactivity') === 0){
+            this.setState({
+                isActivity: 1
+            });
+        }
+    }
+
     render() {
-		const {cover_url, hasCover, type, position, title} = this.state;
+        const {isActivity, cover_url, hasCover, type, position, title} = this.state;
 
         return (
-            <div id="activity_pub">
-				<div id="graph_part">
+            <div id="race_pub">
+                <div id="graph_part">
                     <div id="cover_section" className="section">
                         <div className="section_title">
                             <span></span>
@@ -93,7 +109,7 @@ class ActivityPub extends Component {
                     <div id="date_section" className="section">
                         <div className="section_title"> 
                             <span></span>
-                            <h3>活动时间</h3>
+                            <h3>{isActivity ? '活动' : '比赛'}时间</h3>
                         </div>
                         <div id="date_select">
                             <div className="select_part">
@@ -121,7 +137,7 @@ class ActivityPub extends Component {
                     <div id="type_section" className="section">
                         <div className="section_title">
                             <span></span>
-                            <h3>活动类型</h3>
+                            <h3>{isActivity ? '活动' : '比赛'}类型</h3>
                         </div>
                         <div id="type_checkbox">
                             <Checkbox.Group 
@@ -167,20 +183,12 @@ class ActivityPub extends Component {
                         <Button type="primary" onClick={ ()=> this._onSubmit() }>提&nbsp;交</Button>
                     </div>
                 </div>
-			</div>
+            </div>
         )
     }
-	
-	componentDidMount() {
-        // 1.0 读取本地缓存信息
-        let tempObj = _tool.getStore('publishActivity');
-        if(tempObj){
-            this.setState({
-                type: tempObj.type || [],
-                title: tempObj.title || "",
-                position: tempObj.position
-            })
-        }
+
+    componentDidMount() {
+        
         // 1.1 配置编辑器             
         let E = window.wangEditor;
         let editor = new E('#cont_editor');
@@ -208,18 +216,29 @@ class ActivityPub extends Component {
                 })
             }
         };
-         // 1.3 监听onchange事件
-         editor.customConfig.onchange = ()=>{
-            _tool.setStore('publishActivity', {
-                content: editor.txt.html()
-            })
+        // 1.3 监听onchange事件
+        editor.customConfig.onchange = ()=>{
+            if(this.state.isActivity){
+                _tool.setStore('publishActivity', {
+                    content: editor.txt.html()
+                })
+            }else{
+                _tool.setStore('publishRace', {
+                    content: editor.txt.html()
+                })
+            }
         }
         // 1.4 创建编辑器
         editor.create();
-        // 1.5 添加本地缓存文本
-        if(tempObj){
-            editor.txt.html(tempObj.content);
-        }
+
+        // 1.5 获取本地缓存 添加本地缓存文本
+        this._getLocalStorage(()=>{
+            let content = "<p><br></p>";
+            if(this.state.tempObj){
+                content = this.state.tempObj.content || "<p><br></p>";
+            }
+            editor.txt.html(content);
+        });
 
         // 2.1 初始化地图
         const map = new BMap.Map('add_map');
@@ -231,16 +250,15 @@ class ActivityPub extends Component {
         map.addOverlay(marker)    // 将标注添加到地图中
         // 监听地图点击事件
         map.addEventListener("click", (e)=>{
-            console.log(e)
             map.clearOverlays(marker);
             marker = new BMap.Marker(e.point)
             map.addOverlay(marker)
         });
 
         // 2.2 建立一个自动完成的对象
-        const ac = new BMap.Autocomplete(    
-            {"input" : "text_content"
-            ,"location" : map
+        const ac = new BMap.Autocomplete({
+            "input" : "text_content",
+            "location" : map
         });
 
         // 监听鼠标放在下拉列表上的事件
@@ -286,8 +304,47 @@ class ActivityPub extends Component {
             local.search(myValue);
         }
     }
-	
-	// 3. 选择日期
+
+    // componentWillReceiveProps 监听路由变化
+    componentWillReceiveProps(nextProps) {
+        let flag;
+        if(nextProps.location.pathname.indexOf('/publishrace') === 0){
+            flag = 0;
+        }else if(nextProps.location.pathname.indexOf('/publishactivity') === 0){
+            flag = 1;
+        }
+        this.setState({
+            isActivity: flag
+        }, ()=>{
+            this._getLocalStorage(()=>{
+                let content = "<p><br></p>";
+                if(this.state.tempObj){
+                    content = this.state.tempObj.content || "<p><br></p>";
+                }
+                this.state.editor.txt.html(content);
+            });
+        })
+    }
+
+    // 1. 获取本地缓存
+    _getLocalStorage(callback){
+        let tempObj;
+        if(this.state.isActivity){
+            tempObj = _tool.getStore('publishActivity') || {};
+        }else{
+            tempObj = _tool.getStore('publishRace') || {};
+        }
+        this.setState({
+            tempObj,
+            type: tempObj.type || [],
+            title: tempObj.title || "",
+            position: tempObj.position || ""
+        }, ()=>{
+            callback && callback();
+        })
+    }
+
+    // 2. 选择日期
     _onDateChange(value, dateString, flag) {
         if(flag === 'signIn'){
             this.setState({
@@ -302,7 +359,7 @@ class ActivityPub extends Component {
         }
     }
 
-    // 4. 比赛类型选择
+    // 3. 比赛类型选择
     _onTypeChange(checkedValues) {
         let tempArr = [];
         if(checkedValues.length){
@@ -311,29 +368,35 @@ class ActivityPub extends Component {
         this.setState({
             type: tempArr
         })
-        _tool.setStore('publishActivity', {
-            type: tempArr
-        })
+        if(this.state.isActivity){
+            _tool.setStore('publishActivity', {
+                type: tempArr
+            })
+        }else{
+            _tool.setStore('publishRace', {
+                type: tempArr
+            })
+        }
     }
 
-    // 5. 上传图片（富文本编辑器）
+    // 4. 上传图片（富文本编辑器）
     _fileBtnClick(){
         this.refs.cover_url.click();
     }
 
-    // 6. 输入框内容发生改变
+    // 5. 输入框内容发生改变
     _onInputChange(e, flag){
-        // 6.1 获取用户输入的数据
+        // 5.1 获取用户输入的数据
         let inputValue = e.target.value;
         let inputName = e.target.name;
 
-        // 6.2 处理图片（readFile）
+        // 5.2 处理图片（readFile）
         if(flag === 'file'){
 			if(e.target.files[0].size / 1024 / 1024 > 1){
 				message.warning('图片大小不得超过1MB！');
 				this.refs.cover_url.value = [];
 				return;
-			}
+            }
             inputValue = '';
             _tool.fileToBase64Url(e.target.files[0], (src)=>{
                 inputValue = src;
@@ -347,12 +410,18 @@ class ActivityPub extends Component {
         this.setState({
             [inputName]: inputValue
         })
-        _tool.setStore('publishActivity', {
-            [inputName]: inputValue
-        })
+        if(this.state.isActivity){
+            _tool.setStore('publishActivity', {
+                [inputName]: inputValue
+            })
+        }else{
+            _tool.setStore('publishRace', {
+                [inputName]: inputValue
+            })
+        }
     }
 
-    // 7. 撤销封面
+    // 6. 撤销封面
     _cancelCover(){
         this.refs.cover_url.value = [];
         this.setState({
@@ -361,22 +430,22 @@ class ActivityPub extends Component {
         })
     }
 
-    // 8. 提交formData
+    // 7. 提交formData
     _onSubmit(){
-        let {editor, title, signIn_end, signIn_start, signUp_end, signUp_start, position, type} = this.state;
-        // 8.1 取出编辑器文本
+        let {isActivity, editor, title, signIn_end, signIn_start, signUp_end, signUp_start, position, type} = this.state;
+        // 7.1 取出编辑器文本
         let content = editor.txt.html();
-        // 8.2 取出封面文件
+        // 7.2 取出封面文件
         let file = this.refs.cover_url.files[0];
-		// 8.3 处理type (array => string)
+		// 7.3 处理type (array => string)
 		let tempType = type[0];
-		// 8.4 判断各信息是否为空
+		// 7.4 判断各信息是否为空
 		if(!title || !signIn_end || !signIn_start || !signUp_end || !signUp_start || !position || !tempType || (content === "<p><br></p>") || !file){
 			message.warning('请确认输入的信息是否完整！');
 		}else{
-			// 8.5 创建FormData对象
+			// 7.5 创建FormData对象
             let formData = new FormData();
-            formData.append('is_activity', 1);
+            formData.append('is_activity', isActivity);
 			formData.append('title', title);
 			formData.append('body', content);
 			formData.append('image', file);
@@ -385,13 +454,12 @@ class ActivityPub extends Component {
 			formData.append('signUp_end', signUp_end);
 			formData.append('signUp_start', signUp_start);
 			formData.append('position', position);
-			formData.append('type', tempType);
-			// 8.6 提交数据 网络请求
+            formData.append('type', tempType);
+			// 7.6 提交数据 网络请求
 			newClassroom(formData).then((res)=>{
-				console.log(res)
 				if(res.status === 0){
 					editor.txt.clear();
-                    message.success("活动创建成功")
+                    message.success(`${isActivity ? '活动' : '比赛'}创建成功`);
                     this.refs.cover_url.value = [];
                     this.setState({
                         hasCover: false,
@@ -400,16 +468,20 @@ class ActivityPub extends Component {
                         position: '', 
                         type: []
                     })
-                    // 清除缓存的localStorage数据
-                    _tool.removeStore('publishActivity');
+                    // 7.7清除缓存的localStorage数据
+                    if(isActivity){
+                        _tool.removeStore('publishActivity');
+                    }else{
+                        _tool.removeStore('publishRace');
+                    }
 				}else{
-					message.error("活动创建失败")
+					message.error(`${isActivity ? '活动' : '比赛'}创建失败`)
 				}
 			}).catch((error)=>{
 				console.log(error);
 			})
 		}	
-    }  
+    }   
 }
 
-export default connect(null, null)(ActivityPub);
+export default connect(null, null)(Publish);
