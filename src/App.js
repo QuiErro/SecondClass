@@ -11,6 +11,7 @@ import StuManage from './Pages/StuManage/StuManage'
 
 import ActivityManageRouter from './Pages/ActivityManage/router'
 import RaceManageRouter from './Pages/RaceManage/router'
+import StuManageRouter from './Pages/StuManage/router'
 
 import { message } from 'antd'
 
@@ -34,7 +35,7 @@ class App extends Component {
                 <Route path="/racemanage" component={RaceManageRouter}/>
                 <Route path="/activitymanage" component={ActivityManageRouter}/>
                 <Route path="/elite" component={Elite}/>
-                <Route path="/stumanage" component={StuManage}/>
+                <Route path="/stumanage" component={StuManageRouter}/>
                 <Redirect to="/publishrace" />
             </Switch>
         </LayOut>

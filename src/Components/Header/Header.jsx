@@ -7,6 +7,7 @@ import { message, Button, Menu, Modal } from 'antd'
 import logo_search from './../../Common/images/logo_search.png'
 
 const _tool = new Tool(); 
+let headerTitle = '';
 
 class Header extends Component {
 
@@ -28,7 +29,10 @@ class Header extends Component {
         return (
             <div id="header">
                 <div className="icon_section">
-					<img src={logo_search} alt=""/>
+                    <img src={logo_search} alt=""/>
+                    {
+                        
+                    }
 				</div>
                 <div className="choice_section">
                     <Menu onClick={ (e)=>this._menuClick(e) } selectedKeys={[this.state.current]} mode="horizontal">
@@ -88,7 +92,22 @@ class Header extends Component {
             },
         });
     }
+    
+    // 3.遍历 headerData 生成标题
+    _initHeaderTitle(headerData){
+        headerTitle += headerData.data;
+        if(headerData.children){
+            this._initHeaderTitle(headerData.children)
+        }
+    }
+    
 }
+
+/*const mapStateToProps = (state)=>{
+    return {
+        headerData: state.headerData
+    }
+};*/
 
 const mapDispatchToProps = (dispatch)=>{
     return {

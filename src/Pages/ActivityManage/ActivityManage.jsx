@@ -2,9 +2,10 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getActivityNumAction, getActivityDataAction} from '../../Store/actionCreators'
 import {hideClassroom, showClassroom, deleteClassroom} from './../../Api/index'
-import { message, Button, Menu, Checkbox, Modal, Empty } from 'antd'
+import { message, Button, Menu, Checkbox, Modal, Empty, Input} from 'antd'
 import SPagination from './../../Components/Pagination/SPagination'
 import Tool from './../../Components/Tool/Tool'
+import search_icon from './../../Common/images/search_icon.png'
 
 const _tool = new Tool();    
 
@@ -21,6 +22,9 @@ class ActivityManage extends Component {
             pageNum: 1,     // 当前页码
             total: 0,       // 数据总数
             pageSize: 10,   // 每页数据量
+            isShowUnpublish: false,  // 是否显示取消发布对话框
+            isShowDelete: false,     // 是否显示删除对话框
+            isShowPublish: false,    // 是否显示重新发布对话框
         };
     }
 
@@ -61,7 +65,7 @@ class ActivityManage extends Component {
     }
 
     render() {
-        const {checked, pageNum, total, pageSize, flagCount} = this.state;
+        const {checked, pageNum, total, pageSize, flagCount, isShowUnpublish, isShowPublish, isShowDelete, ActivityItem} = this.state;
         return (
             <div id="activity_manage">
                 <div id="header_section">
@@ -86,6 +90,14 @@ class ActivityManage extends Component {
                             onChange={(pageNum)=>this._onPageNumChange(pageNum)}
                         />
                     </div>
+                </div>
+                <div id="search_section">
+                    <Input
+                        placeholder="请输入活动标题"
+                        suffix={
+                            <img src={search_icon} alt="" />
+                        }
+                    />
                 </div>
                 <div id="content_section" className="items_container">
                     { this.props.activityData && this.props.activityData.length>0 ? 
@@ -119,6 +131,42 @@ class ActivityManage extends Component {
                         })  : <Empty />
                     }
                 </div>
+                <Modal
+                    title="取消发布"
+                    centered
+                    visible={isShowUnpublish}
+                    cancelText='取消'
+                    okText='确定'
+                    onOk={() => this._setModalUnpublish()}
+                    onCancel={() => this._hideModal('isShowUnpublish')}
+                >
+                    <p>是否取消{ActivityItem.title}的发布</p>
+                    <p>取消后将不会在推荐页上显示！！！</p>
+                </Modal>
+                <Modal
+                    title="发布"
+                    centered
+                    visible={isShowPublish}
+                    cancelText='取消'
+                    okText='确定'
+                    onOk={() => this._setModalPublish()}
+                    onCancel={() => this._hideModal('isShowPublish')}
+                >
+                    <p>是否重新发布{ActivityItem.title}</p>
+                    <p>发布后将会在推荐页上显示！！！</p>
+                </Modal>
+                <Modal
+                    title="删除"
+                    centered
+                    visible={isShowDelete}
+                    cancelText='取消'
+                    okText='确定'
+                    onOk={() => this._setModalDelete()}
+                    onCancel={() => this._hideModal('isShowDelete')}
+                >
+                    <p>是否删除{ActivityItem.title}</p>
+                    <p>删除后一切都会消失，请慎重！！！</p>
+                </Modal>
             </div>
         )
     }
@@ -210,23 +258,23 @@ class ActivityManage extends Component {
         if(!this.state.ActivityItem.id){
             return;
         }
-        Modal.confirm({
-            title: '提示',
-            content: '您确定删除该活动吗？',
-            cancelText: '取消',
-            okText: '确定',
-            onOk: ()=>{
-                deleteClassroom(this.state.ActivityItem.id).then((res)=>{
-                    if(res.status === 0){
-                        message.success('删除成功');
-                        this.setState({
-                            checked: 0,
-                            ActivityItem: {}
-                        });
-                        this.props.reqActivityList(this.state.current, this.state.flagCount);
-                    }
+        this.setState({
+            isShowDelete: true
+        })
+    }
+
+    _setModalDelete(){
+        deleteClassroom(this.state.ActivityItem.id).then((res)=>{
+            if(res.status === 0){
+                message.success('删除成功');
+                this.setState({
+                    checked: 0,
+                    ActivityItem: {},
+                    isShowDelete: false
+                }, ()=>{
+                    this.props.reqActivityList(this.state.current, this.state.flagCount);
                 });
-            },
+            }
         });
     }
 
@@ -239,23 +287,23 @@ class ActivityManage extends Component {
             message.warning('该活动尚未发布！');
             return;
         }
-        Modal.confirm({
-            title: '提示',
-            content: '您确定取消发布该活动吗？',
-            cancelText: '取消',
-            okText: '确定',
-            onOk: ()=>{
-                hideClassroom(this.state.ActivityItem.id).then((res)=>{
-                    if(res.status === 0){
-                        message.success('已取消发布');
-                        this.setState({
-                            checked: 0,
-                            ActivityItem: {}
-                        });
-                        this.props.reqActivityList(this.state.current, this.state.flagCount);
-                    }
+        this.setState({
+            isShowUnpublish: true
+        });
+    }
+
+    _setModalUnpublish(){
+        hideClassroom(this.state.ActivityItem.id).then((res)=>{
+            if(res.status === 0){
+                message.success('已取消发布');
+                this.setState({
+                    checked: 0,
+                    ActivityItem: {},
+                    isShowUnpublish: false
+                }, ()=>{
+                    this.props.reqActivityList(this.state.current, this.state.flagCount);
                 });
-            },
+            }
         });
     }
 
@@ -268,27 +316,34 @@ class ActivityManage extends Component {
             message.warning('该活动已发布！');
             return;
         }
-        Modal.confirm({
-            title: '提示',
-            content: '您确定重新发布该活动吗？',
-            cancelText: '取消',
-            okText: '确定',
-            onOk: ()=>{
-                showClassroom(this.state.ActivityItem.id).then((res)=>{
-                    if(res.status === 0){
-                        this.setState({
-                            checked: 0,
-                            ActivityItem: {}
-                        });
-                        message.success('发布成功');
-                        this.props.reqActivityList(this.state.current, this.state.flagCount);
-                    }
-                });
-            },
+        this.setState({
+            isShowPublish: true
         });
     }
 
-    // 9. 跳转详情页面
+    _setModalPublish(){
+        showClassroom(this.state.ActivityItem.id).then((res)=>{
+            if(res.status === 0){
+                this.setState({
+                    checked: 0,
+                    ActivityItem: {},
+                    isShowPublish: false
+                }, ()=>{
+                    message.success('发布成功');
+                    this.props.reqActivityList(this.state.current, this.state.flagCount);
+                });
+            }
+        });
+    }
+
+    // 9. 点击对话框的取消按钮
+    _hideModal(flag){
+        this.setState({
+            [flag]: false
+        })
+    }
+
+    // 10. 跳转详情页面
     _goToMain(id){
         this.props.history.push({pathname: '/activitymanage/main', state: {id}});
     }

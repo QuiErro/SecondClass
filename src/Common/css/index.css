@@ -11,6 +11,10 @@ a{
 a:hover, a:focus{
 	text-decoration: none;
 }
+#root{
+	width: 1920px;
+	height: auto;
+}
 
 /********************Login板块-START*************************/
 
@@ -163,8 +167,7 @@ a:hover, a:focus{
     height: 70px;
 	line-height: 70px;
     text-align: center;
-    font-size: 21px;
-    font-weight: bolder;
+    font-size: 22px;
 }
 #header .ant-menu .ant-menu-item-selected,
 #header .ant-menu .ant-menu-item-active{
@@ -177,7 +180,7 @@ a:hover, a:focus{
     left: 59px;
     content: '';
     width: 40px;
-    height: 3px;
+    height: 5px;
     background-color: #1890ff;
 }
 #header .ant-menu-item a{
@@ -208,7 +211,7 @@ a:hover, a:focus{
 /*主区域*/
 #main{
     width: 100%;
-    height: 1330px;
+    height: 1326px;
     background-color: rgb(244, 244, 244);
     box-sizing: border-box;
 }
@@ -448,12 +451,8 @@ a:hover, a:focus{
 
 /********************RaceManage / ActivityManage list板块-START*************************/
 
+#activity_manage,
 #race_manage{
-    padding: 10px 30px 50px;
-    width: 100%;
-    box-sizing: border-box;
-}
-#activity_manage{
     padding: 10px 30px 50px;
     width: 100%;
     box-sizing: border-box;
@@ -514,6 +513,7 @@ a:hover, a:focus{
 /*顶部按钮*/
 #head_operation{
     display: flex;
+    align-items: center;
 }
 #head_operation .opera_btn{
     margin-right: 15px;
@@ -533,13 +533,29 @@ a:hover, a:focus{
     width: 140px;
     margin-right: 40px;
 }
-#head_operation .ant-pagination{
-    margin-top: 10px;
+/*顶部搜索*/
+#search_section{
+    margin: 15px 0;
+    padding-right: 40px;
+    
+    display: flex;
+    justify-content: flex-end;
+}
+#search_section .ant-input-affix-wrapper{
+    width: 300px;
+    height: 32px;
+}
+#search_section .ant-input{
+    font-size: 16px;
+}
+#search_section .ant-input-suffix{
+    right: 5px;
+}
+#search_section .ant-input-suffix img{
+    width: 32px;
+    height: 32px;
 }
 /*单元活动*/
-#content_section{
-    margin-top: 45px;
-}
 #content_section .con_item{
     margin: 0 auto 2px;
     width: 1780px;
@@ -754,6 +770,11 @@ a:hover, a:focus{
 #top_left .item_header{
     position: absolute;
 }
+#echarts_part,
+#echarts_part div:nth-child(1),
+#echarts_part canvas{
+	height: 360px;
+}
 .body_row.hover{
     width: 932px !important;
     height: 40px;
@@ -836,7 +857,98 @@ a:hover, a:focus{
 /********************StuManage板块-START*************************/
 
 #stu_manage{
-    
+    padding: 10px 30px 50px;
+    width: 100%;
+    box-sizing: border-box;
+}
+#stu_manage #head_menu .ant-menu .ant-menu-item.menu_item{
+    margin: 0 40px 0 10px;
+}
+#set_btn_section{
+    margin-right: 30px;
+}
+#stu_manage .stus_container{
+    margin-top: 20px;
+}
+#stu_manage .stus_container .con_item{
+    padding-left: 30px;
+    padding-right: 30px;
+    font-weight: 400;
+}
+#stu_manage .stus_container .con_item .stu_img img{
+    width: 40px;
+    height: 40px;
+}
+#stu_manage .stus_container .con_item .stu_name{
+    font-weight: 700;
+}
+#stu_manage .stus_container .con_item .stu_feedback{
+    width: 845px;
+    font-size: 12px;
+    overflow: hidden;
+}
+#scholarship_section{
+    padding: 20px 40px;
+}
+#scholarship_section .scholarship_title{
+    font-size: 24px;
+}
+#scholarship_section .scholarship_stu_container{
+    margin-top: 30px;
+    padding: 0 30px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.scholarship_stu_item{
+    margin-bottom: 80px; 
+    padding: 20px;
+    width: 825px;
+    height: 270px;
+    background: #fff;
+    border: 1px solid rgb(215, 215, 215);
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+}
+.scholarship_stu_item_index{
+    font-size: 18px;
+    font-weight: 700;
+}
+.scholarship_stu_item_intro{
+    padding: 20px;
+    display: flex;
+}
+.stu_item_intro_img img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.stu_item_intro_text{
+    margin-left: 30px;
+}
+.intro_part_one,
+.intro_part_two{
+    margin-bottom: 20px;
+    font-size: 18px;
+
+    display: flex;
+    align-items: center;
+}
+.part_item{
+    margin-right: 50px;
+}
+.part_one_name{
+    font-weight: 700;
+}
+.intro_part_three{
+    max-height: 80px;
+    font-size: 12px;
+    overflow: auto;
+    text-overflow: ellipsis;
 }
 
 /********************StuManage板块-END*************************/

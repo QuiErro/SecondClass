@@ -13,7 +13,7 @@ import u184 from './../../Common/images/u184.svg'
 
 const { Option } = Select;
 
-class ActivityMain extends Component {
+class RaceMain extends Component {
     
     constructor(props) {
         super(props);
@@ -47,7 +47,7 @@ class ActivityMain extends Component {
     render() {
         const {title, position, cover_url, type, content, signUp_start, signUp_end, signIn_start, signIn_end, isShowStuMain} = this.state;
         return (
-            <div id="activity_main">
+            <div id="race_main">
                 <div id="intro_section">
                     <div id="intro_basic">
                         <div id="basic_img">
@@ -240,10 +240,6 @@ class ActivityMain extends Component {
                         signIn_start: moment(tempObj.signIn_start).format('MM月DD日 HH:mm'),
                         signIn_end: moment(tempObj.signIn_end).format('MM月DD日 HH:mm')
                     });
-					/*
-					// 3. 初始化文本内容
-					this.refs.body_content.innerHTML = this.state.content;
-					*/
                 }
             });
 
@@ -337,4 +333,4 @@ class ActivityMain extends Component {
     }
 }
 
-export default connect(null, null)(ActivityMain);
+export default connect(null, null)(RaceMain);
