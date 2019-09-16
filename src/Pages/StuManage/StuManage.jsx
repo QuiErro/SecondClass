@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {  Menu, Empty, Input, Icon, Button } from 'antd'
+import {  Menu, Empty, Input, Icon, Button, Form, Modal } from 'antd'
+import NumberForm from './components/NumberForm'
 import SPagination from './../../Components/Pagination/SPagination'
 import Tool from './../../Components/Tool/Tool'
 import search_icon from './../../Common/images/search_icon.png'
@@ -20,11 +21,12 @@ class StuManage extends Component {
             pageNum: 1,     // 当前页码
             total: 20,       // 数据总数
             pageSize: 10,   // 每页数据量
+            formVisible: false,  // 设置获奖数量表单
         };
     }
 
     render() {
-        const {current, pageNum, total, pageSize, flagCount} = this.state;
+        const {current, pageNum, total, pageSize, flagCount, formVisible} = this.state;
         return (
             <div id="stu_manage">
                 <div id="header_section">
@@ -46,7 +48,13 @@ class StuManage extends Component {
                             />
                         </div>
                         <div id="set_btn_section" style={{display: current === 'scholarship' ? 'block' : 'none'}}>
-                            <Button type="primary">设置</Button>
+                            <Button type="primary" onClick={()=> this.setState({formVisible: true})}>设置</Button>
+                            <NumberForm
+                              wrappedComponentRef={this._saveFormRef}
+                              visible={formVisible}
+                              onCancel={this._handleCancel}
+                              onCreate={this._handleCreate}
+                            />
                         </div>
                         <SPagination
                             current={pageNum}
@@ -213,7 +221,31 @@ class StuManage extends Component {
         if(this.state.current === 'feedback' || this.state.current === 'scholarship'){
             return;
         }
-        alert(id)
+        this.props.history.push({pathname: '/stumanage/main', state: {id}});
+    }
+
+    // 5. 获奖数量表单关闭
+    _handleCancel = () => {
+        this.setState({ formVisible: false });
+    }
+
+    // 6. 获取获奖表单本体
+    _saveFormRef = (formRef) => {
+        this.formRef = formRef;
+    }
+
+    // 7. 设置数量
+    _handleCreate = () => {
+        const { form } = this.formRef.props;
+        form.validateFields((err, values) => {
+            if (err) {
+                return;
+            }
+        
+            console.log('Received values of form: ', values);
+            form.resetFields();
+            this.setState({ formVisible: false });
+        });
     }
 
 }

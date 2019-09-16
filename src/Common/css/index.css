@@ -854,7 +854,7 @@ a:hover, a:focus{
 
 /********************Elite板块-END*************************/
 
-/********************StuManage板块-START*************************/
+/********************StuManage list 板块-START*************************/
 
 #stu_manage{
     padding: 10px 30px 50px;
@@ -951,4 +951,132 @@ a:hover, a:focus{
     text-overflow: ellipsis;
 }
 
-/********************StuManage板块-END*************************/
+/********************StuManage list 板块-END*************************/
+
+/********************StuManage main 板块-START*************************/
+
+#stu_main{
+    padding: 30px 0;
+
+    display: flex;
+    justify-content: space-evenly;
+}
+#stu_main #intro_section{
+    padding: 0;
+    width: 360px;
+    background: #fff;
+    box-sizing: border-box;
+}
+#stu_main #analysis_section{
+    width: 1430px;
+}
+#stu_main .intro_label{
+    display: flex;
+    justify-content: flex-end;
+}
+#stu_main .intro_item{
+    padding: 0 45px 30px;
+    font-size: 20px;
+
+    display: flex;
+    align-items: center;
+}
+#stu_main .intro_item.intro_integral img{
+    margin-right: 88px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+#stu_main .intro_integral span{
+    font-size: 48px;
+    color: #009AEB;
+}
+#stu_main .intro_item img{
+    margin-right: 35px;
+    width: 32px;
+    height: 32px;
+}
+#stu_main .intro_rank.intro_item,
+#stu_main .intro_profile.intro_item{
+    display: flex;
+    align-items: flex-start;
+}
+#stu_main .intro_rank div .rank_text,
+#stu_main .intro_profile div .profile_text{
+    font-size: 16px;
+}
+#stu_main .intro_profile div .profile_text{
+    max-height: 280px;
+    overflow: auto;
+}
+#stu_main .intro_link{
+    color: #009AEB;
+    cursor: pointer;
+}
+#statistic_section{
+    width: 100%;
+    height: 600px;
+}
+#classroom_section{
+    width: 100%;
+    height: 400px;
+}
+#classroom_section #content_section{
+    margin-top: 50px;
+    height: auto;
+}
+#classroom_section #content_section .con_item{
+    width: 1430px;
+}
+#classroom_section #content_section .con_item.hover{
+    width: 1500px !important;
+}
+#classroom_section #content_section .con_item{
+    font-weight: 400;
+
+    justify-content: space-evenly;
+}
+#classroom_section #content_section .con_item .item_name{
+    font-weight: 700;
+}
+#classroom_section #content_section .con_item .item_num{
+    width: 40px;
+}
+
+/********************StuManage main 板块-END*************************/
+
+/********************StuManage enclosure 板块-START*************************/
+
+#stu_enclosure{
+    padding: 20px;
+}
+#en_select{
+    text-align: right;
+}
+#en_container{
+    margin: 40px 70px 40px 100px;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.en_item{
+    margin: 0 30px 30px 0;
+    width: 310px;
+    height: 500px;
+    background: #fff;
+}
+.en_item img{
+    width: 100%;
+    height: 355px;
+}
+.en_item div{
+    padding: 35px 20px;
+    font-size: 18px; 
+}
+.en_item div p:nth-child(1){
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+/********************StuManage enclosure 板块-END*************************/
