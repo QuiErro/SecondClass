@@ -147,9 +147,13 @@ a:hover, a:focus{
 	line-height: 75px;
 }
 .icon_section img{
-	margin-left: 60px;
+	margin: 0 30px 0 60px;
 	width: 40px;
 	height: 45px;	
+}
+.icon_section span{
+    font-weight: 700;
+    font-size: 16px;
 }
 /*导航链接*/
 #header .choice_section{
@@ -164,8 +168,8 @@ a:hover, a:focus{
 #header .ant-menu .ant-menu-item{
     position: relative;
     width: 158px;
-    height: 70px;
-	line-height: 70px;
+    height: 75px;
+	line-height: 75px;
     text-align: center;
     font-size: 22px;
 }

@@ -6,7 +6,7 @@ const defaultState = {
     raceNum: {},
     activityNum: {},
     raceData: [],
-    activityData: []
+    activityData: [],
 };
 
 export default (state = defaultState, action)=>{

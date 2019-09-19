@@ -149,6 +149,10 @@ a:hover, a:focus{
 	width: 2rem;
 	height: 2.25rem;	
 }
+.icon_section span{
+    font-weight: 700;
+    font-size: .8rem;
+}
 /*导航链接*/
 #header .choice_section{
     width: 50.9rem;
@@ -161,8 +165,8 @@ a:hover, a:focus{
 .ant-menu .ant-menu-item{
     position: relative;
     width: 7.9rem;
-    height: 3.5rem;
-	line-height: 3.5rem;
+    height: 3.75rem;
+	line-height: 3.75rem;
     text-align: center;
     font-size: 1.1em;
     font-weight: bolder;
@@ -495,7 +499,7 @@ a:hover, a:focus{
     left: 1.7rem;
     content: '';
     width: 1.6rem;
-    height: .2rem;
+    height: .15rem;
     background-color: #009AE8;
 }
 #head_menu .ant-menu-item a{
@@ -512,6 +516,7 @@ a:hover, a:focus{
 /*顶部按钮*/
 #head_operation{
     display: flex;
+    align-items: center;
 }
 #head_operation .opera_btn{
     margin-right: .75rem;
@@ -531,16 +536,32 @@ a:hover, a:focus{
     width: 7rem;
     margin-right: 2rem;
 }
-#head_operation .ant-pagination{
-    margin-top: .5rem;
+/*顶部搜索*/
+#search_section{
+    margin: .75rem 0;
+    padding-right: 2rem;
+    
+    display: flex;
+    justify-content: flex-end;
+}
+#search_section .ant-input-affix-wrapper{
+    width: 15rem;
+    height: 1.6rem;
+}
+#search_section .ant-input{
+    font-size: .8rem;
+}
+#search_section .ant-input-suffix{
+    right: .25rem;
+}
+#search_section .ant-input-suffix img{
+    width: 1.6rem;
+    height: 1.6rem;
 }
 /*单元活动*/
-#content_section{
-    margin-top: 2.25rem;
-}
 #content_section .con_item{
-    margin: 0 auto .1rem;
-    width: 87rem;
+    margin: 0 auto 2px;
+    width: 87.5rem;
     height: 5rem;
     font-size: .9rem;
     font-weight: 700;
@@ -835,10 +856,230 @@ a:hover, a:focus{
 
 /********************Elite板块-END*************************/
 
-/********************StuManage板块-START*************************/
+/********************StuManage list 板块-START*************************/
 
 #stu_manage{
-    
+    padding: .5rem 1.5rem 2.5rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+#stu_manage #head_menu .ant-menu .ant-menu-item.menu_item{
+    margin: 0 2rem 0 .5rem;
+}
+#set_btn_section{
+    margin-right: 1.5rem;
+}
+#stu_manage .stus_container{
+    margin-top: 1rem;
+}
+#stu_manage .stus_container .con_item{
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    font-weight: 400;
+}
+#stu_manage .stus_container .con_item .stu_img img{
+    width: 2rem;
+    height: 2rem;
+}
+#stu_manage .stus_container .con_item .stu_name{
+    font-weight: 700;
+}
+#stu_manage .stus_container .con_item .stu_feedback{
+    width: 42.25rem;
+    font-size: .6rem;
+    overflow: hidden;
+}
+#scholarship_section{
+    padding: 1rem 2rem;
+}
+#scholarship_section .scholarship_title{
+    font-size: 1.2rem;
+}
+#scholarship_section .scholarship_stu_container{
+    margin-top: 1.5rem;
+    padding: 0 1.5rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.scholarship_stu_item{
+    margin-bottom: 4rem; 
+    padding: 1rem;
+    width: 41.25rem;
+    height: 13.5rem;
+    background: #fff;
+    border: 1px solid rgb(215, 215, 215);
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+}
+.scholarship_stu_item_index{
+    font-size: .9rem;
+    font-weight: 700;
+}
+.scholarship_stu_item_intro{
+    padding: 1rem;
+    display: flex;
+}
+.stu_item_intro_img img{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+}
+.stu_item_intro_text{
+    margin-left: 1.5rem;
+}
+.intro_part_one,
+.intro_part_two{
+    margin-bottom: 1rem;
+    font-size: .9rem;
+
+    display: flex;
+    align-items: center;
+}
+.part_item{
+    margin-right: 2.5rem;
+}
+.part_one_name{
+    font-weight: 700;
+}
+.intro_part_three{
+    max-height: 4rem;
+    font-size: .6rem;
+    overflow: auto;
+    text-overflow: ellipsis;
 }
 
-/********************StuManage板块-END*************************/
+/********************StuManage list 板块-END*************************/
+
+
+/********************StuManage main 板块-START*************************/
+
+#stu_main{
+    padding: 1.5rem 0;
+
+    display: flex;
+    justify-content: space-evenly;
+}
+#stu_main #intro_section{
+    padding: 0;
+    width: 18rem;
+    background: #fff;
+    box-sizing: border-box;
+}
+#stu_main #analysis_section{
+    width: 71.5rem;
+}
+#stu_main .intro_label{
+    display: flex;
+    justify-content: flex-end;
+}
+#stu_main .intro_item{
+    padding: 0 2.25rem 1.5rem;
+    font-size: 1rem;
+
+    display: flex;
+    align-items: center;
+}
+#stu_main .intro_item.intro_integral img{
+    margin-right: 4.4rem;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+}
+#stu_main .intro_integral span{
+    font-size: 2.4rem;
+    color: #009AEB;
+}
+#stu_main .intro_item img{
+    margin-right: 1.75rem;
+    width: 1.6rem;
+    height: 1.6rem;
+}
+#stu_main .intro_rank.intro_item,
+#stu_main .intro_profile.intro_item{
+    display: flex;
+    align-items: flex-start;
+}
+#stu_main .intro_rank div .rank_text,
+#stu_main .intro_profile div .profile_text{
+    font-size: .8rem;
+}
+#stu_main .intro_profile div .profile_text{
+    max-height: 14rem;
+    overflow: auto;
+}
+#stu_main .intro_link{
+    color: #009AEB;
+    cursor: pointer;
+}
+#statistic_section{
+    width: 100%;
+    height: 30rem;
+}
+#classroom_section{
+    width: 100%;
+    height: 20rem;
+}
+#classroom_section #content_section{
+    margin-top: 2.5rem;
+    height: auto;
+}
+#classroom_section #content_section .con_item{
+    width: 71.5rem;
+}
+#classroom_section #content_section .con_item.hover{
+    width: 75rem !important;
+}
+#classroom_section #content_section .con_item{
+    font-weight: 400;
+
+    justify-content: space-evenly;
+}
+#classroom_section #content_section .con_item .item_name{
+    font-weight: 700;
+}
+#classroom_section #content_section .con_item .item_num{
+    width: 2rem;
+}
+
+/********************StuManage main 板块-END*************************/
+
+/********************StuManage enclosure 板块-START*************************/
+
+#stu_enclosure{
+    padding: 1rem;
+}
+#en_select{
+    text-align: right;
+}
+#en_container{
+    margin: 2rem 3.5rem 2rem 5rem;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.en_item{
+    margin: 0 1.5rem 1.5rem 0;
+    width: 15.5rem;
+    height: 25rem;
+    background: #fff;
+}
+.en_item img{
+    width: 100%;
+    height: 17.75rem;
+}
+.en_item div{
+    padding: 1.75rem 1rem;
+    font-size: .9rem; 
+}
+.en_item div p:nth-child(1){
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+}
+
+/********************StuManage enclosure 板块-END*************************/

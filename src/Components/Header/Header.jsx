@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Link} from "react-router-dom";
+import {Link, withRouter } from "react-router-dom";
 import {connect} from "react-redux";
 import {logoutAction} from '../../Store/actionCreators'
 import Tool from './../Tool/Tool'
@@ -7,7 +7,9 @@ import { message, Button, Menu, Modal } from 'antd'
 import logo_search from './../../Common/images/logo_search.png'
 
 const _tool = new Tool(); 
-let headerTitle = '';
+
+let headerTitle = [];
+let title = ''
 
 class Header extends Component {
 
@@ -15,6 +17,7 @@ class Header extends Component {
         super(props);
         this.state = {
             current: 'publishrace',
+            title: ''
         };
     }
 
@@ -30,9 +33,7 @@ class Header extends Component {
             <div id="header">
                 <div className="icon_section">
                     <img src={logo_search} alt=""/>
-                    {
-                        
-                    }
+                    <span>{title}</span>
 				</div>
                 <div className="choice_section">
                     <Menu onClick={ (e)=>this._menuClick(e) } selectedKeys={[this.state.current]} mode="horizontal">
@@ -49,6 +50,23 @@ class Header extends Component {
                 </div>
             </div>
         );
+    }
+
+    shouldComponentUpdate(nextProps){
+        headerTitle = [];
+        if(nextProps.location.pathname === '/racemanage/main' || nextProps.location.pathname === '/activitymanage/main'){
+            if(nextProps.location.state && nextProps.location.state.headerData){
+                this._initHeaderTitle(nextProps.location.state.headerData);
+                title = headerTitle.reduce((title, item)=>{
+                    title += item + ' • '
+                    return title
+                }, '')
+                title = title.substr(0, title.length - 2);
+            }
+        }else{
+            title = ''
+        }
+        return true;
     }
 
     // 1. 导航切换 
@@ -95,7 +113,9 @@ class Header extends Component {
     
     // 3.遍历 headerData 生成标题
     _initHeaderTitle(headerData){
-        headerTitle += headerData.data;
+        if(!headerData || !headerData.data) return;
+
+        headerTitle.push(headerData.data);
         if(headerData.children){
             this._initHeaderTitle(headerData.children)
         }
@@ -103,11 +123,11 @@ class Header extends Component {
     
 }
 
-/*const mapStateToProps = (state)=>{
+const mapStateToProps = (state)=>{
     return {
-        headerData: state.headerData
+        headerTitle: state.headerTitle
     }
-};*/
+};
 
 const mapDispatchToProps = (dispatch)=>{
     return {
@@ -118,4 +138,4 @@ const mapDispatchToProps = (dispatch)=>{
     }
 };
 
-export default connect(null, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

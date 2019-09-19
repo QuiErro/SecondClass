@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getRaceNumAction, getRaceDataAction} from '../../Store/actionCreators'
+import * as constants from './../../Store/actionTypes'
 import {hideClassroom, showClassroom, deleteClassroom} from './../../Api/index'
-import { message, Button, Menu, Checkbox, Modal, Empty, Input } from 'antd'
+import { message, Button, Menu, Modal, Empty, Input } from 'antd'
 import SPagination from './../../Components/Pagination/SPagination'
+import ClassroomItem from './../../Components/ClassroomItem/ClassroomItem'
 import Tool from './../../Components/Tool/Tool'
 import search_icon from './../../Common/images/search_icon.png'
 
@@ -103,30 +105,15 @@ class RaceManage extends Component {
                     {  this.props.raceData && this.props.raceData.length>0 ? 
                         this.props.raceData.map((item, index)=>{
                             return (
-                                <div className="con_item" 
+                                <ClassroomItem
                                   key={item.id}
-                                  onMouseEnter={(e)=> this._itemEnterOrLeave(e, 0)}
-                                  onMouseLeave={(e)=> this._itemEnterOrLeave(e, 1)}
-                                  onClick={()=> this._goToMain(item.id)}
-                                >
-                                    <div className="item_num">{flagCount + index + 1}</div>
-                                    <div className="item_check">
-                                        <Checkbox
-                                          checked={checked === (index + 1) ? true : false}
-                                          onClick={(e)=> this._onCheckedChang(e, index, item)}
-                                        ></Checkbox>
-                                    </div>
-                                    <div className="item_img">
-                                        <img src={item.image || ''} alt=""/>
-                                    </div>
-                                    <div className="item_name">
-                                        {item.title}
-                                    </div>
-                                    <div className="item_people">{item.signUp}人</div>
-                                    <div className="item_time">{item.signUp_end_format}</div>
-                                    <div className="item_address">{item.position}</div>
-                                    <div className="item_pub">{item.status === 0 ? '已发布' : '未发布'}</div>
-                                </div>
+                                  click={this._goToMain}
+                                  item={item}
+                                  flagCount={flagCount} 
+                                  index={index} 
+                                  checked={checked}
+                                  checkedChange={this._onCheckedChange}
+                                />
                             )
                         }) : <Empty />
                     }
@@ -209,28 +196,8 @@ class RaceManage extends Component {
         });
     }
 
-    // 3. 鼠标移入/移出单元活动  0--移入 1--移出
-    _itemEnterOrLeave(e, flag){
-        let parent = e.target.parentNode;
-        let node;
-        if(parent.classList.contains('con_item')){
-            node = parent;
-        }else if(parent.parentNode.classList.contains('con_item')){
-            node = parent.parentNode;
-        }else if(e.target.classList.contains('con_item')){
-            node =  e.target;
-        }else if(e.target.classList === 'items_container'){
-            node =  e.target.children[0];
-        }
-        if(!flag && node && node.classList.contains('con_item')){
-            node.classList.add('hover');
-        }else if(flag && node && node.classList.contains('con_item')){
-            node.classList.remove('hover');
-        }
-    }
-
-    // 4. 选中的活动序号
-    _onCheckedChang(e, index, item){
+    // 3. 选中的活动序号
+    _onCheckedChange = (e, index, item) => {
         if(e.target.checked){
             this.setState({
                 checked: index + 1,
@@ -246,14 +213,14 @@ class RaceManage extends Component {
         e.nativeEvent.stopImmediatePropagation();
     }
 
-    // 5. 编辑
+    // 4. 编辑
     _editItem(){
         if(this.state.RaceItem.id){
             this.props.history.push({pathname: '/racemanage/edit', state: {id: this.state.RaceItem.id}});
         }
     }
 
-    // 6. 删除
+    // 5. 删除
     _deleteItem(){
         if(!this.state.RaceItem.id){
             return;
@@ -278,7 +245,7 @@ class RaceManage extends Component {
         });
     }
 
-    // 7. 取消发布
+    // 6. 取消发布
     _hideItem(){
         if(!this.state.RaceItem.id){
             return;
@@ -307,7 +274,7 @@ class RaceManage extends Component {
         });
     }
 
-    // 8. 重新发布
+    // 7. 重新发布
     _showItem(){
         if(!this.state.RaceItem.id){
             return;
@@ -336,16 +303,22 @@ class RaceManage extends Component {
         });
     }
 
-    // 9. 点击对话框的取消按钮
+    // 8. 点击对话框的取消按钮
     _hideModal(flag){
         this.setState({
             [flag]: false
         })
     }
 
-    // 10. 跳转详情页面
-    _goToMain(id){
-        this.props.history.push({pathname: '/racemanage/main', state: {id}});
+    // 9. 跳转详情页面
+    _goToMain = (id, title) => {
+        let headerData = {
+            data: '比赛详情',
+            children: {
+                data: title
+            }
+        }
+        this.props.history.push({pathname: '/racemanage/main', state: {id, headerData}});
     }
 }
 
