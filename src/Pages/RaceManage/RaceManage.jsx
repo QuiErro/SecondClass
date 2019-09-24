@@ -43,8 +43,8 @@ class RaceManage extends Component {
                 flagCount
             })
             // 请求总数
-            this.props.reqRaceNum(current, (flag, num)=>{
-                if(flag === 0){
+            this.props.reqRaceNum(current, (res, num)=>{
+                if(res.status === 0){
                     this.setState({
                         total: num
                     })
@@ -54,8 +54,8 @@ class RaceManage extends Component {
             this.props.reqRaceList(current, flagCount);
         }else{
             // 请求总数
-            this.props.reqRaceNum('A', (flag, num)=>{
-                if(flag === 0){
+            this.props.reqRaceNum('A', (res, num)=>{
+                if(res.status === 0){
                     this.setState({
                         total: num
                     })
@@ -172,8 +172,8 @@ class RaceManage extends Component {
             });
         });
         // 1.2 请求对应类型数量
-        this.props.reqRaceNum(e.key, (flag, num)=>{
-            if(flag === 0){
+        this.props.reqRaceNum(e.key, (res, num)=>{
+            if(res.status === 0){
                 this.setState({
                     total: num
                 })
@@ -216,7 +216,35 @@ class RaceManage extends Component {
     // 4. 编辑
     _editItem(){
         if(this.state.RaceItem.id){
-            this.props.history.push({pathname: '/racemanage/edit', state: {id: this.state.RaceItem.id}});
+            let headerData = {
+                data: {
+                    name: '比赛管理',
+                    url: '/racemanage/list'
+                },
+                children: {
+                    data: {
+                        name: this.state.RaceItem.title,
+                        url: '/racemanage/main',
+                        state: {id: this.state.RaceItem.id,  headerData: {
+                            data: {
+                                name: '比赛管理',
+                                url: '/racemanage/list'
+                            },
+                            children: {
+                                data: {
+                                    name: this.state.RaceItem.title
+                                }
+                            }
+                        }}
+                    },
+                    children: {
+                        data: {
+                            name: '编辑'
+                        }
+                    }
+                }
+            }
+            this.props.history.push({pathname: '/racemanage/edit', state: {id: this.state.RaceItem.id, headerData}});
         }
     }
 
@@ -313,9 +341,14 @@ class RaceManage extends Component {
     // 9. 跳转详情页面
     _goToMain = (id, title) => {
         let headerData = {
-            data: '比赛详情',
+            data: {
+                name: '比赛管理',
+                url: '/racemanage/list'
+            },
             children: {
-                data: title
+                data: {
+                    name: title
+                }
             }
         }
         this.props.history.push({pathname: '/racemanage/main', state: {id, headerData}});

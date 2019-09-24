@@ -95,7 +95,6 @@ class Login extends Component {
 
     // 1. 是否勾选记住密码
     _isRem(e){
-        // console.log(e.target.checked);
         this.setState({
             isRem: e.target.checked
         })
@@ -144,8 +143,8 @@ class Login extends Component {
         };
 
         // 4.4 发起网络请求
-        this.props.reqLogin(params, (flag, userData)=>{
-            if(flag === 0){
+        this.props.reqLogin(params, (res, userData)=>{
+            if(res.status === 0){
                 message.success('登录成功');
                 if(isRem){
                     window.localStorage.setItem('userData', JSON.stringify(userData));
@@ -158,7 +157,7 @@ class Login extends Component {
                 _tool.removeStore('activityManage');
                 _tool.removeStore('raceManage');
             }else{
-                message.error('登录失败');
+                message.error(res.msg);
             }
         })
     }

@@ -196,7 +196,7 @@ class Publish extends Component {
             editor: editor
         })
 		// 1.2 自定义上传图片事件
-        editor.customConfig.customUploadImg = function (files, insert) {
+        editor.customConfig.customUploadImg = async function (files, insert) {
             // 1.2.1 上传图片到服务器
             if (files.length > 0) { // 有图片文件
 				if(files[0].size / 1024 / 1024 > 1){
@@ -207,13 +207,13 @@ class Publish extends Component {
                 let formData = new FormData();
                 formData.append('image', files[0]);
                 // 发起网络请求
-                fileUpload(formData).then((res)=>{
-                    if(res.status === 0){
-                        insert(res.data);
-                    }
-                }).catch((error)=>{
-                    console.log(error);
-                })
+                let result = await fileUpload(formData);
+                console.log(result)
+                if(result.status === 0){
+                    insert(result.data);
+                }else{
+                    message.error(result.msg)
+                }
             }
         };
         // 1.3 监听onchange事件
@@ -431,7 +431,7 @@ class Publish extends Component {
     }
 
     // 7. 提交formData
-    _onSubmit(){
+    async _onSubmit(){
         let {isActivity, editor, title, signIn_end, signIn_start, signUp_end, signUp_start, position, type} = this.state;
         // 7.1 取出编辑器文本
         let content = editor.txt.html();
@@ -455,31 +455,28 @@ class Publish extends Component {
 			formData.append('signUp_start', signUp_start);
 			formData.append('position', position);
             formData.append('type', tempType);
-			// 7.6 提交数据 网络请求
-			newClassroom(formData).then((res)=>{
-				if(res.status === 0){
-					editor.txt.clear();
-                    message.success(`${isActivity ? '活动' : '比赛'}创建成功`);
-                    this.refs.cover_url.value = [];
-                    this.setState({
-                        hasCover: false,
-                        cover_url: '',
-                        title: '', 
-                        position: '', 
-                        type: []
-                    })
-                    // 7.7清除缓存的localStorage数据
-                    if(isActivity){
-                        _tool.removeStore('publishActivity');
-                    }else{
-                        _tool.removeStore('publishRace');
-                    }
-				}else{
-					message.error(`${isActivity ? '活动' : '比赛'}创建失败`)
-				}
-			}).catch((error)=>{
-				console.log(error);
-			})
+            // 7.6 提交数据 网络请求
+            let res = await newClassroom(formData);
+            if(res.status === 0){
+                editor.txt.clear();
+                message.success(`${isActivity ? '活动' : '比赛'}创建成功`);
+                this.refs.cover_url.value = [];
+                this.setState({
+                    hasCover: false,
+                    cover_url: '',
+                    title: '', 
+                    position: '', 
+                    type: []
+                })
+                // 7.7清除缓存的localStorage数据
+                if(isActivity){
+                    _tool.removeStore('publishActivity');
+                }else{
+                    _tool.removeStore('publishRace');
+                }
+            }else{
+                message.error(`${isActivity ? '活动' : '比赛'}创建失败，错误信息：${res.msg}`)
+            }
 		}	
     }   
 }

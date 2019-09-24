@@ -42,8 +42,8 @@ class ActivityManage extends Component {
                 flagCount
             })
             // 请求总数
-            this.props.reqActivityNum(current, (flag, num)=>{
-                if(flag === 0){
+            this.props.reqActivityNum(current, (res, num)=>{
+                if(res.status === 0){
                     this.setState({
                         total: num
                     })
@@ -53,8 +53,8 @@ class ActivityManage extends Component {
             this.props.reqActivityList(current, flagCount);
         }else{
             // 请求总数
-            this.props.reqActivityNum('A', (flag, num)=>{
-                if(flag === 0){
+            this.props.reqActivityNum('A', (res, num)=>{
+                if(res.status === 0){
                     this.setState({
                         total: num
                     })
@@ -171,8 +171,8 @@ class ActivityManage extends Component {
             });
         });
         // 1.2 请求对应类型数量
-        this.props.reqActivityNum(e.key, (flag, num)=>{
-            if(flag === 0){
+        this.props.reqActivityNum(e.key, (res, num)=>{
+            if(res.status === 0){
                 this.setState({
                     total: num
                 })
@@ -215,7 +215,35 @@ class ActivityManage extends Component {
     // 4. 编辑
     _editItem(){
         if(this.state.ActivityItem.id){
-            this.props.history.push({pathname: '/activitymanage/edit', state: {id: this.state.ActivityItem.id}});
+            let headerData = {
+                data: {
+                    name: '活动管理',
+                    url: '/activitymanage/list'
+                },
+                children: {
+                    data: {
+                        name: this.state.ActivityItem.title,
+                        url: '/activitymanage/main',
+                        state: {id: this.state.ActivityItem.id,  headerData: {
+                            data: {
+                                name: '活动管理',
+                                url: '/activitymanage/list'
+                            },
+                            children: {
+                                data: {
+                                    name: this.state.ActivityItem.title
+                                }
+                            }
+                        }}
+                    },
+                    children: {
+                        data: {
+                            name: '编辑'
+                        }
+                    }
+                }
+            }
+            this.props.history.push({pathname: '/activitymanage/edit', state: {id: this.state.ActivityItem.id, headerData}});
         }
     }
 
@@ -229,19 +257,18 @@ class ActivityManage extends Component {
         })
     }
 
-    _setModalDelete(){
-        deleteClassroom(this.state.ActivityItem.id).then((res)=>{
-            if(res.status === 0){
-                message.success('删除成功');
-                this.setState({
-                    checked: 0,
-                    ActivityItem: {},
-                    isShowDelete: false
-                }, ()=>{
-                    this.props.reqActivityList(this.state.current, this.state.flagCount);
-                });
-            }
-        });
+    async _setModalDelete(){
+        let res = await deleteClassroom(this.state.ActivityItem.id);
+        if(res.status === 0){
+            message.success('删除成功');
+            this.setState({
+                checked: 0,
+                ActivityItem: {},
+                isShowDelete: false
+            }, ()=>{
+                this.props.reqActivityList(this.state.current, this.state.flagCount);
+            });
+        }
     }
 
     // 6. 取消发布
@@ -258,19 +285,18 @@ class ActivityManage extends Component {
         });
     }
 
-    _setModalUnpublish(){
-        hideClassroom(this.state.ActivityItem.id).then((res)=>{
-            if(res.status === 0){
-                message.success('已取消发布');
-                this.setState({
-                    checked: 0,
-                    ActivityItem: {},
-                    isShowUnpublish: false
-                }, ()=>{
-                    this.props.reqActivityList(this.state.current, this.state.flagCount);
-                });
-            }
-        });
+    async _setModalUnpublish(){
+        let res = await hideClassroom(this.state.ActivityItem.id);
+        if(res.status === 0){
+            message.success('已取消发布');
+            this.setState({
+                checked: 0,
+                ActivityItem: {},
+                isShowUnpublish: false
+            }, ()=>{
+                this.props.reqActivityList(this.state.current, this.state.flagCount);
+            });
+        }
     }
 
     // 7. 重新发布
@@ -287,19 +313,18 @@ class ActivityManage extends Component {
         });
     }
 
-    _setModalPublish(){
-        showClassroom(this.state.ActivityItem.id).then((res)=>{
-            if(res.status === 0){
-                this.setState({
-                    checked: 0,
-                    ActivityItem: {},
-                    isShowPublish: false
-                }, ()=>{
-                    message.success('发布成功');
-                    this.props.reqActivityList(this.state.current, this.state.flagCount);
-                });
-            }
-        });
+    async _setModalPublish(){
+        let res = await showClassroom(this.state.ActivityItem.id);
+        if(res.status === 0){
+            this.setState({
+                checked: 0,
+                ActivityItem: {},
+                isShowPublish: false
+            }, ()=>{
+                message.success('发布成功');
+                this.props.reqActivityList(this.state.current, this.state.flagCount);
+            });
+        }
     }
 
     // 8. 点击对话框的取消按钮
@@ -312,9 +337,14 @@ class ActivityManage extends Component {
     // 9. 跳转详情页面
     _goToMain = (id, title) => {
         let headerData = {
-            data: '活动详情',
+            data: {
+                name: '活动管理',
+                url: '/activitymanage/list'
+            },
             children: {
-                data: title
+                data: {
+                    name: title
+                }
             }
         }
         this.props.history.push({pathname: '/activitymanage/main', state: {id, headerData}});

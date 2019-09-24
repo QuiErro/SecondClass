@@ -18,6 +18,7 @@ class StuManage extends Component {
             ActiveItem: {},   // 当前选中活动的数据
             flagCount: 0,   // 活动序号基础
             current: 'major',   // 类别
+            category: 'A',   // 专业 
             pageNum: 1,     // 当前页码
             total: 20,       // 数据总数
             pageSize: 10,   // 每页数据量
@@ -64,10 +65,21 @@ class StuManage extends Component {
                         />
                     </div>
                 </div>
+                {
+                    current === 'major' || current === 'scholarship' ? (
+                        <div id="category_section">
+                            <Menu onClick={ (e)=>this._menuCategoryClick(e) } selectedKeys={[this.state.category]} mode="horizontal">
+                                <Menu.Item key="A">计算机</Menu.Item>
+                                <Menu.Item key="B">软件工程</Menu.Item>
+                                <Menu.Item key="C">数学</Menu.Item>
+                                <Menu.Item key="D">大数据</Menu.Item>
+                                <Menu.Item key="E">信息安全</Menu.Item>
+                            </Menu>
+                        </div>
+                    ) : ''
+                }
                 <div id="content_section" className="stus_container">
-                    {
-                        this._initList()
-                    }
+                    { this._initList() }
                 </div>
             </div>
         )
@@ -101,28 +113,6 @@ class StuManage extends Component {
                 <div id="scholarship_section">
                     <div className="scholarship_title">特等奖</div>
                     <div className="scholarship_stu_container">
-                        <div className="scholarship_stu_item">
-                            <div className="scholarship_stu_item_index">1</div>
-                            <div className="scholarship_stu_item_intro">
-                                <div className="stu_item_intro_img">
-                                    <img src={u184} alt=""/>
-                                </div>
-                                <div className="stu_item_intro_text">
-                                    <div className="intro_part_one">
-                                        <div className="part_one_name part_item">江南夜雨</div>
-                                        <div className="part_one_id part_item">221701400</div>
-                                        <div className="part_one_phone part_item">12345678901</div>
-                                    </div>
-                                    <div className="intro_part_two">
-                                        <div className="part_two_academy_rank part_item">院排名：20 / 688</div>
-                                        <div className="part_two_major_rank part_item">系排名：20 / 88</div>
-                                    </div>
-                                    <div className="intro_part_three">
-                                        一声不响的离开这个世界还是有些不舍的 如果有灵魂 就可以和故去的亲人重逢 可以不受人间 生活 金钱名利的束缚 仅仅是一个自由自在的思想存在着 去见自己想见的人 去自己不曾到过的远方 然后在人间停留一阵子 等自己最爱的亲人们一个个离开这个世界的时候 以另一种方式与他们再相见。
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div className="scholarship_stu_item">
                             <div className="scholarship_stu_item_index">1</div>
                             <div className="scholarship_stu_item_intro">
@@ -185,7 +175,14 @@ class StuManage extends Component {
         });
     }
 
-    // 2. 分页
+    // 2. 选择专业
+    _menuCategoryClick(e){
+        this.setState({
+            category: e.key,
+        });
+    }
+
+    // 3. 分页
     _onPageNumChange(pageNum){
         this.setState({
             pageNum,
@@ -193,7 +190,7 @@ class StuManage extends Component {
         });
     }
 
-    // 3. 鼠标移入/移出单元活动  0--移入 1--移出
+    // 4. 鼠标移入/移出单元活动  0--移入 1--移出
     _itemEnterOrLeave(e, flag){
         if(this.state.current === 'feedback' || this.state.current === 'scholarship'){
             return;
@@ -216,7 +213,7 @@ class StuManage extends Component {
         }
     }
 
-    // 4. 跳转详情页面
+    // 5. 跳转详情页面
     _goToMain(id){
         if(this.state.current === 'feedback' || this.state.current === 'scholarship'){
             return;
@@ -224,17 +221,17 @@ class StuManage extends Component {
         this.props.history.push({pathname: '/stumanage/main', state: {id}});
     }
 
-    // 5. 获奖数量表单关闭
+    // 6. 获奖数量表单关闭
     _handleCancel = () => {
         this.setState({ formVisible: false });
     }
 
-    // 6. 获取获奖表单本体
+    // 7. 获取获奖表单本体
     _saveFormRef = (formRef) => {
         this.formRef = formRef;
     }
 
-    // 7. 设置数量
+    // 8. 设置数量
     _handleCreate = () => {
         const { form } = this.formRef.props;
         form.validateFields((err, values) => {

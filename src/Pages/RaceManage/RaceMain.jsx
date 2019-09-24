@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getClassroomData} from './../../Api/index'
+import {getClassroomData, getSignInStuData} from './../../Api/index'
 import { message, Select, Modal } from 'antd'
 import moment from 'moment'
 import echarts from 'echarts'
+import SignInStuItem from './../../Components/SignInStuItem/SignInStuItem'
 import position_icon from './../../Common/images/position_icon.png'
 import time_icon from './../../Common/images/time_icon.png'
 import sign_person_icon from './../../Common/images/sign_person_icon.png'
@@ -40,12 +41,14 @@ class RaceMain extends Component {
             // 签到结束时间
             signIn_end: '',
             // 控制学生详情表的显示
-            isShowStuMain: false
+            isShowStuMain: false,
+            // 已签到学生
+            signInStuArray: []
         }
     }
 
     render() {
-        const {title, position, cover_url, type, content, signUp_start, signUp_end, signIn_start, signIn_end, isShowStuMain} = this.state;
+        const {title, position, cover_url, type, content, signUp_start, signUp_end, signIn_start, signIn_end, isShowStuMain, signInStuArray} = this.state;
         return (
             <div id="race_main">
                 <div id="intro_section">
@@ -130,22 +133,17 @@ class RaceMain extends Component {
                                 <div className="row_column title">积分</div>
                                 <div className="row_column title">获奖等级</div>
                             </div>
-                            <div className="body_row"
-                              onMouseEnter={(e)=> this._itemEnterOrLeave(e, 0)}
-                              onMouseLeave={(e)=> this._itemEnterOrLeave(e, 1)}
-                              onClick={()=> this._goToMain()}
-                            >
-                                <div className="row_column">
-                                    <img src={u184}/>
-                                    xxxx
-                                </div>
-                                <div className="row_column">男</div>
-                                <div className="row_column">182222222</div>
-                                <div className="row_column">xxxxxxxx</div>
-                                <div className="row_column">154888888888</div>
-                                <div className="row_column">0</div>
-                                <div className="row_column">一等奖</div>
-                            </div>
+                            {
+                                signInStuArray.length ? (
+                                    signInStuArray.map((item)=>(
+                                        <SignInStuItem
+                                          key={item.student_id}
+                                          stuItem={item}
+                                          goToMain={this._goToMain}
+                                        />
+                                    ))
+                                ) : ''
+                            }
                         </div>
                     </div>
                 </div>
@@ -153,7 +151,7 @@ class RaceMain extends Component {
                     className="compete_modal"
                     title="个人信息"
                     centered={true}
-                    width="1000px"
+                    width="50rem"
                     closable={false}
                     cancelText="取消"
                     okText="确认"
@@ -225,23 +223,7 @@ class RaceMain extends Component {
             this.props.history.goBack();
         }else{
             // 1. 请求活动详情
-            getClassroomData(this.props.location.state.id).then((res)=>{
-                if(res.status === 0){
-                    let tempObj = res.data;
-                    this.setState({
-                        id: tempObj.id,
-                        title: tempObj.title,
-                        position: tempObj.position,
-                        cover_url: "http://47.112.10.160:3389/image/cover/" + tempObj.image || '',
-                        type: tempObj.type,
-                        content: tempObj.body,
-                        signUp_start: moment(tempObj.signUp_start).format('MM月DD日 HH:mm'),
-                        signUp_end: moment(tempObj.signUp_end).format('MM月DD日 HH:mm'),
-                        signIn_start: moment(tempObj.signIn_start).format('MM月DD日 HH:mm'),
-                        signIn_end: moment(tempObj.signIn_end).format('MM月DD日 HH:mm')
-                    });
-                }
-            });
+            this.getClassroom();
 
             // 2. 初始化echarts
             let echarts_part = echarts.init(this.refs.echarts_part);
@@ -290,31 +272,44 @@ class RaceMain extends Component {
                 ]
             }
             echarts_part.setOption(option);
+
+            // 3. 获取已签到学生
+            this.getSignInStu();
         }
     }
 
-    // 3. 鼠标移入/移出单元活动  0--移入 1--移出
-    _itemEnterOrLeave(e, flag){
-        let parent = e.target.parentNode;
-        let node;
-        if(parent.classList.contains('body_row')){
-            node = parent;
-        }else if(parent.parentNode.classList.contains('body_row')){
-            node = parent.parentNode;
-        }else if(e.target.classList.contains('body_row')){
-            node =  e.target;
-        }else if(e.target.classList === 'items_container'){
-            node =  e.target.children[0];
+    // 1. 请求活动详情
+    async getClassroom(){
+        let res = await getClassroomData(this.props.location.state.id);
+        if(res.status === 0){
+            let tempObj = res.data;
+            this.setState({
+                id: tempObj.id,
+                title: tempObj.title,
+                position: tempObj.position,
+                cover_url: "http://47.112.10.160:3389/image/cover/" + tempObj.image || '',
+                type: tempObj.type,
+                content: tempObj.body,
+                signUp_start: moment(tempObj.signUp_start).format('MM月DD日 HH:mm'),
+                signUp_end: moment(tempObj.signUp_end).format('MM月DD日 HH:mm'),
+                signIn_start: moment(tempObj.signIn_start).format('MM月DD日 HH:mm'),
+                signIn_end: moment(tempObj.signIn_end).format('MM月DD日 HH:mm')
+            });
         }
-        if(!flag && node && node.classList.contains('body_row')){
-            node.classList.add('hover');
-        }else if(flag && node && node.classList.contains('body_row')){
-            node.classList.remove('hover');
+    }
+
+    // 2. 获取已签到学生
+    async getSignInStu(){
+        let res = await getSignInStuData(this.props.location.state.id);
+        if(res.status === 0){
+            this.setState({
+                signInStuArray: res.data || []
+            })
         }
     }
 
     // 4. 跳转学生详情页面
-    _goToMain(){
+    _goToMain = () => {
         this.setState({
             isShowStuMain: true
         })
