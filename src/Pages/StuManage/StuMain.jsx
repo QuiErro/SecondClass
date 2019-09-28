@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import { message, Icon, Menu, Modal, Empty, Input } from 'antd'
+import { message, Icon, Menu, Modal, Empty, Input, Select } from 'antd'
 import u184 from './../../Common/images/u184.svg'
 import cover01 from './../../Common/images/cover01.png'
 import stu_label from './../../Common/images/stu_label.png' 
@@ -14,6 +14,9 @@ import stu_link from './../../Common/images/stu_link.png'
 import search_icon from './../../Common/images/search_icon.png'
 import SPagination from './../../Components/Pagination/SPagination'
 import IntegralForm from './components/IntegralForm'
+import LineCharts from './../../Components/LineCharts/LineCharts'
+
+const { Option } = Select;
 
 class StuMain extends Component {
     
@@ -24,15 +27,17 @@ class StuMain extends Component {
             ActiveItem: {},   // 当前选中活动的数据
             flagCount: 0,   // 活动序号基础
             current: 'race',   // 比赛级别
+            currentStatic: 'major',   // 院/系
             pageNum: 1,     // 当前页码
             total: 20,       // 数据总数
             pageSize: 10,   // 每页数据量
-            formVisible: false,  // 设置积分表单
+            formVisible: false,  // 设置积分表单,
+            term: '201801', // 学期
         };
     }
 
     render() {
-        const {formVisible, pageNum, total, pageSize, flagCount} = this.state;
+        const {formVisible, pageNum, total, pageSize, flagCount, term} = this.state;
         return (
             <div id="stu_main">
                 <div id="intro_section">
@@ -80,7 +85,29 @@ class StuMain extends Component {
                     </div>
                 </div>
                 <div id="analysis_section">
-                    <div id="statistic_section"></div>
+                    <div id="statistic_section">
+                        <div className="statistic_title">Statistical Analysis</div>
+                        <div className="statistic_modal">
+                            <Menu onClick={ (e)=>this._menuStaticClick(e) } selectedKeys={[this.state.currentStatic]} mode="horizontal">
+                                <Menu.Item key="major">系</Menu.Item>
+                                <Menu.Item key="academy">院</Menu.Item>
+                            </Menu>
+                            <div className="static-table">
+                                <div className="table-title">排名分析</div>
+                                <div className="table-body">
+                                    <Select
+                                        style={{ width: 200 }}
+                                        value={term}
+                                        onChange={(val)=> this._onSelectChange(val)}
+                                    >
+                                        <Option value="201801">2018年第一学期</Option>
+                                        <Option value="201802">2018年第二学期</Option>
+                                    </Select>
+                                    <LineCharts/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div id="classroom_section">
                         <div id="header_section">
                             <div id="head_menu">
@@ -150,6 +177,21 @@ class StuMain extends Component {
         });
     }
 
+    // 排名类别选择
+    _menuStaticClick(e){
+        // state存储选中的板块key值
+        this.setState({
+            currentStatic: e.key,
+        });
+    }
+
+    // 1. 选择学期
+    _onSelectChange(term){
+        this.setState({
+            term
+        })
+    }
+
     // 2. 分页
     _onPageNumChange(pageNum){
         this.setState({
@@ -209,7 +251,35 @@ class StuMain extends Component {
 
     // 8. 跳转附件页
     _goToEnclosure(id){
-        this.props.history.push({pathname: '/stumanage/enclosure', state: {id}});
+        let headerData = {
+            data: {
+                name: '学生管理',
+                url: '/stumanage/list'
+            },
+            children: {
+                data: {
+                    name: '秦慕白',
+                    url: '/stumanage/main',
+                    state: {id: '1',  headerData: {
+                        data: {
+                            name: '学生管理',
+                            url: '/stumanage/list'
+                        },
+                        children: {
+                            data: {
+                                name: '秦慕白'
+                            }
+                        }
+                    }}
+                },
+                children: {
+                    data: {
+                        name: '图片附件'
+                    }
+                }
+            }
+        }
+        this.props.history.push({pathname: '/stumanage/enclosure', state: {id, headerData}});
     }
 }
 

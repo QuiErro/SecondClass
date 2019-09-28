@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {getStuListData, getMajorListData} from './../../Api/index'
 import {  Menu, Empty, Input, Icon, Button, Form, Modal } from 'antd'
 import NumberForm from './components/NumberForm'
 import SPagination from './../../Components/Pagination/SPagination'
@@ -143,7 +144,7 @@ class StuManage extends Component {
                 <div className="con_item" 
                   onMouseEnter={(e)=> this._itemEnterOrLeave(e, 0)}
                   onMouseLeave={(e)=> this._itemEnterOrLeave(e, 1)}
-                  onClick={()=> this._goToMain(1)}
+                  onClick={()=> this._goToMain(1, '江南秋雨')}
                 >
                     <div className="stu_num stu">1</div>
                     <div className="stu_img stu">
@@ -214,11 +215,22 @@ class StuManage extends Component {
     }
 
     // 5. 跳转详情页面
-    _goToMain(id){
+    _goToMain(id, title){
         if(this.state.current === 'feedback' || this.state.current === 'scholarship'){
             return;
         }
-        this.props.history.push({pathname: '/stumanage/main', state: {id}});
+        let headerData = {
+            data: {
+                name: '学生管理',
+                url: '/stumanage/list'
+            },
+            children: {
+                data: {
+                    name: title
+                }
+            }
+        }
+        this.props.history.push({pathname: '/stumanage/main', state: {id, headerData}});
     }
 
     // 6. 获奖数量表单关闭

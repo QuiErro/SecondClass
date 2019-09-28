@@ -174,6 +174,9 @@ a:hover, a:focus{
 .icon_section div a:hover{
     color: #1890ff;
 }
+.icon_section div a:last-child:hover{
+    color: black;
+}
 /*导航链接*/
 #header .choice_section{
     width: 1018px;
@@ -182,6 +185,9 @@ a:hover, a:focus{
 #header .ant-menu{ 
     height: 75px;
     line-height: 75px;
+    border: none;
+}
+.ant-menu-horizontal{
     border: none;
 }
 #header .ant-menu .ant-menu-item{
@@ -927,6 +933,9 @@ a:hover, a:focus{
     font-size: 12px;
     overflow: auto;
     box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
 }
 #scholarship_section{
     padding: 20px 40px;
@@ -1082,6 +1091,47 @@ a:hover, a:focus{
 }
 #classroom_section #content_section .con_item .item_num{
     width: 40px;
+}
+.statistic_title{
+    font-weight: 400;
+    font-size: 28px;
+}
+.statistic_modal .ant-menu{
+    background: transparent;
+    margin-bottom: 1.5rem;
+}
+.statistic_modal .ant-menu-item{
+    padding: 0;
+    width: 100px;
+    text-align: center;
+    font-size: 20px;
+}
+#canvas_1{
+    height: 350px !important;
+}
+.table-title{
+    width: 154px;
+    height:40px;
+    background-color: rgba(0, 154, 235, 1);
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    line-height: 40px;
+}
+.table-body{
+    padding: 25px;
+    width: 100%;
+    height: 400px;
+    background: #fff;
+    box-sizing: border-box;
+}
+.statistic_modal .ant-select-selection{
+    margin-bottom: 10px;
+    height: 40px;
+}
+.statistic_modal .ant-select-selection-selected-value{
+    height: 40px;
+    line-height: 40px;
 }
 
 /********************StuManage main 板块-END*************************/

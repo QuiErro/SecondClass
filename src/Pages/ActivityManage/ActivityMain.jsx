@@ -31,6 +31,8 @@ class ActivityMain extends Component {
             type: '',
             // 正文
             content: '',
+            // 报名人数
+            signUp: 0,
             // 报名开始时间
             signUp_start: '',
             // 报名结束时间
@@ -141,7 +143,20 @@ class ActivityMain extends Component {
                                           goToMain={this._goToMain}
                                         />
                                     ))
-                                ) : ''
+                                ) : (
+                                        <SignInStuItem
+                                        stuItem={{
+                                            student_name: 'xxxx',
+                                            student_sex: '男',
+                                            student_id: '221700000',
+                                            major_name: '软件工程',
+                                            student_phone: '12345678901',
+                                            point: 0,
+                                            award: '无'
+                                        }}
+                                        goToMain={this._goToMain}
+                                        />
+                                    )
                             }
                         </div>
                     </div>
@@ -234,7 +249,7 @@ class ActivityMain extends Component {
                 legend: {
                     orient: 'vertical',
                     x: 'right',
-                    data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+                    data:['直接访问','邮件营销','联盟广告']
                 },
                 series: [
                     {
@@ -264,8 +279,6 @@ class ActivityMain extends Component {
                             {value:335, name:'直接访问'},
                             {value:310, name:'邮件营销'},
                             {value:234, name:'联盟广告'},
-                            {value:135, name:'视频广告'},
-                            {value:1548, name:'搜索引擎'}
                         ]
                     }
                 ]
@@ -289,6 +302,7 @@ class ActivityMain extends Component {
                     cover_url: "http://47.112.10.160:3389/image/cover/" + tempObj.image || '',
                     type: tempObj.type,
                     content: tempObj.body,
+                    signUp: tempObj.signUp,
                     signUp_start: moment(tempObj.signUp_start).format('MM月DD日 HH:mm'),
                     signUp_end: moment(tempObj.signUp_end).format('MM月DD日 HH:mm'),
                     signIn_start: moment(tempObj.signIn_start).format('MM月DD日 HH:mm'),
@@ -324,7 +338,7 @@ class ActivityMain extends Component {
 
     // 6. 选积分/等级
     _onSelectChange(val, flag){
-        alert(val)
+        console.log(val)
     }
 }
 

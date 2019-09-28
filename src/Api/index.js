@@ -44,3 +44,9 @@ export const getClassroomData = (id) => ajax(BASE_URL + '/api/bg/classroom/view/
 
 // 13. 查看比赛/活动 已签到的学生
 export const getSignInStuData = (id) => ajax(BASE_URL + '/api/bg/classroom/signin/' + id);
+
+// 14. 学生列表
+export const getStuListData = () => ajax(BASE_URL + '/api/bg/student/view', {major_id: 1});
+
+// 15. 所有专业信息
+export const getMajorListData = () => ajax(BASE_URL + '/api/bg/major/info');

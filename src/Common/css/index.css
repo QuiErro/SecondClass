@@ -2,7 +2,7 @@
 	margin: 0;
 	padding: 0;
 	width: auto;
-	height: auto;
+    height: auto;
 	font-family: Microsoft YaHei !important;
 }
 body{
@@ -12,9 +12,8 @@ a{
 	display: inline-block;
 } 
 a:hover, a:focus{
-	text-decoration: none;
+    text-decoration: none;
 }
-
 /********************Login板块-START*************************/
 
 #login{
@@ -172,6 +171,9 @@ a:hover, a:focus{
 .icon_section div a:hover{
     color: #1890ff;
 }
+.icon_section div a:last-child:hover{
+    color: black;
+}
 /*导航链接*/
 #header .choice_section{
     width: 50.9rem;
@@ -180,6 +182,9 @@ a:hover, a:focus{
 #header .ant-menu{ 
     height: 3.75rem;
     line-height: 3.75rem;
+}
+.ant-menu-horizontal{
+    border: none;
 }
 .ant-menu .ant-menu-item{
     position: relative;
@@ -925,6 +930,9 @@ a:hover, a:focus{
     font-size: .6rem;
     overflow: auto;
     box-sizing: border-box;
+    
+    display: flex;
+    align-items: center;
 }
 #scholarship_section{
     padding: 1rem 2rem;
@@ -1056,6 +1064,7 @@ a:hover, a:focus{
 #statistic_section{
     width: 100%;
     height: 30rem;
+    margin-bottom: 2rem;
 }
 #classroom_section{
     width: 100%;
@@ -1069,7 +1078,7 @@ a:hover, a:focus{
     width: 71.5rem;
 }
 #classroom_section #content_section .con_item.hover{
-    width: 75rem !important;
+    width: 72.5rem !important;
 }
 #classroom_section #content_section .con_item{
     font-weight: 400;
@@ -1081,6 +1090,53 @@ a:hover, a:focus{
 }
 #classroom_section #content_section .con_item .item_num{
     width: 2rem;
+}
+.statistic_title{
+    font-weight: 400;
+    font-size: 28px;
+}
+.statistic_modal .ant-menu{
+    background: transparent;
+    margin-bottom: 1.5rem;
+}
+.statistic_modal .ant-menu-item{
+    padding: 0;
+    width: 5rem;
+    text-align: center;
+    font-size: 1rem;
+}
+#canvas_1{
+    height: 17.5rem !important;
+}
+.table-title{
+    width: 7.7rem;
+    height: 2rem;
+    background-color: rgba(0, 154, 235, 1);
+    color: #fff;
+    font-size: 1rem;
+    text-align: center;
+    line-height: 2rem;
+}
+.table-body{
+    padding: 1.25rem;
+    width: 100%;
+    height: 20rem;
+    background: #fff;
+    box-sizing: border-box;
+}
+#stu_main .statistic_modal .ant-menu-item{
+    font-size: 1rem;
+}
+#stu_main .statistic_modal .ant-menu-item::after{
+    left: 1.5rem;
+}
+.statistic_modal .ant-select-selection{
+    margin-bottom: .5rem;
+    height: 2rem;
+}
+.statistic_modal .ant-select-selection-selected-value{
+    height: 2rem;
+    line-height: 2rem;
 }
 
 /********************StuManage main 板块-END*************************/

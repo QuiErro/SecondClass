@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getRaceNumAction, getRaceDataAction} from '../../Store/actionCreators'
-import * as constants from './../../Store/actionTypes'
 import {hideClassroom, showClassroom, deleteClassroom} from './../../Api/index'
 import { message, Button, Menu, Modal, Empty, Input } from 'antd'
 import SPagination from './../../Components/Pagination/SPagination'
