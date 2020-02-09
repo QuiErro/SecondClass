@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Checkbox } from 'antd'
+import { Checkbox, Spin } from 'antd'
 
 class ClassroomItem extends Component {
     
@@ -8,7 +8,7 @@ class ClassroomItem extends Component {
     }
 
     render() {
-        const { click, item, flagCount, index, checked, checkedChange } = this.props;
+        const { isShowLoading, click, item, flagCount, index, checked, checkedChange } = this.props;
 
         return (
             <div 
@@ -25,7 +25,9 @@ class ClassroomItem extends Component {
                         ></Checkbox>
                         </div>
                         <div className="item_img">
-                            <img src={item.image || ''} alt=""/>
+                            <Spin spinning={isShowLoading} >
+                                <img src={item.image || ''} alt=""/>
+                            </Spin>
                         </div>
                         <div className="item_name">
                             {item.title}

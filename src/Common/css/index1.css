@@ -1125,6 +1125,13 @@ a:hover, a:focus{
     background: #fff;
     box-sizing: border-box;
 }
+#stu_main .statistic_modal .ant-menu-item{
+    font-size: 20px;
+}
+#stu_main .statistic_modal .ant-menu-item::after{
+    left: 30px;
+    height: 3px;
+}
 .statistic_modal .ant-select-selection{
     margin-bottom: 10px;
     height: 40px;

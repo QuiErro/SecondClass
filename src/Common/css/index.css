@@ -1129,6 +1129,7 @@ a:hover, a:focus{
 }
 #stu_main .statistic_modal .ant-menu-item::after{
     left: 1.5rem;
+    height: .15rem;
 }
 .statistic_modal .ant-select-selection{
     margin-bottom: .5rem;

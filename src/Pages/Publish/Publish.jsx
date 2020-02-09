@@ -208,7 +208,6 @@ class Publish extends Component {
                 formData.append('image', files[0]);
                 // 发起网络请求
                 let result = await fileUpload(formData);
-                console.log(result)
                 if(result.status === 0){
                     insert(result.data);
                 }else{
@@ -242,7 +241,7 @@ class Publish extends Component {
 
         // 2.1 初始化地图
         const map = new BMap.Map('add_map');
-        let point = new BMap.Point(119.204332, 26.06473);  // 初始位置福大图书馆
+        let point = new BMap.Point(119.204332, 26.06473);  // 初始位置图书馆
 		map.centerAndZoom(point, 17);
 		map.setCurrentCity("福州");
 		map.enableScrollWheelZoom(true);

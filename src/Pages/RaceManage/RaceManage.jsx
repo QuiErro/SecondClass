@@ -26,6 +26,7 @@ class RaceManage extends Component {
             isShowUnpublish: false,  // 是否显示取消发布对话框
             isShowDelete: false,     // 是否显示删除对话框
             isShowPublish: false,    // 是否显示重新发布对话框
+            isShowLoading: true,     // 图片加载中
         };
     }
 
@@ -66,7 +67,7 @@ class RaceManage extends Component {
     }
 
     render() {
-        const {checked, pageNum, total, pageSize, flagCount, isShowUnpublish, isShowPublish, isShowDelete, RaceItem} = this.state;
+        const {isShowLoading, checked, pageNum, total, pageSize, flagCount, isShowUnpublish, isShowPublish, isShowDelete, RaceItem} = this.state;
         return (
             <div id="race_manage">
                 <div id="header_section">
@@ -105,6 +106,7 @@ class RaceManage extends Component {
                         this.props.raceData.map((item, index)=>{
                             return (
                                 <ClassroomItem
+                                  isShowLoading={isShowLoading}
                                   key={item.id}
                                   click={this._goToMain}
                                   item={item}
@@ -155,6 +157,12 @@ class RaceManage extends Component {
                 </Modal>
             </div>
         )
+    }
+
+    componentDidMount(){
+        this.setState({
+            isShowLoading: false
+        })
     }
 
     // 1. 活动类型切换 

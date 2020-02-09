@@ -50,7 +50,7 @@ class App extends Component {
             render={
               this.props.userData ?
                 (props)=> LayOutRouter :
-                ()=> <Redirect to="/login"  push/>
+                ()=> <Redirect to="/login" push/>
             }
           />
         </Switch>
