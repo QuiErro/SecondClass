@@ -1,12 +1,11 @@
 import React, {Component} from 'react'
-import {connect} from 'react-redux'
 import { message, Button, Icon, Checkbox, Row, Col, Input, DatePicker } from 'antd'
 import {fileUpload, getClassroomData, updateClassroom} from './../../Api/index'
 import Tool from './../../Components/Tool/Tool'
 import cover_default from './../../Common/images/cover_default.jpg'
 import map_icon from './../../Common/images/map_icon.png'
 
-const _tool = new Tool;      
+const _tool = new Tool();      
 const { BMap } = window
 const { RangePicker } = DatePicker;
 
@@ -43,6 +42,12 @@ class RaceEdit extends Component {
         }
     }
 
+    componentWillMount(){
+        if(!this.props.location.state || !this.props.location.state.id){
+            this.props.history.goBack();
+        }
+    }
+
     render() {
         const {cover_url, hasCover, type, position, title} = this.state;
 
@@ -56,7 +61,7 @@ class RaceEdit extends Component {
                         </div>
                         <div id="cov_image">
                             <div className="mask" style={{display: hasCover ? 'block' : 'none'}}></div>
-                            <img src={cover_url || cover_default}/>
+                            <img src={cover_url || cover_default} alt=""/>
                         </div>
                         <div id="cov_operation">
                             <Button onClick={ ()=> this._fileBtnClick() }>
@@ -83,7 +88,7 @@ class RaceEdit extends Component {
                         <div id="add_text">
                             <Input
                               id="text_content"
-                              prefix={ <img src={map_icon}/> }
+                              prefix={ <img src={map_icon} alt=""/> }
                               suffix={ <Icon type="search"/> }
                               allowClear
                               name="position"
@@ -183,7 +188,7 @@ class RaceEdit extends Component {
             editor: editor
         })
 		// 1.2 自定义上传图片事件
-        editor.customConfig.customUploadImg = function (files, insert) {
+        editor.customConfig.customUploadImg = async function (files, insert) {
             // 1.2.1 上传图片到服务器
             if (files.length > 0) { // 有图片文件
 				if(files[0].size / 1024 / 1024 > 1){
@@ -194,13 +199,12 @@ class RaceEdit extends Component {
                 let formData = new FormData();
                 formData.append('image', files[0]);
                 // 发起网络请求
-                fileUpload(formData).then((res)=>{
-                    if(res.status === 0){
-                        insert(res.data);
-                    }
-                }).catch((error)=>{
-                    console.log(error);
-                })
+                let result = await fileUpload(formData);
+                if(result.status === 0){
+                    insert(result.data);
+                }else{
+                    message.error(result.msg)
+                }
             }
         };
         // 1.3 创建编辑器
@@ -360,7 +364,7 @@ class RaceEdit extends Component {
     }
 
     // 8. 提交formData
-    _onSubmit(){
+    async _onSubmit(){
         let {id, editor, title, signIn_end, signIn_start, signUp_end, signUp_start, position, type} = this.state;
         // 8.1 取出编辑器文本
         let content = editor.txt.html();
@@ -386,19 +390,16 @@ class RaceEdit extends Component {
             if(file){
                 formData.append('image', file);
             }
-			// 8.6 提交数据 网络请求
-			updateClassroom(formData).then((res)=>{
-				if(res.status === 0){
-                    message.success("修改成功");
-                    this.props.history.goBack();
-				}else{
-					message.error("修改失败");
-				}
-			}).catch((error)=>{
-				console.log(error);
-			})
+            // 8.6 提交数据 网络请求
+            let res = await updateClassroom(formData);
+			if(res.status === 0){
+                message.success("修改成功");
+                this.props.history.goBack();
+            }else{
+                message.error(`修改失败！错误信息：${res.msg}`);
+            }
 		}	
     }   
 }
 
-export default connect(null, null)(RaceEdit);
+export default RaceEdit;

@@ -9,7 +9,7 @@ import login_bg from './../../Common/images/login_bg.png'
 import username from './../../Common/images/username.svg'
 import pwd from './../../Common/images/pwd.svg'
 
-const _tool = new Tool; 
+const _tool = new Tool(); 
 
 class Login extends Component {
     constructor(props){
@@ -44,7 +44,7 @@ class Login extends Component {
                               className="input-control"
                               allowClear 
                               placeholder="账号"
-                              prefix={<img src={username}/>}  
+                              prefix={<img src={username} alt=""/>}  
                               name="user_name"
                               value = {user_name}
                               onChange={e=>this._onInputChange(e)}
@@ -56,7 +56,7 @@ class Login extends Component {
                               className="input-control"
                               password 
                               placeholder="密码"
-                              prefix={<img src={pwd}/>}
+                              prefix={<img src={pwd} alt=""/>}
                               name="user_pwd"
                               value={user_pwd}
                               onChange={e=>this._onInputChange(e)}
@@ -95,7 +95,6 @@ class Login extends Component {
 
     // 1. 是否勾选记住密码
     _isRem(e){
-        // console.log(e.target.checked);
         this.setState({
             isRem: e.target.checked
         })
@@ -144,8 +143,8 @@ class Login extends Component {
         };
 
         // 4.4 发起网络请求
-        this.props.reqLogin(params, (flag, userData)=>{
-            if(flag === 0){
+        this.props.reqLogin(params, (res, userData)=>{
+            if(res.status === 0){
                 message.success('登录成功');
                 if(isRem){
                     window.localStorage.setItem('userData', JSON.stringify(userData));
@@ -158,7 +157,7 @@ class Login extends Component {
                 _tool.removeStore('activityManage');
                 _tool.removeStore('raceManage');
             }else{
-                message.error('登录失败');
+                message.error(res.msg);
             }
         })
     }

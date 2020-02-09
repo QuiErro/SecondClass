@@ -5,14 +5,13 @@ import * as constants from "./Store/actionTypes";
 
 import LayOut from './Components/LayOut'
 import Login from './Pages/Login/Login'
-import RacePub from './Pages/RacePub/RacePub'
-import RaceManage from './Pages/RaceManage/RaceManage'
-import RaceEdit from './Pages/RaceManage/RaceEdit'
-import ActivityPub from './Pages/ActivityPub/ActivityPub'
-import ActivityManage from './Pages/ActivityManage/ActivityManage'
-import ActivityEdit from './Pages/ActivityManage/ActivityEdit'
+import Publish from './Pages/Publish/Publish'
 import Elite from './Pages/Elite/Elite'
 import StuManage from './Pages/StuManage/StuManage'
+
+import ActivityManageRouter from './Pages/ActivityManage/router'
+import RaceManageRouter from './Pages/RaceManage/router'
+import StuManageRouter from './Pages/StuManage/router'
 
 import { message } from 'antd'
 
@@ -31,14 +30,12 @@ class App extends Component {
     let LayOutRouter = (
         <LayOut>
             <Switch>
-                <Route path="/publishrace" component={RacePub}/>
-                <Route path="/publishactivity" component={ActivityPub}/>
-                <Route path="/racemanage" component={RaceManage}/>
-                <Route path="/activitymanage" component={ActivityManage}/>
-                <Route path="/raceedit" component={RaceEdit}/>
-                <Route path="/activityedit" component={ActivityEdit}/>
+                <Route path="/publishrace" component={Publish}/>
+                <Route path="/publishactivity" component={Publish}/>
+                <Route path="/racemanage" component={RaceManageRouter}/>
+                <Route path="/activitymanage" component={ActivityManageRouter}/>
                 <Route path="/elite" component={Elite}/>
-                <Route path="/stumanage" component={StuManage}/>
+                <Route path="/stumanage" component={StuManageRouter}/>
                 <Redirect to="/publishrace" />
             </Switch>
         </LayOut>
@@ -53,7 +50,7 @@ class App extends Component {
             render={
               this.props.userData ?
                 (props)=> LayOutRouter :
-                ()=> <Redirect to="/login"  push/>
+                ()=> <Redirect to="/login" push/>
             }
           />
         </Switch>

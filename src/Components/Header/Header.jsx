@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
-import {Link} from "react-router-dom";
+import {Link, withRouter } from "react-router-dom";
 import {connect} from "react-redux";
 import {logoutAction} from '../../Store/actionCreators'
 import Tool from './../Tool/Tool'
 import { message, Button, Menu, Modal } from 'antd'
 import logo_search from './../../Common/images/logo_search.png'
 
-const _tool = new Tool; 
+const _tool = new Tool(); 
+
+let headerTitle = [];
 
 class Header extends Component {
 
@@ -14,6 +16,7 @@ class Header extends Component {
         super(props);
         this.state = {
             current: 'publishrace',
+            title: ''
         };
     }
 
@@ -22,13 +25,35 @@ class Header extends Component {
         this.setState({
             current: current
         });
+        headerTitle = [];
+        if(this.props.location.state && this.props.location.state.headerData){
+            this._initHeaderTitle(this.props.location.state.headerData);
+        }
     }
     
     render() {
         return (
             <div id="header">
                 <div className="icon_section">
-					<img src={logo_search}/>
+                    <img src={logo_search} alt=""/>
+                    <div ref="headerTitle" className="header_title">
+                        {
+                            headerTitle.map((item) => {
+                                if(item.url){
+                                    return(
+                                        <Link key={item.name} to={{
+                                            pathname: item.url,
+                                            state: item.state
+                                        }}>{item.name}</Link>
+                                    )
+                                }else{
+                                    return (
+                                        <a key={item.name}>{item.name}</a>
+                                    )
+                                }
+                            })
+                        }
+                    </div>
 				</div>
                 <div className="choice_section">
                     <Menu onClick={ (e)=>this._menuClick(e) } selectedKeys={[this.state.current]} mode="horizontal">
@@ -45,6 +70,14 @@ class Header extends Component {
                 </div>
             </div>
         );
+    }
+
+    shouldComponentUpdate(nextProps){
+        headerTitle = [];
+        if(nextProps.location.state && nextProps.location.state.headerData){
+            this._initHeaderTitle(nextProps.location.state.headerData);
+        }
+        return true;
     }
 
     // 1. 导航切换 
@@ -66,17 +99,15 @@ class Header extends Component {
             okText: '确定',
             onOk: ()=>{
                 // 退出登录
-                // 2.1 网络请求退出登录
-                this.props.reqLogout((flag)=>{
-                    if(flag === 0){
-                        // 2.2 提示用户
+                this.props.reqLogout((res)=>{
+                    if(res.status === 0){
                         message.success('退出成功');
-                        // 2.3 回到首页
+                        // 回到首页
                         window.location.href = '/';
-                        // 2.4 清除sessionStorage的数据
+                        // 清除sessionStorage的数据
                         sessionStorage.removeItem('tempUser');
                         sessionStorage.removeItem('currentLink');
-                        // 2.5 清除缓存的localStorage数据
+                        // 清除缓存的localStorage数据
                         _tool.removeStore('publishRace');
                         _tool.removeStore('publishActivity');
                         _tool.removeStore('activityManage');
@@ -88,7 +119,24 @@ class Header extends Component {
             },
         });
     }
+    
+    // 3.遍历 headerData 生成文本标题
+    _initHeaderTitle(headerData){
+        if(!headerData || !headerData.data) return;
+
+        headerTitle.push(headerData.data);
+        if(headerData.children){
+            this._initHeaderTitle(headerData.children)
+        }
+    }
+    
 }
+
+const mapStateToProps = (state)=>{
+    return {
+        headerTitle: state.headerTitle
+    }
+};
 
 const mapDispatchToProps = (dispatch)=>{
     return {
@@ -99,4 +147,4 @@ const mapDispatchToProps = (dispatch)=>{
     }
 };
 
-export default connect(null, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

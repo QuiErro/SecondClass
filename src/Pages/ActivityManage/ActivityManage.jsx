@@ -2,11 +2,13 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getActivityNumAction, getActivityDataAction} from '../../Store/actionCreators'
 import {hideClassroom, showClassroom, deleteClassroom} from './../../Api/index'
-import { message, Button, Menu, Checkbox, Modal } from 'antd'
+import { message, Button, Menu, Modal, Empty, Input} from 'antd'
 import SPagination from './../../Components/Pagination/SPagination'
+import ClassroomItem from './../../Components/ClassroomItem/ClassroomItem'
 import Tool from './../../Components/Tool/Tool'
+import search_icon from './../../Common/images/search_icon.png'
 
-const _tool = new Tool;    
+const _tool = new Tool();    
 
 class ActivityManage extends Component {
     
@@ -21,6 +23,10 @@ class ActivityManage extends Component {
             pageNum: 1,     // 当前页码
             total: 0,       // 数据总数
             pageSize: 10,   // 每页数据量
+            isShowUnpublish: false,  // 是否显示取消发布对话框
+            isShowDelete: false,     // 是否显示删除对话框
+            isShowPublish: false,    // 是否显示重新发布对话框
+            isShowLoading: true  // 图片加载中
         };
     }
 
@@ -37,8 +43,8 @@ class ActivityManage extends Component {
                 flagCount
             })
             // 请求总数
-            this.props.reqActivityNum(current, (flag, num)=>{
-                if(flag === 0){
+            this.props.reqActivityNum(current, (res, num)=>{
+                if(res.status === 0){
                     this.setState({
                         total: num
                     })
@@ -48,8 +54,8 @@ class ActivityManage extends Component {
             this.props.reqActivityList(current, flagCount);
         }else{
             // 请求总数
-            this.props.reqActivityNum('A', (flag, num)=>{
-                if(flag === 0){
+            this.props.reqActivityNum('A', (res, num)=>{
+                if(res.status === 0){
                     this.setState({
                         total: num
                     })
@@ -61,7 +67,7 @@ class ActivityManage extends Component {
     }
 
     render() {
-        const {checked, pageNum, total, pageSize, flagCount} = this.state;
+        const {isShowLoading, checked, pageNum, total, pageSize, flagCount, isShowUnpublish, isShowPublish, isShowDelete, ActivityItem} = this.state;
         return (
             <div id="activity_manage">
                 <div id="header_section">
@@ -87,39 +93,76 @@ class ActivityManage extends Component {
                         />
                     </div>
                 </div>
+                <div id="search_section">
+                    <Input
+                        placeholder="请输入活动标题"
+                        suffix={
+                            <img src={search_icon} alt="" />
+                        }
+                    />
+                </div>
                 <div id="content_section" className="items_container">
-                    {
+                    { this.props.activityData && this.props.activityData.length>0 ? 
                         this.props.activityData.map((item, index)=>{
                             return (
-                                <div className="con_item" 
+                                <ClassroomItem
+                                  isShowLoading={isShowLoading}
                                   key={item.id}
-                                  onMouseEnter={(e)=> this._itemEnterOrLeave(e, 0)}
-                                  onMouseLeave={(e)=> this._itemEnterOrLeave(e, 1)}
-                                >
-                                    <div className="item_num">{flagCount + index + 1}</div>
-                                    <div className="item_check">
-                                        <Checkbox
-                                          checked={checked === (index + 1) ? true : false}
-                                          onChange={(e)=> this._onCheckedChang(e, index, item)}
-                                        ></Checkbox>
-                                    </div>
-                                    <div className="item_img">
-                                        <img src={item.image || ''}/>
-                                    </div>
-                                    <div className="item_name">
-                                        {item.title}
-                                    </div>
-                                    <div className="item_people">{item.signUp}人</div>
-                                    <div className="item_time">{item.signUp_end_format}</div>
-                                    <div className="item_address">{item.position}</div>
-                                    <div className="item_pub">{item.status === 0 ? '已发布' : '未发布'}</div>
-                                </div>
+                                  click={this._goToMain}
+                                  item={item}
+                                  flagCount={flagCount} 
+                                  index={index} 
+                                  checked={checked}
+                                  checkedChange={this._onCheckedChange}
+                                />
                             )
-                        })
+                        })  : <Empty />
                     }
                 </div>
+                <Modal
+                    title="取消发布"
+                    centered
+                    visible={isShowUnpublish}
+                    cancelText='取消'
+                    okText='确定'
+                    onOk={() => this._setModalUnpublish()}
+                    onCancel={() => this._hideModal('isShowUnpublish')}
+                >
+                    <p>是否取消{ActivityItem.title}的发布</p>
+                    <p>取消后将不会在推荐页上显示！！！</p>
+                </Modal>
+                <Modal
+                    title="发布"
+                    centered
+                    visible={isShowPublish}
+                    cancelText='取消'
+                    okText='确定'
+                    onOk={() => this._setModalPublish()}
+                    onCancel={() => this._hideModal('isShowPublish')}
+                >
+                    <p>是否重新发布{ActivityItem.title}</p>
+                    <p>发布后将会在推荐页上显示！！！</p>
+                </Modal>
+                <Modal
+                    title="删除"
+                    centered
+                    visible={isShowDelete}
+                    cancelText='取消'
+                    okText='确定'
+                    onOk={() => this._setModalDelete()}
+                    onCancel={() => this._hideModal('isShowDelete')}
+                >
+                    <p>是否删除{ActivityItem.title}</p>
+                    <p>删除后一切都会消失，请慎重！！！</p>
+                </Modal>
             </div>
         )
+    }
+
+    componentDidMount(){
+        this.setState({
+            isShowLoading: false
+        })
     }
 
     // 1. 活动类型切换 
@@ -136,8 +179,8 @@ class ActivityManage extends Component {
             });
         });
         // 1.2 请求对应类型数量
-        this.props.reqActivityNum(e.key, (flag, num)=>{
-            if(flag === 0){
+        this.props.reqActivityNum(e.key, (res, num)=>{
+            if(res.status === 0){
                 this.setState({
                     total: num
                 })
@@ -160,28 +203,8 @@ class ActivityManage extends Component {
         });
     }
 
-    // 3. 鼠标移入/移出单元活动  0--移入 1--移出
-    _itemEnterOrLeave(e, flag){
-        let parent = e.target.parentNode;
-        let node;
-        if(parent.classList.contains('con_item')){
-            node = parent;
-        }else if(parent.parentNode.classList.contains('con_item')){
-            node = parent.parentNode;
-        }else if(e.target.classList.contains('con_item')){
-            node =  e.target;
-        }else if(e.target.classList === 'items_container'){
-            node =  e.target.children[0];
-        }
-        if(!flag && node && node.classList.contains('con_item')){
-            node.classList.add('hover');
-        }else if(flag && node && node.classList.contains('con_item')){
-            node.classList.remove('hover');
-        }
-    }
-
-    // 4. 选中的活动序号
-    _onCheckedChang(e, index, item){
+    // 3. 选中的活动序号
+    _onCheckedChange = (e, index, item) => {
         if(e.target.checked){
             this.setState({
                 checked: index + 1,
@@ -193,39 +216,70 @@ class ActivityManage extends Component {
                 ActivityItem: {}
             });
         }
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
     }
 
-    // 5. 编辑
+    // 4. 编辑
     _editItem(){
-        this.props.history.push({pathname: '/activityedit', state: {id: this.state.ActivityItem.id}});
+        if(this.state.ActivityItem.id){
+            let headerData = {
+                data: {
+                    name: '活动管理',
+                    url: '/activitymanage/list'
+                },
+                children: {
+                    data: {
+                        name: this.state.ActivityItem.title,
+                        url: '/activitymanage/main',
+                        state: {id: this.state.ActivityItem.id,  headerData: {
+                            data: {
+                                name: '活动管理',
+                                url: '/activitymanage/list'
+                            },
+                            children: {
+                                data: {
+                                    name: this.state.ActivityItem.title
+                                }
+                            }
+                        }}
+                    },
+                    children: {
+                        data: {
+                            name: '编辑'
+                        }
+                    }
+                }
+            }
+            this.props.history.push({pathname: '/activitymanage/edit', state: {id: this.state.ActivityItem.id, headerData}});
+        }
     }
 
-    // 6. 删除
+    // 5. 删除
     _deleteItem(){
         if(!this.state.ActivityItem.id){
             return;
         }
-        Modal.confirm({
-            title: '提示',
-            content: '您确定删除该活动吗？',
-            cancelText: '取消',
-            okText: '确定',
-            onOk: ()=>{
-                deleteClassroom(this.state.ActivityItem.id).then((res)=>{
-                    if(res.status === 0){
-                        message.success('删除成功');
-                        this.setState({
-                            checked: 0,
-                            ActivityItem: {}
-                        });
-                        this.props.reqActivityList(this.state.current, this.state.flagCount);
-                    }
-                });
-            },
-        });
+        this.setState({
+            isShowDelete: true
+        })
     }
 
-    // 7. 取消发布
+    async _setModalDelete(){
+        let res = await deleteClassroom(this.state.ActivityItem.id);
+        if(res.status === 0){
+            message.success('删除成功');
+            this.setState({
+                checked: 0,
+                ActivityItem: {},
+                isShowDelete: false
+            }, ()=>{
+                this.props.reqActivityList(this.state.current, this.state.flagCount);
+            });
+        }
+    }
+
+    // 6. 取消发布
     _hideItem(){
         if(!this.state.ActivityItem.id){
             return;
@@ -234,27 +288,26 @@ class ActivityManage extends Component {
             message.warning('该活动尚未发布！');
             return;
         }
-        Modal.confirm({
-            title: '提示',
-            content: '您确定取消发布该活动吗？',
-            cancelText: '取消',
-            okText: '确定',
-            onOk: ()=>{
-                hideClassroom(this.state.ActivityItem.id).then((res)=>{
-                    if(res.status === 0){
-                        message.success('已取消发布');
-                        this.setState({
-                            checked: 0,
-                            ActivityItem: {}
-                        });
-                        this.props.reqActivityList(this.state.current, this.state.flagCount);
-                    }
-                });
-            },
+        this.setState({
+            isShowUnpublish: true
         });
     }
 
-    // 8. 重新发布
+    async _setModalUnpublish(){
+        let res = await hideClassroom(this.state.ActivityItem.id);
+        if(res.status === 0){
+            message.success('已取消发布');
+            this.setState({
+                checked: 0,
+                ActivityItem: {},
+                isShowUnpublish: false
+            }, ()=>{
+                this.props.reqActivityList(this.state.current, this.state.flagCount);
+            });
+        }
+    }
+
+    // 7. 重新发布
     _showItem(){
         if(!this.state.ActivityItem.id){
             return;
@@ -263,24 +316,46 @@ class ActivityManage extends Component {
             message.warning('该活动已发布！');
             return;
         }
-        Modal.confirm({
-            title: '提示',
-            content: '您确定重新发布该活动吗？',
-            cancelText: '取消',
-            okText: '确定',
-            onOk: ()=>{
-                showClassroom(this.state.ActivityItem.id).then((res)=>{
-                    if(res.status === 0){
-                        this.setState({
-                            checked: 0,
-                            ActivityItem: {}
-                        });
-                        message.success('发布成功');
-                        this.props.reqActivityList(this.state.current, this.state.flagCount);
-                    }
-                });
-            },
+        this.setState({
+            isShowPublish: true
         });
+    }
+
+    async _setModalPublish(){
+        let res = await showClassroom(this.state.ActivityItem.id);
+        if(res.status === 0){
+            this.setState({
+                checked: 0,
+                ActivityItem: {},
+                isShowPublish: false
+            }, ()=>{
+                message.success('发布成功');
+                this.props.reqActivityList(this.state.current, this.state.flagCount);
+            });
+        }
+    }
+
+    // 8. 点击对话框的取消按钮
+    _hideModal(flag){
+        this.setState({
+            [flag]: false
+        })
+    }
+
+    // 9. 跳转详情页面
+    _goToMain = (id, title) => {
+        let headerData = {
+            data: {
+                name: '活动管理',
+                url: '/activitymanage/list'
+            },
+            children: {
+                data: {
+                    name: title
+                }
+            }
+        }
+        this.props.history.push({pathname: '/activitymanage/main', state: {id, headerData}});
     }
 }
 

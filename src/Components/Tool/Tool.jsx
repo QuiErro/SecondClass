@@ -21,7 +21,6 @@ class Tool {
         Object.keys(content).forEach((key)=>{
             tempObj[key] = content[key];
         });
-        //console.log(tempObj)
         window.localStorage.setItem(name, JSON.stringify(tempObj));
     }
 

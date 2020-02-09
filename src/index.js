@@ -1,13 +1,11 @@
+import 'react-app-polyfill/ie11'
+import 'react-app-polyfill/stable'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { Provider } from 'react-redux'
 import store from './Store'
-import './Config/rem'
 import './Common/css/index.css'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'font-awesome/css/font-awesome.css'
-import 'bootstrap/dist/js/bootstrap'
 
 ReactDOM.render(
   <Provider store={store}>
